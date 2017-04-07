@@ -9,5 +9,5 @@ public class HumanPlayer implements Player {
     
     public HumanPlayer(){
         this.ui = UIFactory.getUI("Textual");
-    }
+    }//
 }

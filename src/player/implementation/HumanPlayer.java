@@ -11,3 +11,4 @@ public class HumanPlayer implements Player {
         this.ui = UIFactory.getUI("Textual");
     }//
 }
+

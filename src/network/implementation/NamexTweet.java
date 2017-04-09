@@ -10,11 +10,11 @@ import twitter4j.TwitterFactory;
 import twitter4j.auth.AccessToken;
 
 public class NamexTweet {
-        private final static String CONSUMER_KEY = "inTnZhpHxBFnQ7SKUjNvfL1mv";
-        private final static String CONSUMER_KEY_SECRET =
-          "50YtBK9DXHjsCC2vYbGv6vLhFAUAsaeGVqyuM69LDsklR42edm";
-        
-        public void start() throws TwitterException, IOException {
+    private final static String CONSUMER_KEY = "inTnZhpHxBFnQ7SKUjNvfL1mv";
+    private final static String CONSUMER_KEY_SECRET =
+      "50YtBK9DXHjsCC2vYbGv6vLhFAUAsaeGVqyuM69LDsklR42edm";
+    
+    public void start() throws TwitterException, IOException {
         
         Twitter twitter = new TwitterFactory().getInstance();
         twitter.setOAuthConsumer(CONSUMER_KEY, CONSUMER_KEY_SECRET);

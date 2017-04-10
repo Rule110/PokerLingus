@@ -1,13 +1,17 @@
 package player.implementation;
 
-import player.framework.Player;
+import round.framework.RoundState;
 import ai.framework.AI;
 import ai.framework.AIFactory;
 
-public class AutomatedPlayer implements Player {
+public class AutomatedPlayer extends PlayerTemplate {
     private AI ai;
     
     public AutomatedPlayer(){
         this.ai = AIFactory.getAI("Simple");
+    }
+    
+    public void decideStrategy(RoundState info){
+        
     }
 }

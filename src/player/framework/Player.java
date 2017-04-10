@@ -1,5 +1,15 @@
 package player.framework;
 
-public interface Player {
+import round.framework.RoundState;
 
+public interface Player {
+    public void decideStrategy(RoundState info);
+    
+    public boolean isFolding();
+    
+    public boolean isCalling();
+    
+    public boolean isRaising();
+    
+    public int getRaise();
 }

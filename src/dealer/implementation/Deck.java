@@ -1,5 +1,5 @@
 package dealer.implementation;
 
-public class Deck {
+class Deck {
 
 }

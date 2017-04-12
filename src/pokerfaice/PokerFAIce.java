@@ -5,6 +5,8 @@ package pokerfaice;
  *
  */
 public class PokerFAIce {
+    public static final String networktype = "Twitter";
+    
     /**
      * Main method for the PokerFAIce Twitter Bot
      * @param args

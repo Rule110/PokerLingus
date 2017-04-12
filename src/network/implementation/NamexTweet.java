@@ -1,5 +1,5 @@
 package network.implementation;
-
+//
 import java.io.IOException;
 
 import twitter4j.ResponseList;
@@ -28,7 +28,7 @@ public class NamexTweet {
         twitter.setOAuthAccessToken(oathAccessToken);
         // end of difference
         
-        twitter.updateStatus("Hi, im updating status again from Namex Tweet for Demo");
+        twitter.updateStatus("Darragh Here");
         
         System.out.println("\nMy Timeline:");
         
@@ -41,7 +41,6 @@ public class NamexTweet {
               + "\n");
         }
     }
-
     private String getSavedAccessTokenSecret() {
         // consider this is method to get your previously saved Access Token
         // Secret

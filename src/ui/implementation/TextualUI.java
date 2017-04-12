@@ -1,15 +1,16 @@
 package ui.implementation;
 
+import hand.framework.Hand;
+import network.framework.Network;
 import round.framework.Round;
 
 public class TextualUI extends UITemplate {
-    
-    public TextualUI(String networktype){
-        super(networktype);
+    public TextualUI(Network network){
+        super(network);
     }
     
     @Override
-    public void decideStrategy(Round round){
+    public void decideStrategy(Hand hand, Round round){
         
     }
     

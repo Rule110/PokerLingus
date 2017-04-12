@@ -1,11 +1,16 @@
 package ai.implementation;
 
+import hand.framework.Hand;
+import network.framework.Network;
 import round.framework.Round;
-import ai.framework.AI;
 
-public class SimpleAI implements AI {
+public class SimpleAI extends AITemplate {
+    public SimpleAI(Network network){
+        super(network);
+    }
+    
     @Override
-    public void decideStrategy(Round round){
+    public void decideStrategy(Hand hand, Round round){
         
     }
     

@@ -1,10 +1,10 @@
 package ui.implementation;
 
+import hand.framework.Hand;
 import pokerfaice.exceptions.TemplateClassInstantiationException;
 import round.framework.Round;
 import ui.framework.UI;
 import network.framework.Network;
-import network.framework.NetworkFactory;
 
 public class UITemplate implements UI {
     protected Network network;
@@ -13,11 +13,11 @@ public class UITemplate implements UI {
     protected boolean isRaising;
     protected int raiseAmount;
     
-    UITemplate(String networktype){
-        this.network = NetworkFactory.getNetwork(networktype);
+    UITemplate(Network network){
+        this.network = network;
     }
     
-    public void decideStrategy(Round round){
+    public void decideStrategy(Hand hand, Round round){
         throw new TemplateClassInstantiationException();
     }
     

@@ -1,10 +1,10 @@
 package ai.implementation;
 
+import hand.framework.Hand;
 import ai.framework.AI;
 import pokerfaice.exceptions.TemplateClassInstantiationException;
 import round.framework.Round;
 import network.framework.Network;
-import network.framework.NetworkFactory;
 
 public class AITemplate implements AI {
     protected Network network;
@@ -13,11 +13,11 @@ public class AITemplate implements AI {
     protected boolean isRaising;
     protected int raiseAmount;
     
-    AITemplate(String networktype){
-        this.network = NetworkFactory.getNetwork(networktype);
+    AITemplate(Network network){
+        this.network = network;
     }
     
-    public void decideStrategy(Round round){
+    public void decideStrategy(Hand hand, Round round){
         throw new TemplateClassInstantiationException();
     }
     

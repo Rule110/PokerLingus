@@ -1,6 +1,6 @@
 package player.implementation;
 
-import round.framework.RoundState;
+import round.framework.Round;
 import ai.framework.AI;
 import ai.framework.AIFactory;
 
@@ -11,7 +11,8 @@ public class AutomatedPlayer extends PlayerTemplate {
         this.ai = AIFactory.getAI("Simple");
     }
     
-    public void decideStrategy(RoundState info){
+    @Override
+    public void decideStrategy(Round round){
         
     }
 }

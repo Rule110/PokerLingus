@@ -1,9 +1,9 @@
 package ai.framework;
 
-import round.framework.RoundState;
+import round.framework.Round;
 
 public interface AI {
-    public void decideStrategy(RoundState info);
+    public void decideStrategy(Round round);
     
     public boolean isFolding();
     

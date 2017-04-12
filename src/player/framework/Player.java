@@ -1,9 +1,9 @@
 package player.framework;
 
-import round.framework.RoundState;
+import round.framework.Round;
 
 public interface Player {
-    public void decideStrategy(RoundState info);
+    public void decideStrategy(Round round);
     
     public boolean isFolding();
     

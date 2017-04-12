@@ -57,6 +57,14 @@ public class RoundTemplate implements Round {
         throw new TemplateClassInstantiationException();
     }
     
+    public int getPotValue(){
+        return this.pot.getTotalValue();
+    }
+    
+    public int getAvailableFunds(String playerID){
+        return this.bank.getAvailableFunds(playerID);
+    }
+    
     public String getWinner(){
         throw new TemplateClassInstantiationException();
     }

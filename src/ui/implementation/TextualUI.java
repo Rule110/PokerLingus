@@ -1,6 +1,6 @@
 package ui.implementation;
 
-import round.framework.RoundState;
+import round.framework.Round;
 
 public class TextualUI extends UITemplate {
     
@@ -9,7 +9,7 @@ public class TextualUI extends UITemplate {
     }
     
     @Override
-    public void decideStrategy(RoundState info){
+    public void decideStrategy(Round round){
         
     }
     

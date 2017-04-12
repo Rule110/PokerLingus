@@ -1,7 +1,7 @@
 package player.implementation;
 
 import pokerfaice.PokerFAIce;
-import round.framework.RoundState;
+import round.framework.Round;
 import ui.framework.UI;
 import ui.framework.UIFactory;
 
@@ -12,7 +12,8 @@ public class HumanPlayer extends PlayerTemplate {
         this.ui = UIFactory.getUI("Textual", PokerFAIce.networktype);
     }
     
-    public void decideStrategy(RoundState info){
+    @Override
+    public void decideStrategy(Round round){
         
     }
 }

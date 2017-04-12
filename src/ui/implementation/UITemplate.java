@@ -1,35 +1,39 @@
 package ui.implementation;
 
 import pokerfaice.exceptions.TemplateClassInstantiationException;
-import round.framework.RoundState;
+import round.framework.Round;
 import ui.framework.UI;
 import network.framework.Network;
 import network.framework.NetworkFactory;
 
 public class UITemplate implements UI {
     protected Network network;
+    protected boolean isFolding;
+    protected boolean isCalling;
+    protected boolean isRaising;
+    protected int raiseAmount;
     
     UITemplate(String networktype){
         this.network = NetworkFactory.getNetwork(networktype);
     }
     
-    public void decideStrategy(RoundState info){
+    public void decideStrategy(Round round){
         throw new TemplateClassInstantiationException();
     }
     
     public boolean isFolding(){
-        throw new TemplateClassInstantiationException();
+        return isFolding;
     }
     
     public boolean isCalling(){
-        throw new TemplateClassInstantiationException();
+        return isCalling;
     }
     
     public boolean isRaising(){
-        throw new TemplateClassInstantiationException();
+        return isRaising;
     }
     
     public int getRaise(){
-        throw new TemplateClassInstantiationException();
+        return raiseAmount;
     }
 }

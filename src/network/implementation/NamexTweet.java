@@ -18,7 +18,7 @@ public class NamexTweet {
         
         Twitter twitter = new TwitterFactory().getInstance();
         twitter.setOAuthConsumer(CONSUMER_KEY, CONSUMER_KEY_SECRET);
-        
+        //
         // here's the difference
         String accessToken = getSavedAccessToken();
         String accessTokenSecret = getSavedAccessTokenSecret();

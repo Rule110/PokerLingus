@@ -1,19 +1,19 @@
-package ui.implementation;
+package ai.implementation;
 
 import hand.framework.Hand;
+import ai.framework.AI;
 import pokerfaice.exceptions.TemplateClassInstantiationException;
 import round.framework.Round;
-import ui.framework.UI;
 import network.framework.Network;
 
-public class UITemplate implements UI {
+public class AITemplate implements AI {
     protected Network network;
     protected boolean isFolding;
     protected boolean isCalling;
     protected boolean isRaising;
     protected int raiseAmount;
     
-    UITemplate(Network network){
+    AITemplate(Network network){
         this.network = network;
     }
     

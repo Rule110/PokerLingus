@@ -1,16 +1,18 @@
 package player.implementation;
 
+import hand.framework.Hand;
 import player.framework.Player;
 import pokerfaice.exceptions.TemplateClassInstantiationException;
-import round.framework.RoundState;
+import round.framework.Round;
 
 public class PlayerTemplate implements Player {
-    private boolean isFolding;
-    private boolean isCalling;
-    private boolean isRaising;
-    private int raiseAmount;
+    protected Hand hand;
+    protected boolean isFolding;
+    protected boolean isCalling;
+    protected boolean isRaising;
+    protected int raiseAmount;
     
-    public void decideStrategy(RoundState info){
+    public void decideStrategy(Round round){
         throw new TemplateClassInstantiationException();
     }
     

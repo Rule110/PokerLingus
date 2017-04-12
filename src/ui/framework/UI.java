@@ -1,9 +1,10 @@
 package ui.framework;
 
-import round.framework.RoundState;
+import hand.framework.Hand;
+import round.framework.Round;
 
 public interface UI {
-    public void decideStrategy(RoundState info);
+    public void decideStrategy(Hand hand, Round round);
     
     public boolean isFolding();
     

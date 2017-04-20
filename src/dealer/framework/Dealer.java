@@ -1,11 +1,12 @@
 package dealer.framework;
 
 import card.framework.Card;
+import hand.implementation.PlayingCard;
 
 public interface Dealer {
     public void reset();
     
-    public Card dealNext();
+    public PlayingCard dealNext();
     
-    public void returnCard(Card card);
+    public void returnCard(PlayingCard card);
 }

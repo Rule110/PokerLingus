@@ -7,7 +7,7 @@ public interface Pot {
     
     public int getTotalValue();
     
-    public void splitPot(String playerID);
+    public void enteringSplitPot(String playerID);
     
     public int getPotSplit(String playerID);
 }

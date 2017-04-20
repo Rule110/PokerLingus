@@ -12,7 +12,7 @@ public class DrawPokerPot implements Pot {
         this.totalValue += amount;
     }
     
-    public void removeChips(String playerID, int amount){
+    public void removeChips(String playerID, int amount){	//winnings?
         this.totalValue -= amount;
     }
     
@@ -20,11 +20,16 @@ public class DrawPokerPot implements Pot {
         return totalValue;
     }
     
-    public void splitPot(String playerID){
+    public void enteringSplitPot(String playerID){
         this.playerSplit.put(playerID, this.totalValue);
     }
     
     public int getPotSplit(String playerID){
-        return this.playerSplit.get(playerID);
+      	int numberOfWinners = playerSplit.size();
+    	//int winnings = getTotalValue();
+      	//int playerWinnings = this.playerSplit.get(playerID)/numberOfWinners;
+        int playerWinnings = getTotalValue()/numberOfWinners;
+
+        return playerWinnings;
     }
 }

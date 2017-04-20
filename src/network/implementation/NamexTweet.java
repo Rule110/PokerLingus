@@ -28,7 +28,7 @@ public class NamexTweet {
         twitter.setOAuthAccessToken(oathAccessToken);
         // end of difference
         
-        twitter.updateStatus("Rob's test gkh");
+        twitter.updateStatus("Ciarans test");
         
         System.out.println("\nMy Timeline:");
         
@@ -56,3 +56,6 @@ public class NamexTweet {
         new NamexTweet().start();
     }
 }
+
+//Testing commit
+//Testing commit 2

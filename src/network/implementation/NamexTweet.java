@@ -28,7 +28,7 @@ public class NamexTweet {
         twitter.setOAuthAccessToken(oathAccessToken);
         // end of difference
         
-        twitter.updateStatus("Rob test");
+        twitter.updateStatus("Rob's test");
         
         System.out.println("\nMy Timeline:");
         

@@ -99,15 +99,13 @@ public class DrawPokerRound extends RoundTemplate {
 			}
     }
     @Override
-    protected boolean isFolding(String playerID){
-        
-        return false;
+    protected boolean isFolding(String playerID){   
+        return players.get(playerID).isFolding();
     }
 
     @Override
     protected int getBet(String playerID, int callValue){
-        
-        return 0;
+        return players.get(playerID).getRaise();
     }
 
     @Override

@@ -29,10 +29,6 @@ public class DrawPokerPot implements Pot {
     	//int winnings = getTotalValue();
       	//int playerWinnings = this.playerSplit.get(playerID)/numberOfWinners;
         int playerWinnings = getTotalValue()/numberOfWinners;
-        //test
         return playerWinnings;
     }
 }
-
-
-//test

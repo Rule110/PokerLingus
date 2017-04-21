@@ -95,7 +95,7 @@ public class HumanPlayer extends PlayerTemplate {
     	return response;
     }
     
-    public int getRaise(int playerChips, int callValue){
+    public int getRaise(int playerChips){
     	PrintStream outStream = System.out;
     	Scanner input = new Scanner(System.in);
     	int raiseAmount = 1;

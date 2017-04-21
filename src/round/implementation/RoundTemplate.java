@@ -4,7 +4,7 @@ import java.util.Map;
 import java.util.Vector;
 
 import bank.framework.Bank;
-
+import bank.implementation.DrawPokerBank;
 import dealer.framework.Dealer;
 
 import player.framework.Player;
@@ -30,10 +30,18 @@ public class RoundTemplate implements Round {
     }
     
     protected void dealHands(){
+    	// need Jack
         throw new TemplateClassInstantiationException();
     }
     
     protected Vector<String> getOpeningPlayers(){
+    	// returns the names of the players that can open
+    	// as those will be compared to all players that are playing
+    	
+    	Vector<String> openingPlayers = new Vector<String>();  	
+    	// check the hands of each player and see if they have a pair or higher
+    	// if they do add them to the vector
+    	
         throw new TemplateClassInstantiationException();
     }
     
@@ -69,7 +77,9 @@ public class RoundTemplate implements Round {
         throw new TemplateClassInstantiationException();
     }
     
-    protected void addWinnings(String winner, int potSplit){
-        throw new TemplateClassInstantiationException();
+    protected void addWinnings(String winner, int potSplit){ 
+    	bank.deposit(winner, potSplit);
+    	throw new TemplateClassInstantiationException();
+        
     }
 }

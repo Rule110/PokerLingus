@@ -10,11 +10,14 @@ import dealer.framework.Dealer;
 import hand.framework.Hand;
 import hand.framework.HandFactory;
 import hand.implementation.DrawPokerHand;
+import hand.implementation.OnePair;
 import hand.implementation.PlayingCard;
 
 public class DrawPokerRound extends RoundTemplate {
 	
 	public static String pokerType = "DrawPoker";
+	private Vector<String> openingPlayers;
+	private Vector<String> roundOrder;
 	
     public DrawPokerRound(Map<String, Player> players, Dealer dealer, Bank bank){
         super(players, dealer, bank);
@@ -26,8 +29,9 @@ public class DrawPokerRound extends RoundTemplate {
     	//Players Built in Game.
     	dealHands();
     	//discard phase;
-    	// Vector openingPLayers = getOpeningPlayers();
+    	openingPlayers = getOpeningPlayers();
     	// Loop through players, tell UI if player can open or not
+    	//bettingPhase();
     	
     }
 
@@ -60,13 +64,30 @@ public class DrawPokerRound extends RoundTemplate {
     
     @Override
     protected Vector<String> getOpeningPlayers(){
-        //returend ordered vector of players who CAN open. ie have better than high hand.
-        return null;
+        //return ordered vector of players who CAN open. ie have better than high hand.
+    	Vector<String> open = new Vector<String>(players.size());
+    	for (String p: players.keySet()){
+    		if (players.get(p).getHand().getGameValue() > OnePair.ONE_PAIR_DEFAULT){
+    			open.addElement(p);
+    		}
+    	}
+        return open;
     }
 
     @Override
     protected void beginBettingPhase(){
-       
+       String firstPlayer = openingPlayers.firstElement();
+       boolean firstFound = false;
+       for (String p: players.keySet()){
+   			if (p.equals(firstPlayer)){
+   				firstFound = true;
+   				roundOrder.add(0, p);
+   				continue;
+   			}
+   			if (firstFound){
+   				roundOrder.add(p);
+   			}
+   		}
     }
 
     @Override

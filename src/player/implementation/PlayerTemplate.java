@@ -32,7 +32,7 @@ public class PlayerTemplate implements Player {
     	return isRaising;
     }
     
-    public int getRaise(){
+    public int getRaise(int playerChips, int callValue){
     	return 0;
     }
 

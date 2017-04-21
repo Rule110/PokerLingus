@@ -10,6 +10,7 @@ import pokerfaice.exceptions.TemplateClassInstantiationException;
 import round.framework.Round;
 
 public class PlayerTemplate implements Player {
+	
     protected Hand hand;
     protected boolean isFolding;
     protected boolean isCalling;
@@ -32,7 +33,7 @@ public class PlayerTemplate implements Player {
     	return isRaising;
     }
     
-    public int getRaise(){
+    public int getRaise(int playerChips, int callValue){
     	return 0;
     }
 

@@ -13,7 +13,7 @@ public interface Player {
     
     public boolean isRaising();
     
-    public int getRaise();
+    public int getRaise(int playerChips, int callValue);
         
     public Hand getHand();
     

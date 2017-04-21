@@ -26,6 +26,7 @@ public class DrawPokerRound extends RoundTemplate {
     public void beginRound(){
         //Sends start sequence to UI
     	//Players Built in Game.
+    	//Player bank accounts built in game as well. 
     	dealHands();
     	//discard phase;
     	openingPlayers = getOpeningPlayers();

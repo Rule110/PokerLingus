@@ -1,6 +1,6 @@
 package round.implementation;
 
-import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Vector;
 
@@ -11,13 +11,12 @@ import hand.framework.Hand;
 import hand.framework.HandFactory;
 import hand.implementation.DrawPokerHand;
 import hand.implementation.OnePair;
-import hand.implementation.PlayingCard;
 
 public class DrawPokerRound extends RoundTemplate {
 	
 	public static String pokerType = "DrawPoker";
 	private Vector<String> openingPlayers;
-	private Vector<String> roundOrder;
+	private LinkedList<String> roundOrder;
 	
     public DrawPokerRound(Map<String, Player> players, Dealer dealer, Bank bank){
         super(players, dealer, bank);
@@ -31,7 +30,8 @@ public class DrawPokerRound extends RoundTemplate {
     	//discard phase;
     	openingPlayers = getOpeningPlayers();
     	// Loop through players, tell UI if player can open or not
-    	//bettingPhase();
+    	setOrder();
+    	beginBettingPhase();
     	
     }
 
@@ -76,20 +76,28 @@ public class DrawPokerRound extends RoundTemplate {
 
     @Override
     protected void beginBettingPhase(){
-       String firstPlayer = openingPlayers.firstElement();
-       boolean firstFound = false;
-       for (String p: players.keySet()){
-   			if (p.equals(firstPlayer)){
-   				firstFound = true;
-   				roundOrder.add(0, p);
-   				continue;
-   			}
-   			if (firstFound){
-   				roundOrder.add(p);
-   			}
-   		}
+       
     }
 
+    private void setOrder(){
+		String firstPlayer = openingPlayers.firstElement();
+	    int remainder = 0;
+	    boolean firstFound = false;
+	    for (String p: players.keySet()){
+				if (p.equals(firstPlayer)){
+					firstFound = true;
+					roundOrder.addFirst(p);
+					remainder = 1;
+					continue;
+				}
+				if (firstFound){
+					roundOrder.add(remainder, p);
+					remainder++;
+				}else{
+					roundOrder.addLast(p);
+				}
+			}
+    }
     @Override
     protected boolean isFolding(String playerID){
         

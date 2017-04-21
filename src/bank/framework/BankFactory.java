@@ -8,7 +8,7 @@ public class BankFactory {
         
         switch (type){
         case "DrawPoker":
-            bank = new DrawPokerBank();
+            bank = new DrawPokerBank(null, 0);
             break;
         default:
             throw new RuntimeException();

@@ -1,5 +1,8 @@
 package player.implementation;
 
+import java.io.PrintStream;
+import java.util.Scanner;
+
 import hand.framework.Hand;
 import hand.implementation.PlayingCard;
 import player.framework.Player;
@@ -18,29 +21,25 @@ public class PlayerTemplate implements Player {
     }
     
     public boolean isFolding(){
-        return isFolding;
+    	return isFolding;
     }
     
     public boolean isCalling(){
-        return isCalling;
+    	return isCalling;
     }
     
     public boolean isRaising(){
-        return isRaising;
+    	return isRaising;
     }
     
     public int getRaise(){
-        return raiseAmount;
+    	return 0;
     }
 
-	@Override
 	public void setHand(Hand hand) {
-			
 	}
 
-	@Override
 	public Hand getHand() {
-		
 		return null;
 	}
     

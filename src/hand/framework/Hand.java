@@ -1,5 +1,7 @@
 package hand.framework;
 
+import hand.implementation.PlayingCard;
+
 public interface Hand {
     public boolean isHighHand();
     
@@ -26,4 +28,6 @@ public interface Hand {
     public int getDiscardProbability(int index);
     
     public void discardCard(int index);
+    
+    public void setCards(PlayingCard card, int i);
 }

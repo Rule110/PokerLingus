@@ -1,46 +1,72 @@
 package round.implementation;
 
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Vector;
 
 import player.framework.Player;
 import bank.framework.Bank;
 import dealer.framework.Dealer;
+import hand.framework.Hand;
+import hand.framework.HandFactory;
+import hand.implementation.DrawPokerHand;
+import hand.implementation.PlayingCard;
 
 public class DrawPokerRound extends RoundTemplate {
+	
+	public static String pokerType = "DrawPoker";
+	
     public DrawPokerRound(Map<String, Player> players, Dealer dealer, Bank bank){
         super(players, dealer, bank);
     }
     
     @Override
     public void beginRound(){
-        
+        //Sends start sequence to UI
+    	//Players Built in Game.
+    	dealHands();
+    	//discard phase;
+    	// Vector openingPLayers = getOpeningPlayers();
+    	// Loop through players, tell UI if player can open or not
+    	
     }
 
     @Override
     protected void dealHands(){
-        
+        //Loop through map players, deal out cards until Hand limit is met
+    	for (String p: players.keySet()){
+    		//Hand temp = dealer.dealHand();
+    		Hand currentHand = HandFactory.getHand(pokerType);
+
+    		for (int i = 0; i < DrawPokerHand.HAND_LIMIT; i++){
+    			currentHand.setCards(dealer.dealNext(), i);
+    		}  
+    		players.get(p).setHand(currentHand);
+    	}
     }
 
-    @Override
-    protected Vector<String> getOpeningPlayers(){
-        
-        return null;
-    }
 
     @Override
     protected void beginDiscardPhase(){
-        
+    	for (String p: players.keySet()){
+    		getDiscardedCards(p);
+    	}
     }
 
     @Override
     protected void getDiscardedCards(String playerID){
-        
+        //Darragh will do
+    }
+    
+    @Override
+    protected Vector<String> getOpeningPlayers(){
+        //returend ordered vector of players who CAN open. ie have better than high hand.
+        return null;
     }
 
     @Override
     protected void beginBettingPhase(){
-        
+       
     }
 
     @Override

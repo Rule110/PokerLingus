@@ -1,6 +1,7 @@
 package player.implementation;
 
 import hand.framework.Hand;
+import hand.implementation.PlayingCard;
 import player.framework.Player;
 import pokerfaice.exceptions.TemplateClassInstantiationException;
 import round.framework.Round;
@@ -31,4 +32,17 @@ public class PlayerTemplate implements Player {
     public int getRaise(){
         return raiseAmount;
     }
+
+	@Override
+	public void setHand(Hand hand) {
+			
+	}
+
+	@Override
+	public Hand getHand() {
+		
+		return null;
+	}
+    
+
 }

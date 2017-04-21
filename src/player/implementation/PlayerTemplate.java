@@ -1,5 +1,8 @@
 package player.implementation;
 
+import java.io.PrintStream;
+import java.util.Scanner;
+
 import hand.framework.Hand;
 import hand.implementation.PlayingCard;
 import player.framework.Player;
@@ -7,6 +10,7 @@ import pokerfaice.exceptions.TemplateClassInstantiationException;
 import round.framework.Round;
 
 public class PlayerTemplate implements Player {
+	
     protected Hand hand;
     protected boolean isFolding;
     protected boolean isCalling;
@@ -18,29 +22,25 @@ public class PlayerTemplate implements Player {
     }
     
     public boolean isFolding(){
-        return isFolding;
+    	return isFolding;
     }
     
     public boolean isCalling(){
-        return isCalling;
+    	return isCalling;
     }
     
     public boolean isRaising(){
-        return isRaising;
+    	return isRaising;
     }
     
-    public int getRaise(){
-        return raiseAmount;
+    public int getRaise(int playerChips, int callValue){
+    	return 0;
     }
 
-	@Override
 	public void setHand(Hand hand) {
-			
 	}
 
-	@Override
 	public Hand getHand() {
-		
 		return null;
 	}
     

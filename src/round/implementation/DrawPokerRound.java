@@ -1,6 +1,6 @@
 package round.implementation;
 
-import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Vector;
 
@@ -10,11 +10,13 @@ import dealer.framework.Dealer;
 import hand.framework.Hand;
 import hand.framework.HandFactory;
 import hand.implementation.DrawPokerHand;
-import hand.implementation.PlayingCard;
+import hand.implementation.OnePair;
 
 public class DrawPokerRound extends RoundTemplate {
 	
 	public static String pokerType = "DrawPoker";
+	private Vector<String> openingPlayers;
+	private LinkedList<String> roundOrder;
 	
     public DrawPokerRound(Map<String, Player> players, Dealer dealer, Bank bank){
         super(players, dealer, bank);
@@ -24,10 +26,13 @@ public class DrawPokerRound extends RoundTemplate {
     public void beginRound(){
         //Sends start sequence to UI
     	//Players Built in Game.
+    	//Player bank accounts built in game as well. 
     	dealHands();
     	//discard phase;
-    	// Vector openingPLayers = getOpeningPlayers();
+    	openingPlayers = getOpeningPlayers();
     	// Loop through players, tell UI if player can open or not
+    	setOrder();
+    	beginBettingPhase();
     	
     }
 
@@ -60,8 +65,14 @@ public class DrawPokerRound extends RoundTemplate {
     
     @Override
     protected Vector<String> getOpeningPlayers(){
-        //returend ordered vector of players who CAN open. ie have better than high hand.
-        return null;
+        //return ordered vector of players who CAN open. ie have better than high hand.
+    	Vector<String> open = new Vector<String>(players.size());
+    	for (String p: players.keySet()){
+    		if (players.get(p).getHand().getGameValue() > OnePair.ONE_PAIR_DEFAULT){
+    			open.addElement(p);
+    		}
+    	}
+        return open;
     }
 
     @Override
@@ -69,6 +80,25 @@ public class DrawPokerRound extends RoundTemplate {
        
     }
 
+    private void setOrder(){
+		String firstPlayer = openingPlayers.firstElement();
+	    int remainder = 0;
+	    boolean firstFound = false;
+	    for (String p: players.keySet()){
+				if (p.equals(firstPlayer)){
+					firstFound = true;
+					roundOrder.addFirst(p);
+					remainder = 1;
+					continue;
+				}
+				if (firstFound){
+					roundOrder.add(remainder, p);
+					remainder++;
+				}else{
+					roundOrder.addLast(p);
+				}
+			}
+    }
     @Override
     protected boolean isFolding(String playerID){
         

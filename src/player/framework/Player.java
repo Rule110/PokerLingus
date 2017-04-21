@@ -1,5 +1,7 @@
 package player.framework;
 
+import hand.framework.Hand;
+import hand.implementation.PlayingCard;
 import round.framework.Round;
 
 public interface Player {
@@ -12,4 +14,10 @@ public interface Player {
     public boolean isRaising();
     
     public int getRaise();
+        
+    public Hand getHand();
+    
+    public void setHand(Hand hand);
+    
+   // public PlayingCard discard();
 }

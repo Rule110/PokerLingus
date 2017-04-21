@@ -3,7 +3,19 @@ package hand.implementation;
 import hand.framework.Hand;
 
 public class DrawPokerHand implements Hand {
-    public boolean isHighHand(){
+    
+	public static int HAND_LIMIT = 5;
+	public PlayingCard[] hand;
+	
+	public DrawPokerHand(){
+		hand = new PlayingCard[HAND_LIMIT];
+	}
+	
+	public void setCards(PlayingCard newCard, int i){
+		hand[i] = newCard;
+	}
+	
+	public boolean isHighHand(){
         
         return false;
     }

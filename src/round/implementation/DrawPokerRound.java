@@ -96,15 +96,15 @@ public class DrawPokerRound extends RoundTemplate {
 		ListIterator<String> listIterator = roundOrder.listIterator();
 		String startingPlayer = roundOrder.getFirst();	//first player must make bet
 		Player start = players.get(startingPlayer);
-		int currentBet = start.getOpeningBet();
-		listIterator.next();							//skip first player as already made bet.
+		int currentBet = start.getOpeningBet();							
 		while (roundOrder.size() > 1){					//while there is more than one player still playing loop
-			allCalled = true;
+			listIterator.next();						//skip first player as already made bet.
+			allCalled = true;							//Set to true, only becomes false if someone raises.
 			while (listIterator.hasNext()){				//Loops through roundOrder until reaches last player.
 		    	String playerName = listIterator.next();
 		    	Player p = players.get(playerName);
 		     		if(p.isFolding()){
-		    			roundOrder.remove(p);		//remove from linkedlist as out of round.
+		    			roundOrder.remove(p);					//remove from linkedlist as out of round.
 		    		} else if (p.isCalling()){
 		    			bank.withdraw(playerName, currentBet);	//subtract value from player bank account.
 		    			pot.addChips(playerName, currentBet);	//add value to pot.
@@ -113,8 +113,7 @@ public class DrawPokerRound extends RoundTemplate {
 	    				bank.withdraw(playerName, currentBet);	//subtract value from player bank account.
 	    				pot.addChips(playerName, currentBet);
 	    				allCalled = false;						//allCall set to false as player has raised.
-	    				//reOrder round
-	    				reOrder(p);	//Reorders players, now person who raise is first.
+	    				reOrder(p);								//Reorders players, now person who raise is first.
 	    				break;
 		    	}
 		    }
@@ -126,15 +125,15 @@ public class DrawPokerRound extends RoundTemplate {
 		
 	}
     
-    private void reOrder(Player playerWhoRaised){						//Reorder function for when a player raises.
-		String firstPlayer = playerWhoRaised.toString();
-	    int remainder = 0;
-	    boolean firstFound = false;
+    private void reOrder(Player playerWhoRaised){				//Reorder function for when a player raises.
+		String firstPlayer = playerWhoRaised.toString();		//Makes person who raised first in the roundOrder
+	    int remainder = 0;										//This means eg:Everyone else following him then calls, the person
+	    boolean firstFound = false;								//who called  CANNOT raise again. This ensures that.
 	    LinkedList<String> tempReorder = new LinkedList<String>();
-	    tempReorder = (LinkedList<String>) roundOrder.clone();
-	    roundOrder.clear();
+	    tempReorder = (LinkedList<String>) roundOrder.clone();	//clones previous order to temp list.
+	    roundOrder.clear();										//Clears round order, so new order can be added.
 	    ListIterator<String> listIterator = tempReorder.listIterator();
-	    while(listIterator.hasNext()){
+	    while(listIterator.hasNext()){							//will add players to roundOrder in correct new order.
 	    		String p = listIterator.next();
 				if (p.equals(firstPlayer)){
 					firstFound = true;

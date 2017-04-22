@@ -1,6 +1,5 @@
 package dealer.implementation;
 
-import card.framework.Card;
 import dealer.framework.Dealer;
 import hand.implementation.PlayingCard;
 

@@ -1,17 +1,17 @@
 package bank.implementation;
 
 import java.util.Map;
+import java.util.Set;
 
 import bank.framework.Bank;
-import player.framework.Player;
 
 public class DrawPokerBank implements Bank {
 	
 	private Map<String, BankAccount> accounts;
 	
-	public DrawPokerBank(Map<String, Player> players, int startChips){
-    	for (String p: players.keySet()){
-    		accounts.put(p, new BankAccount(startChips));
+	public DrawPokerBank(Set<String> playerIDs, int startChips){
+    	for (String playerID: playerIDs){
+    		accounts.put(playerID, new BankAccount(startChips));
     	}
 	}   
     

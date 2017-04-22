@@ -53,7 +53,7 @@ public class RoundTemplate implements Round {
         throw new TemplateClassInstantiationException();
     }
     
-    protected int getBet(String playerID, int callValue){
+    public int getCallValue(){
         throw new TemplateClassInstantiationException();
     }
     

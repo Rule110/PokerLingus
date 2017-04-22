@@ -2,7 +2,8 @@ package game.implementation;
 
 import java.util.Map;
 
-import bank.implementation.DrawPokerBank;
+import bank.framework.Bank;
+import bank.framework.BankFactory;
 import network.framework.Network;
 
 import player.framework.Player;
@@ -14,7 +15,7 @@ import game.framework.Game;
 public class DrawPokerGame implements Game {
     private Dealer dealer;
     private Map<String, Player> players;
-    private DrawPokerBank bank;
+    private Bank bank;
     private static int startChips = 10;
     
     public DrawPokerGame(String username, Network network){
@@ -25,6 +26,6 @@ public class DrawPokerGame implements Game {
         }
         this.players.put(username, PlayerFactory.getPlayer("Human", network));
         
-        this.bank = new DrawPokerBank(players, startChips);
+        this.bank = BankFactory.getBank("DrawPoker", players.keySet(), startChips);
     }
 }

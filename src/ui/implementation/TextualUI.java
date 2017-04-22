@@ -3,20 +3,28 @@ package ui.implementation;
 import java.io.PrintStream;
 import java.util.Scanner;
 
+import game.framework.Game;
 import hand.framework.Hand;
+<<<<<<< HEAD
 import network.framework.Network;
 import player.framework.Player;
+=======
+>>>>>>> branch 'Development' of ssh://git@git.ucd.ie/14430762/PokerLingus.git
 import round.framework.Round;
 
 public class TextualUI extends UITemplate {
+<<<<<<< HEAD
 	PrintStream outStream = System.out;
 	Scanner input = new Scanner(System.in);
 	
 	public TextualUI(Network network){
         super(network);
+=======
+    public TextualUI(Game game){
+        super(game);
+>>>>>>> branch 'Development' of ssh://git@git.ucd.ie/14430762/PokerLingus.git
     }
     
-    @Override
     public void decideStrategy(Hand hand, Round round){
         if(isFolding()){
         	
@@ -98,8 +106,16 @@ public class TextualUI extends UITemplate {
     	return isRaising;
     }
     
+<<<<<<< HEAD
     public int getRaise(int playerChips){
     	raiseAmount = 1;
+=======
+    public int getRaise(){
+        int playerChips = 0;
+    	PrintStream outStream = System.out;
+    	Scanner input = new Scanner(System.in);
+    	int raiseAmount = 1;
+>>>>>>> branch 'Development' of ssh://git@git.ucd.ie/14430762/PokerLingus.git
     	Boolean validAmount = false;
     	
     	while(validAmount != true){

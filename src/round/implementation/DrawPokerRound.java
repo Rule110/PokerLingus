@@ -23,7 +23,6 @@ public class DrawPokerRound extends RoundTemplate {
         super(players, dealer, bank);
     }
     
-    @Override
     public void beginRound(){
         //Sends start sequence to UI
     	//Players Built in Game.
@@ -35,8 +34,7 @@ public class DrawPokerRound extends RoundTemplate {
     	setOrder(); //This is the order for the CURRENT round.
     	beginBettingPhase();	//controls betting phase.
     }
-
-    @Override
+    
     protected void dealHands(){
         //Loop through map players, deal out cards until Hand limit is met
     	for (String p: players.keySet()){
@@ -49,21 +47,17 @@ public class DrawPokerRound extends RoundTemplate {
     		players.get(p).setHand(currentHand);
     	}
     }
-
-
-    @Override
+    
     protected void beginDiscardPhase(){
     	for (String p: players.keySet()){
     		getDiscardedCards(p);
     	}
     }
-
-    @Override
+    
     protected void getDiscardedCards(String playerID){
         //Darragh will do
     }
     
-    @Override
     protected Vector<String> getOpeningPlayers(){
         //return ordered vector of players who CAN open. ie have better than high hand.
     	Vector<String> open = new Vector<String>(players.size());
@@ -95,7 +89,6 @@ public class DrawPokerRound extends RoundTemplate {
 			}
     }
     
-    @Override
     protected void beginBettingPhase(){   	
     	ListIterator<String> listIterator = roundOrder.listIterator();
     	String startingPlayer = roundOrder.getFirst();	//first player must make bet
@@ -124,25 +117,20 @@ public class DrawPokerRound extends RoundTemplate {
     	}
     }
     
-    @Override
     protected boolean isFolding(String playerID){   
         return players.get(playerID).isFolding();
     }
     
-    @Override
     public int getCallValue(){
         //Ciarain implement!
         return 0;
     }
-
-    @Override
+    
     public String getWinner(){    
         return super.winner;
     }
-
-    @Override
+    
     protected void addWinnings(String winner, int potSplit){
         
     }
 }
-//test

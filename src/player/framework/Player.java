@@ -20,8 +20,13 @@ public interface Player {
     public boolean isCalling();
     
     public boolean isRaising();
+<<<<<<< HEAD
 
     public int getRaise(int playerChips);
+=======
+    
+    public int getRaise();
+>>>>>>> branch 'Development' of ssh://git@git.ucd.ie/14430762/PokerLingus.git
         
     public Hand getHand();
     

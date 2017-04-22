@@ -8,11 +8,10 @@ import bank.framework.Bank;
 import dealer.framework.Dealer;
 
 import player.framework.Player;
-import pokerfaice.exceptions.TemplateClassInstantiationException;
 import pot.framework.Pot;
 import round.framework.Round;
 
-public class RoundTemplate implements Round {
+abstract public class RoundTemplate implements Round {
     protected Map<String, Player> players;
     protected Pot pot;
     protected Dealer dealer;
@@ -25,37 +24,21 @@ public class RoundTemplate implements Round {
         this.bank = bank;
     }
     
-    public void beginRound(){
-        throw new TemplateClassInstantiationException();
-    }
+    abstract public void beginRound();
     
-    protected void dealHands(){
-        throw new TemplateClassInstantiationException();
-    }
+    abstract protected void dealHands();
     
-    protected Vector<String> getOpeningPlayers(){
-        throw new TemplateClassInstantiationException();
-    }
+    abstract protected Vector<String> getOpeningPlayers();
     
-    protected void beginDiscardPhase(){
-        throw new TemplateClassInstantiationException();
-    }
+    abstract protected void beginDiscardPhase();
     
-    protected void getDiscardedCards(String playerID){
-        throw new TemplateClassInstantiationException();
-    }
+    abstract protected void getDiscardedCards(String playerID);
     
-    protected void beginBettingPhase(){
-        throw new TemplateClassInstantiationException();
-    }
+    abstract protected void beginBettingPhase();
     
-    protected boolean isFolding(String playerID){
-        throw new TemplateClassInstantiationException();
-    }
+    abstract protected boolean isFolding(String playerID);
     
-    public int getCallValue(){
-        throw new TemplateClassInstantiationException();
-    }
+    abstract public int getCallValue();
     
     public int getPotValue(){
         return this.pot.getTotalValue();
@@ -65,11 +48,7 @@ public class RoundTemplate implements Round {
         return this.bank.getAvailableFunds(playerID);
     }
     
-    public String getWinner(){
-        throw new TemplateClassInstantiationException();
-    }
+    abstract public String getWinner();
     
-    protected void addWinnings(String winner, int potSplit){
-        throw new TemplateClassInstantiationException();
-    }
+    abstract protected void addWinnings(String winner, int potSplit);
 }

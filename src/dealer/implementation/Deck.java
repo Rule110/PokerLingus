@@ -4,7 +4,7 @@ import java.util.Random;
 
 import hand.implementation.PlayingCard;
 
-class Deck {
+public class Deck {
 
 		private PlayingCard[] deck = new PlayingCard[52];
 		private int counter = 0;

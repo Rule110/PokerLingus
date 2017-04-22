@@ -3,8 +3,8 @@ package round.implementation;
 import java.util.Map;
 import java.util.Vector;
 
+//import Poker.DeckOfCards;
 import bank.framework.Bank;
-import bank.implementation.DrawPokerBank;
 import dealer.framework.Dealer;
 
 import player.framework.Player;
@@ -13,7 +13,7 @@ import pot.framework.Pot;
 import round.framework.Round;
 
 public class RoundTemplate implements Round {
-    protected Map<String, Player> players;
+	protected Map<String, Player> players;
     protected Pot pot;
     protected Dealer dealer;
     protected Bank bank;
@@ -30,19 +30,12 @@ public class RoundTemplate implements Round {
     }
     
     protected void dealHands(){
-    	// need Jack
         throw new TemplateClassInstantiationException();
     }
     
     protected Vector<String> getOpeningPlayers(){
-    	// returns the names of the players that can open
-    	// as those will be compared to all players that are playing
-    	
-    	Vector<String> openingPlayers = new Vector<String>();  	
-    	// check the hands of each player and see if they have a pair or higher
-    	// if they do add them to the vector
-    	
-        throw new TemplateClassInstantiationException();
+    	throw new TemplateClassInstantiationException();
+
     }
     
     protected void beginDiscardPhase(){
@@ -78,7 +71,6 @@ public class RoundTemplate implements Round {
     }
     
     protected void addWinnings(String winner, int potSplit){ 
-    	bank.deposit(winner, potSplit);
     	throw new TemplateClassInstantiationException();
         
     }

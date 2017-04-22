@@ -25,9 +25,7 @@ public interface Hand {
     
     public int getGameValue();
     
-    public int getDiscardProbability(int index);
-    
-    public void discardCard(int index);
+    public PlayingCard discardCard(int index, PlayingCard replacement);
     
     public void setCards(PlayingCard card, int i);
 }

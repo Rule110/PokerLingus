@@ -5,20 +5,41 @@ import java.util.Scanner;
 
 import game.framework.Game;
 import hand.framework.Hand;
+<<<<<<< HEAD
+import network.framework.Network;
+import player.framework.Player;
+=======
+>>>>>>> branch 'Development' of ssh://git@git.ucd.ie/14430762/PokerLingus.git
 import round.framework.Round;
 
 public class TextualUI extends UITemplate {
+//<<<<<<< HEAD
+	PrintStream outStream = System.out;
+	Scanner input = new Scanner(System.in);
+	
+	public TextualUI(Network network){
+        super(network);
+//=======
     public TextualUI(Game game){
         super(game);
+//>>>>>>> branch 'Development' of ssh://git@git.ucd.ie/14430762/PokerLingus.git
     }
     
     public void decideStrategy(Hand hand, Round round){
-        
+        if(isFolding()){
+        	
+        } else if(isRaising()){
+        	
+        } else if(isCalling()){
+        	
+        }
+    }
+    
+    public void intro(){
+    	outStream.println("Welcome to the Automated Poker Machine... \nLet's Play Poker!");
     }
     
     public boolean isFolding(){
-    	PrintStream outStream = System.out;
-    	Scanner input = new Scanner(System.in);
     	String fold;
     	Boolean response = null;
     	
@@ -41,66 +62,70 @@ public class TextualUI extends UITemplate {
     	return response;
     }
     
-    public boolean isCalling(){    	
-    	PrintStream outStream = System.out;
-    	Scanner input = new Scanner(System.in);
+    public boolean isCalling(){
     	String call;
-    	Boolean response = null;
     	
-    	while(response != true || response != false){
+    	while(isCalling != true || isCalling != false){
     		outStream.println("Would you like to call (y/n)?: ");
         	call = input.nextLine();
         	
         	switch (call.toLowerCase()){
 	    		case "y":
-	    			response = true;
+	    			isCalling = true;
 	    			break;
 	    		case "n":
-	    			response = false;
+	    			isCalling = false;
 	    			break;
 	    		default:
 	    			outStream.println("Please enter a valid character!");
 	    			break;    	
         	}
     	}
-    	return response;
+    	return isCalling;
     }
     
     public boolean isRaising(){
-    	PrintStream outStream = System.out;
-    	Scanner input = new Scanner(System.in);
     	String raise;
-    	Boolean response = null;
     	
-    	while(response != true || response != false){
+    	while(isRaising != true || isRaising != false){
     		outStream.println("Would you like to raise (y/n)?: ");
         	raise = input.nextLine();
         	
         	switch (raise.toLowerCase()){
 	    		case "y":
-	    			response = true;
+	    			isRaising = true;
 	    			break;
 	    		case "n":
-	    			response = false;
+	    			isRaising = false;
 	    			break;
 	    		default:
 	    			outStream.println("Please enter a valid character!");
 	    			break;    	
         	}
     	}
-    	return response;
+    	return isRaising;
     }
     
+//<<<<<<< HEAD
+    public int getRaise(int playerChips){
+    	raiseAmount = 1;
+//=======
     public int getRaise(){
         int playerChips = 0;
     	PrintStream outStream = System.out;
     	Scanner input = new Scanner(System.in);
     	int raiseAmount = 1;
+//>>>>>>> branch 'Development' of ssh://git@git.ucd.ie/14430762/PokerLingus.git
     	Boolean validAmount = false;
     	
     	while(validAmount != true){
     		outStream.println("Please enter amount to raise by: ");
-        	raiseAmount = Integer.parseInt(input.nextLine());
+    		try {
+    			raiseAmount = Integer.parseInt(input.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Please Enter A valid Integer");
+                continue;
+            }        	
         	if (raiseAmount > playerChips)
         		outStream.println("You cannot bet more chips than you have!");
         	else if (raiseAmount <= 0)

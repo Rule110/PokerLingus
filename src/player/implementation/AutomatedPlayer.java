@@ -12,7 +12,15 @@ public class AutomatedPlayer extends PlayerTemplate {
         this.ai = AIFactory.getAI("Simple", network);
     }
     
-    @Override
+    public void decideDiscarding(){
+        
+    }
+    
+    public int getOpeningBet(){
+        
+        return 0;
+    }
+    
     public void decideStrategy(Round round){
         this.ai.decideStrategy(super.hand, round);
     }

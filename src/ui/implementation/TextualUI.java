@@ -12,7 +12,6 @@ public class TextualUI extends UITemplate {
         super(network);
     }
     
-    @Override
     public void decideStrategy(Hand hand, Round round){
         
     }

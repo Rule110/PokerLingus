@@ -1,8 +1,5 @@
 package player.implementation;
 
-import java.io.PrintStream;
-import java.util.Scanner;
-
 import network.framework.Network;
 import round.framework.Round;
 import ui.framework.UI;
@@ -15,7 +12,15 @@ public class HumanPlayer extends PlayerTemplate {
         this.ui = UIFactory.getUI("Textual", network);
     }
     
-    @Override
+    public void decideDiscarding(){
+        
+    }
+    
+    public int getOpeningBet(){
+        
+        return 0;
+    }
+    
     public void decideStrategy(Round round){
         this.ui.decideStrategy(super.hand, round);
     }

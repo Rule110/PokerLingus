@@ -50,13 +50,8 @@ public class PlayerTemplate implements Player {
     	return this.isRaising;
     }
     
-<<<<<<< HEAD
-    public int getRaise(int playerChips){
-    	return 0;
-=======
     public int getRaise(){
     	return this.raiseAmount;
->>>>>>> branch 'Development' of ssh://git@git.ucd.ie/14430762/PokerLingus.git
     }
 
 	public void setHand(Hand hand) {

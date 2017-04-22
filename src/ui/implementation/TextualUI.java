@@ -92,7 +92,8 @@ public class TextualUI extends UITemplate {
     	return response;
     }
     
-    public int getRaise(int playerChips){
+    public int getRaise(){
+        int playerChips = 0;
     	PrintStream outStream = System.out;
     	Scanner input = new Scanner(System.in);
     	int raiseAmount = 1;

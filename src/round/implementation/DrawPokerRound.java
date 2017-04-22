@@ -106,12 +106,11 @@ public class DrawPokerRound extends RoundTemplate {
 
     @Override
     protected int getBet(String playerID, int callValue){
-        return players.get(playerID).getRaise();
+        return players.get(playerID).getRaise(0, 0);
     }
 
     @Override
-    public String getWinner(){
-        
+    public String getWinner(){    
         return super.winner;
     }
 

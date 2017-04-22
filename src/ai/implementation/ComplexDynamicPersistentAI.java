@@ -1,12 +1,12 @@
 package ai.implementation;
 
 import hand.framework.Hand;
-import network.framework.Network;
+import game.framework.Game;
 import round.framework.Round;
 
 public class ComplexDynamicPersistentAI extends AITemplate {
-    public ComplexDynamicPersistentAI(Network network){
-        super(network);
+    public ComplexDynamicPersistentAI(Game game){
+        super(game);
     }
     
     public void decideStrategy(Hand hand, Round round){

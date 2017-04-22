@@ -1,27 +1,27 @@
 package ai.framework;
 
-import network.framework.Network;
+import game.framework.Game;
 import ai.implementation.ComplexDynamicPersistentAI;
 import ai.implementation.ComplexStaticPersistentAI;
 import ai.implementation.ComplexStaticRandomAI;
 import ai.implementation.SimpleAI;
 
 public class AIFactory {
-    public static AI getAI(String type, Network network){
+    public static AI getAI(String type, Game game){
         AI ai;
         
         switch (type){
         case "Simple":
-            ai = new SimpleAI(network);
+            ai = new SimpleAI(game);
             break;
         case "ComplexStaticRandom":
-            ai = new ComplexStaticRandomAI(network);
+            ai = new ComplexStaticRandomAI(game);
             break;
         case "ComplexStaticPersistent":
-            ai = new ComplexStaticPersistentAI(network);
+            ai = new ComplexStaticPersistentAI(game);
             break;
         case "ComplexDynamicPersistent":
-            ai = new ComplexDynamicPersistentAI(network);
+            ai = new ComplexDynamicPersistentAI(game);
             break;
         default:
             throw new RuntimeException();

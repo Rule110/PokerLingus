@@ -1,6 +1,6 @@
 package player.implementation;
 
-import network.framework.Network;
+import game.framework.Game;
 import round.framework.Round;
 import ui.framework.UI;
 import ui.framework.UIFactory;
@@ -8,8 +8,8 @@ import ui.framework.UIFactory;
 public class HumanPlayer extends PlayerTemplate {
     private UI ui;
     
-    public HumanPlayer(Network network){
-        this.ui = UIFactory.getUI("Textual", network);
+    public HumanPlayer(Game game){
+        this.ui = UIFactory.getUI("Textual", game);
     }
     
     public void decideDiscarding(){

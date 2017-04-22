@@ -1,6 +1,6 @@
 package player.implementation;
 
-import network.framework.Network;
+import game.framework.Game;
 import round.framework.Round;
 import ai.framework.AI;
 import ai.framework.AIFactory;
@@ -8,8 +8,8 @@ import ai.framework.AIFactory;
 public class AutomatedPlayer extends PlayerTemplate {
     private AI ai;
     
-    public AutomatedPlayer(Network network){
-        this.ai = AIFactory.getAI("Simple", network);
+    public AutomatedPlayer(Game game){
+        this.ai = AIFactory.getAI("Simple", game);
     }
     
     public void decideDiscarding(){

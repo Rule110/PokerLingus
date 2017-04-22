@@ -1,12 +1,12 @@
 package ui.implementation;
 
+import game.framework.Game;
 import hand.framework.Hand;
-import network.framework.Network;
 import round.framework.Round;
 
 public class GraphicalUI extends UITemplate {
-    public GraphicalUI(Network network){
-        super(network);
+    public GraphicalUI(Game game){
+        super(game);
     }
     
     public void decideStrategy(Hand hand, Round round){

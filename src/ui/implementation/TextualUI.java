@@ -3,13 +3,13 @@ package ui.implementation;
 import java.io.PrintStream;
 import java.util.Scanner;
 
+import game.framework.Game;
 import hand.framework.Hand;
-import network.framework.Network;
 import round.framework.Round;
 
 public class TextualUI extends UITemplate {
-    public TextualUI(Network network){
-        super(network);
+    public TextualUI(Game game){
+        super(game);
     }
     
     public void decideStrategy(Hand hand, Round round){

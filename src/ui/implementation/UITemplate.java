@@ -1,19 +1,19 @@
 package ui.implementation;
 
+import game.framework.Game;
 import hand.framework.Hand;
 import round.framework.Round;
 import ui.framework.UI;
-import network.framework.Network;
 
 abstract public class UITemplate implements UI {
-    protected Network network;
+    protected Game game;
     protected boolean isFolding;
     protected boolean isCalling;
     protected boolean isRaising;
     protected int raiseAmount;
     
-    UITemplate(Network network){
-        this.network = network;
+    UITemplate(Game game){
+        this.game = game;
     }
     
     abstract public void decideStrategy(Hand hand, Round round);

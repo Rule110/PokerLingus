@@ -13,16 +13,16 @@ import player.framework.Player;
 import round.framework.Round;
 
 public class TextualUI extends UITemplate {
-<<<<<<< HEAD
+//<<<<<<< HEAD
 	PrintStream outStream = System.out;
 	Scanner input = new Scanner(System.in);
 	
 	public TextualUI(Network network){
         super(network);
-=======
+//=======
     public TextualUI(Game game){
         super(game);
->>>>>>> branch 'Development' of ssh://git@git.ucd.ie/14430762/PokerLingus.git
+//>>>>>>> branch 'Development' of ssh://git@git.ucd.ie/14430762/PokerLingus.git
     }
     
     public void decideStrategy(Hand hand, Round round){
@@ -106,16 +106,16 @@ public class TextualUI extends UITemplate {
     	return isRaising;
     }
     
-<<<<<<< HEAD
+//<<<<<<< HEAD
     public int getRaise(int playerChips){
     	raiseAmount = 1;
-=======
+//=======
     public int getRaise(){
         int playerChips = 0;
     	PrintStream outStream = System.out;
     	Scanner input = new Scanner(System.in);
     	int raiseAmount = 1;
->>>>>>> branch 'Development' of ssh://git@git.ucd.ie/14430762/PokerLingus.git
+//>>>>>>> branch 'Development' of ssh://git@git.ucd.ie/14430762/PokerLingus.git
     	Boolean validAmount = false;
     	
     	while(validAmount != true){

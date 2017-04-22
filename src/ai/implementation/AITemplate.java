@@ -1,25 +1,22 @@
 package ai.implementation;
 
+import game.framework.Game;
 import hand.framework.Hand;
 import ai.framework.AI;
-import pokerfaice.exceptions.TemplateClassInstantiationException;
 import round.framework.Round;
-import network.framework.Network;
 
-public class AITemplate implements AI {
-    protected Network network;
+abstract public class AITemplate implements AI {
+    protected Game game;
     protected boolean isFolding;
     protected boolean isCalling;
     protected boolean isRaising;
     protected int raiseAmount;
     
-    AITemplate(Network network){
-        this.network = network;
+    AITemplate(Game game){
+        this.game = game;
     }
     
-    public void decideStrategy(Hand hand, Round round){
-        throw new TemplateClassInstantiationException();
-    }
+    abstract public void decideStrategy(Hand hand, Round round);
     
     public boolean isFolding(){
         return isFolding;

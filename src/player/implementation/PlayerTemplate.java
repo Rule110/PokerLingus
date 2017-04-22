@@ -5,10 +5,9 @@ import java.util.Vector;
 import hand.framework.Hand;
 import hand.implementation.PlayingCard;
 import player.framework.Player;
-import pokerfaice.exceptions.TemplateClassInstantiationException;
 import round.framework.Round;
 
-public class PlayerTemplate implements Player {
+abstract public class PlayerTemplate implements Player {
 	
     protected Hand hand;
     protected Vector<Integer> discardindices;
@@ -17,9 +16,7 @@ public class PlayerTemplate implements Player {
     protected boolean isRaising;
     protected int raiseAmount;
     
-    public void decideDiscarding(){
-        throw new TemplateClassInstantiationException();
-    }
+    abstract public void decideDiscarding();
     
     public boolean isDiscarding(){
         return this.discardindices.size() > 0;
@@ -30,13 +27,9 @@ public class PlayerTemplate implements Player {
         return this.hand.discardCard(discardIndex, replacement);
     }
     
-    public void decideStrategy(Round round){
-        throw new TemplateClassInstantiationException();
-    }
+    abstract public void decideStrategy(Round round);
     
-    public int getOpeningBet(){
-        throw new TemplateClassInstantiationException();
-    }
+    abstract public int getOpeningBet();
     
     public boolean isFolding(){
     	return this.isFolding;

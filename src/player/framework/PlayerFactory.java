@@ -1,19 +1,20 @@
 package player.framework;
 
+import game.framework.Game;
 import network.framework.Network;
 import player.implementation.AutomatedPlayer;
 import player.implementation.HumanPlayer;
 
 public class PlayerFactory {
-    public static Player getPlayer(String type, Network network){
+    public static Player getPlayer(String type, Game game){
         Player player;
         
         switch (type){
         case "Human":
-            player = new HumanPlayer(network);
+            player = new HumanPlayer(game);
             break;
         case "Automated":
-            player = new AutomatedPlayer(network);
+            player = new AutomatedPlayer(game);
             break;
         default:
             throw new RuntimeException();

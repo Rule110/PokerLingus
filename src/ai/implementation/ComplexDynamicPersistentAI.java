@@ -1,40 +1,15 @@
 package ai.implementation;
 
 import hand.framework.Hand;
-import network.framework.Network;
+import game.framework.Game;
 import round.framework.Round;
 
 public class ComplexDynamicPersistentAI extends AITemplate {
-    public ComplexDynamicPersistentAI(Network network){
-        super(network);
+    public ComplexDynamicPersistentAI(Game game){
+        super(game);
     }
     
-    @Override
     public void decideStrategy(Hand hand, Round round){
         
-    }
-    
-    @Override
-    public boolean isFolding(){
-        
-        return false;
-    }
-    
-    @Override
-    public boolean isCalling(){
-        
-        return false;
-    }
-    
-    @Override
-    public boolean isRaising(){
-        
-        return false;
-    }
-    
-    @Override
-    public int getRaise(){
-        
-        return 0;
     }
 }

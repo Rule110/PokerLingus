@@ -1,25 +1,22 @@
 package ui.implementation;
 
+import game.framework.Game;
 import hand.framework.Hand;
-import pokerfaice.exceptions.TemplateClassInstantiationException;
 import round.framework.Round;
 import ui.framework.UI;
-import network.framework.Network;
 
-public class UITemplate implements UI {
-    protected Network network;
+abstract public class UITemplate implements UI {
+    protected Game game;
     protected boolean isFolding;
     protected boolean isCalling;
     protected boolean isRaising;
     protected int raiseAmount;
     
-    UITemplate(Network network){
-        this.network = network;
+    UITemplate(Game game){
+        this.game = game;
     }
     
-    public void decideStrategy(Hand hand, Round round){
-        throw new TemplateClassInstantiationException();
-    }
+    abstract public void decideStrategy(Hand hand, Round round);
     
     public boolean isFolding(){
         return isFolding;

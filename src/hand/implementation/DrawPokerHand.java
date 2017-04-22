@@ -75,7 +75,8 @@ public class DrawPokerHand implements Hand {
         return 0;
     }
     
-    public void discardCard(int index){
+    public PlayingCard discardCard(int index, PlayingCard replacement){
         
+        return null;
     }
 }

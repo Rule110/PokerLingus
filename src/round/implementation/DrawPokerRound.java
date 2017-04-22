@@ -1,6 +1,7 @@
 package round.implementation;
 
 import java.util.LinkedList;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Vector;
 
@@ -31,9 +32,8 @@ public class DrawPokerRound extends RoundTemplate {
     	//discard phase;
     	openingPlayers = getOpeningPlayers();
     	// Loop through players, tell UI if player can open or not
-    	setOrder();
-    	beginBettingPhase();
-    	
+    	setOrder(); //This is the order for the CURRENT round.
+    	beginBettingPhase();	//controls betting phase.
     }
 
     @Override
@@ -75,11 +75,6 @@ public class DrawPokerRound extends RoundTemplate {
         return open;
     }
 
-    @Override
-    protected void beginBettingPhase(){
-       
-    }
-
     private void setOrder(){
 		String firstPlayer = openingPlayers.firstElement();
 	    int remainder = 0;
@@ -99,21 +94,49 @@ public class DrawPokerRound extends RoundTemplate {
 				}
 			}
     }
+    
     @Override
-    protected boolean isFolding(String playerID){
-        
-        return false;
+    protected void beginBettingPhase(){   	
+    	ListIterator<String> listIterator = roundOrder.listIterator();
+    	String startingPlayer = roundOrder.getFirst();	//first player must make bet
+    	Player start = players.get(startingPlayer);
+    	int currentBet = start.getOpeningBet();
+    	//boolean decisionChecker = false;
+    	//while (decisionChecker != true){
+    	//decisionChecker = true;
+	    	while (listIterator.hasNext()){
+	    		String playerName = listIterator.next();
+	    		Player p = players.get(playerName);
+	    		if (isFolding(playerName) == false){
+	    			if(p.isFolding() == true){
+	    				//remove from linkedlist
+	    				//set isFolding(playerName) true);	    				
+	    			} else if (p.isCalling() == true){
+	    				//subtract value from player bank account.
+	    				//add value to pot.
+	    				//break
+	    			} else if (p.isRaising() == true){
+	    				currentBet = p.getRaise();
+	    				//break. Must raise if you reach this point.
+	    				//everyone call set to false apart from player raising.
+	    			}
+	    	}
+    	}
     }
-
+    
     @Override
-    protected int getBet(String playerID, int callValue){
-        
+    protected boolean isFolding(String playerID){   
+        return players.get(playerID).isFolding();
+    }
+    
+    @Override
+    public int getCallValue(){
+        //Ciarain implement!
         return 0;
     }
 
     @Override
-    public String getWinner(){
-        
+    public String getWinner(){    
         return super.winner;
     }
 
@@ -122,3 +145,4 @@ public class DrawPokerRound extends RoundTemplate {
         
     }
 }
+//test

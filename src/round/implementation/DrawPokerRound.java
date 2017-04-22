@@ -109,12 +109,16 @@ public class DrawPokerRound extends RoundTemplate {
 	    		Player p = players.get(playerName);
 	    		if (isFolding(playerName) == false){
 	    			if(p.isFolding() == true){
+	    				//remove from linkedlist
 	    				//set isFolding(playerName) true);	    				
 	    			} else if (p.isCalling() == true){
+	    				//subtract value from player bank account.
+	    				//add value to pot.
 	    				//break
 	    			} else if (p.isRaising() == true){
 	    				currentBet = p.getRaise(bank.getAvailableFunds(playerName), currentBet);
 	    				//break. Must raise if you reach this point.
+	    				//everyone call set to false apart from player raising.
 	    			}
 	    	}
     	}

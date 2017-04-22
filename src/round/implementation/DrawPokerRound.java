@@ -89,8 +89,7 @@ public class DrawPokerRound extends RoundTemplate {
 				}
 			}
     }
-    
-//<<<<<<< HEAD
+
     @Override
     protected void beginBettingPhase(){ 
 		boolean allCalled = true;
@@ -110,28 +109,6 @@ public class DrawPokerRound extends RoundTemplate {
 		    			bank.withdraw(playerName, currentBet);	//subtract value from player bank account.
 		    			pot.addChips(playerName, currentBet);	//add value to pot.
 		    		} else if (p.isRaising()){
-//=======
-//    protected void beginBettingPhase(){   	
-//    	ListIterator<String> listIterator = roundOrder.listIterator();
-//    	String startingPlayer = roundOrder.getFirst();	//first player must make bet
-//    	Player start = players.get(startingPlayer);
-//    	int currentBet = start.getOpeningBet();
-//    	//boolean decisionChecker = false;
-//    	//while (decisionChecker != true){
-//    	//decisionChecker = true;
-//	    	while (listIterator.hasNext()){
-//	    		String playerName = listIterator.next();
-//	    		Player p = players.get(playerName);
-//	    		if (isFolding(playerName) == false){
-//	    			if(p.isFolding() == true){
-//	    				//remove from linkedlist
-//	    				//set isFolding(playerName) true);	    				
-//	    			} else if (p.isCalling() == true){
-//	    				//subtract value from player bank account.
-//	    				//add value to pot.
-//	    				//break
-//	    			} else if (p.isRaising() == true){
-//>>>>>>> branch 'Development' of git@git.ucd.ie:14430762/PokerLingus.git
 	    				currentBet = p.getRaise();
 	    				bank.withdraw(playerName, currentBet);	//subtract value from player bank account.
 	    				pot.addChips(playerName, currentBet);
@@ -182,7 +159,6 @@ public class DrawPokerRound extends RoundTemplate {
         //Ciaran implement?
         return 0;
     }
-//<<<<<<< HEAD
 
     @Override
     public String getWinner(){
@@ -202,10 +178,6 @@ public class DrawPokerRound extends RoundTemplate {
     	}
     	String winnerName = winner.toString();
     	addWinnings(winnerName, 0);
-//=======
-    
-//    public String getWinner(){    
-//>>>>>>> branch 'Development' of git@git.ucd.ie:14430762/PokerLingus.git
         return super.winner;
     }
     

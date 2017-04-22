@@ -1,14 +1,16 @@
 package bank.framework;
 
+import java.util.Set;
+
 import bank.implementation.DrawPokerBank;
 
 public class BankFactory {
-    public static Bank getBank(String type){
+    public static Bank getBank(String type, Set<String> playerIDs, int initialBalance){
         Bank bank;
         
         switch (type){
         case "DrawPoker":
-            bank = new DrawPokerBank(null, 0);
+            bank = new DrawPokerBank(playerIDs, initialBalance);
             break;
         default:
             throw new RuntimeException();
@@ -16,4 +18,4 @@ public class BankFactory {
         
         return bank;
     }
-}//change ver
+}

@@ -5,7 +5,15 @@ import hand.implementation.PlayingCard;
 import round.framework.Round;
 
 public interface Player {
+    public void decideDiscarding();
+    
+    public boolean isDiscarding();
+    
+    public PlayingCard discardCard(PlayingCard replacement);
+    
     public void decideStrategy(Round round);
+    
+    public int getOpeningBet();
     
     public boolean isFolding();
     
@@ -13,11 +21,9 @@ public interface Player {
     
     public boolean isRaising();
     
-    public int getRaise(int playerChips, int callValue);
+    public int getRaise();
         
     public Hand getHand();
     
     public void setHand(Hand hand);
-    
-   // public PlayingCard discard();
 }

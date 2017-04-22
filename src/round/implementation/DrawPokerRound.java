@@ -100,7 +100,7 @@ public class DrawPokerRound extends RoundTemplate {
     	ListIterator<String> listIterator = roundOrder.listIterator();
     	String startingPlayer = roundOrder.getFirst();	//first player must make bet
     	Player start = players.get(startingPlayer);
-    	int currentBet = start.getRaise(bank.getAvailableFunds(startingPlayer), 0);
+    	int currentBet = start.getOpeningBet();
     	//boolean decisionChecker = false;
     	//while (decisionChecker != true){
     	//decisionChecker = true;
@@ -116,7 +116,7 @@ public class DrawPokerRound extends RoundTemplate {
 	    				//add value to pot.
 	    				//break
 	    			} else if (p.isRaising() == true){
-	    				currentBet = p.getRaise(bank.getAvailableFunds(playerName), currentBet);
+	    				currentBet = p.getRaise();
 	    				//break. Must raise if you reach this point.
 	    				//everyone call set to false apart from player raising.
 	    			}
@@ -128,10 +128,11 @@ public class DrawPokerRound extends RoundTemplate {
     protected boolean isFolding(String playerID){   
         return players.get(playerID).isFolding();
     }
-
+    
     @Override
-    protected int getBet(String playerID, int callValue){
-        return players.get(playerID).getRaise(0, 0);
+    public int getCallValue(){
+        //Ciarain implement!
+        return 0;
     }
 
     @Override

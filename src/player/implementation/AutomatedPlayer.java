@@ -22,6 +22,7 @@ public class AutomatedPlayer extends PlayerTemplate {
     }
     
     public void decideStrategy(Round round){
-        this.ai.decideStrategy(super.hand, round);
+        RoundState roundState = new RoundState(round, super.ID);
+        this.ai.decideStrategy(super.hand, roundState);
     }
 }

@@ -28,7 +28,7 @@ public class TwitterNetwork implements Network {
 		return inputScanner.nextLine();
 	}
     public synchronized void sendTextUpdate(TextUpdate textupdate){
-        outputPrinter.println(textupdate.getText());
+        outputPrinter.print(textupdate.getText());
     }
     
     public synchronized void sendGfxUpdate(GfxUpdate gfxupdate){
@@ -46,6 +46,6 @@ public class TwitterNetwork implements Network {
 
 	@Override
 	public void pushMessageUpdate(String update) {
-		 outputPrinter.println(update);
+		 outputPrinter.print(update);
 	}
 }

@@ -67,7 +67,7 @@ public class DrawPokerHand implements Hand {
     
     public int getGameValue(){
         
-        return 0;
+        return OnePair.getGameValue(hand, HAND_LIMIT);
     }
     
     public int getDiscardProbability(int index){

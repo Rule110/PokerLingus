@@ -68,14 +68,18 @@ public class TwitterStreamListener implements UserStreamListener{
 
 	@Override
 	public void onDirectMessage(DirectMessage arg0) {
-		Game relevantGame = pfRef.getGame(arg0.getSender().getName());
-		if(relevantGame != null){
-			relevantGame.captureMessageUpdate(arg0.getText());
-			relevantGame.notify();
-		}else if(!creationQueue.contains(arg0.getSender().getName())){
-			creationQueue.add(arg0.getSenderScreenName());
+		String sender = arg0.getSender().getScreenName();
+		System.out.println(sender);
+		if(!sender.equals("PokerLingus")){
+			Game relevantGame = pfRef.getGame(sender);
+			if(relevantGame != null){
+				relevantGame.captureMessageUpdate(arg0.getText());
+				relevantGame.notify();
+			}else if(!creationQueue.contains(arg0.getSender().getName())){
+				creationQueue.add(arg0.getSenderScreenName());
+			}
+			System.out.println(this.creationQueue);
 		}
-		System.out.println(this.creationQueue);
 	}
 
 	@Override

@@ -35,15 +35,18 @@ public class TwitterOutputStream extends OutputStream{
 	
 	@Override
 	public void write(byte[] byteRep, int offset, int length){
+		String writeString = new String(byteRep, offset, length);
+		//System.out.println("Sent String: " + writeString);
 		try {
-			twitter.sendDirectMessage(userHandle, new String(byteRep, offset, length));
+			twitter.sendDirectMessage(userHandle, writeString);
 		} catch (TwitterException e) {
+			//System.out.println("write fail");
 			e.printStackTrace();
 		}
 	}
 	
 	public static void main(String[] argds){
-		PrintStream ps= new PrintStream(new TwitterOutputStream("@DkfFay"));
+		PrintStream ps= new PrintStream(new TwitterOutputStream("DkfFay"));
 		ps.print("waddup, fam");
 		ps.close();
 	}

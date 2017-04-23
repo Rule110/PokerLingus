@@ -1,5 +1,5 @@
 package bank.framework;
-//change
+
 public interface Bank {
     public int getAvailableFunds(String playerID);
     

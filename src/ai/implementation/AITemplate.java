@@ -1,36 +1,33 @@
 package ai.implementation;
 
+import player.implementation.RoundState;
 import game.framework.Game;
 import hand.framework.Hand;
 import ai.framework.AI;
-import round.framework.Round;
 
-abstract public class AITemplate implements AI {
+public class AITemplate implements AI {
+    protected Personality personality;
     protected Game game;
-    protected boolean isFolding;
-    protected boolean isCalling;
-    protected boolean isRaising;
-    protected int raiseAmount;
     
     AITemplate(Game game){
         this.game = game;
     }
     
-    abstract public void decideStrategy(Hand hand, Round round);
-    
-    public boolean isFolding(){
-        return isFolding;
+    public boolean decideOpening(Hand hand){
+        
+        return false;
     }
     
-    public boolean isCalling(){
-        return isCalling;
+    public DiscardStrategy decideDiscarding(Hand hand){
+        
+        return null;
     }
     
-    public boolean isRaising(){
-        return isRaising;
-    }
-    
-    public int getRaise(){
-        return raiseAmount;
+    public Strategy decideStrategy(Hand hand, RoundState roundState){
+        Scale confidence = HandAssessor.assessHand(hand);
+        Scale risk = RiskAssessor.assessRisk(roundState);
+        Strategy strategy = new Strategy(confidence, risk);
+        strategy.assessSubjectively(this.personality);
+        return strategy;
     }
 }

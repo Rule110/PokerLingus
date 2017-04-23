@@ -8,8 +8,4 @@ public class SimpleAI extends AITemplate {
     public SimpleAI(Game game){
         super(game);
     }
-    
-    public void decideStrategy(Hand hand, Round round){
-        
-    }
 }

@@ -1,17 +1,15 @@
 package ai.framework;
 
+import player.implementation.RoundState;
+import ai.implementation.DiscardStrategy;
+import ai.implementation.Strategy;
+
 import hand.framework.Hand;
-import round.framework.Round;
 
 public interface AI {
-    public void decideStrategy(Hand hand, Round round);
+    public boolean decideOpening(Hand hand);
     
-    public boolean isFolding();
+    public DiscardStrategy decideDiscarding(Hand hand);
     
-    public boolean isCalling();
-    
-    public boolean isRaising();
-    
-    public int getRaise();
-
+    public Strategy decideStrategy(Hand hand, RoundState roundState);
 }

@@ -1,5 +1,10 @@
 package ai.implementation;
 
-public class RiskAssessor {
+import player.implementation.RoundState;
 
+public class RiskAssessor {
+    public static Scale assessRisk(RoundState roundState){
+        
+        return null;
+    }
 }

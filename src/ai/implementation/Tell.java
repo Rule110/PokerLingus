@@ -1,5 +1,5 @@
 package ai.implementation;
 
-public class Tell {
+public class Tell extends Behaviour {
 
 }

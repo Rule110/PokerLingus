@@ -1,7 +1,7 @@
 package ai.exceptions;
 
 public class OffTheScaleException extends RuntimeException {
-    OffTheScaleException(){
+    public OffTheScaleException(){
         super("Scale is from 0 to 9");
     }
     

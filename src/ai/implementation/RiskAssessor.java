@@ -4,7 +4,9 @@ import player.implementation.RoundState;
 
 public class RiskAssessor {
     public static Scale assessRisk(RoundState roundState){
-        
-        return null;
+        Integer chips = roundState.getChips();
+        Integer callValue = roundState.getCallValue();
+        Scale risk = new Scale((int)((callValue * 10.0) / (double)chips));
+        return risk;
     }
 }

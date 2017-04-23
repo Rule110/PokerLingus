@@ -19,13 +19,16 @@ public class AITemplate implements AI {
     }
     
     public Strategy decideStrategy(Hand hand, RoundState roundState){
+        
         Scale confidence = HandAssessor.assessHand(hand);
         
         Scale risk = RiskAssessor.assessRisk(roundState);
+        
         Scale reward = RewardAssessor.assessReward(roundState);
         
-        Strategy strategy = new Strategy(confidence, risk, reward, this.personality);
+        Integer raisePool = roundState.getChips() - roundState.getCallValue();
         
+        Strategy strategy = new Strategy(confidence, risk, reward, this.personality, raisePool);
         return strategy;
     }
 }

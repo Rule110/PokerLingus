@@ -13,15 +13,15 @@ public class RoundState {
         this.potValue = round.getPotValue();
     }
     
-    Integer getCallValue(){
+    public Integer getCallValue(){
         return this.callValue;
     }
     
-    Integer getChips(){
+    public Integer getChips(){
         return this.chips;
     }
     
-    Integer getPotValue(){
+    public Integer getPotValue(){
         return this.potValue;
     }
 }

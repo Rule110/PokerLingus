@@ -43,7 +43,7 @@ public class TwitterOutputStream extends OutputStream{
 	}
 	
 	public static void main(String[] argds){
-		PrintStream ps= new PrintStream(new TwitterOutputStream("@st33lbiscuit"));
+		PrintStream ps= new PrintStream(new TwitterOutputStream("@DkfFay"));
 		ps.print("waddup, fam");
 		ps.close();
 	}

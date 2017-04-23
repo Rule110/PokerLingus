@@ -23,6 +23,7 @@ public class TwitterInputStream extends InputStream {
     
 	private String userHandle;
 	private StringBuilder currentIn;
+	private int index = 0;
 	private Twitter twitter;
 	
 	public TwitterInputStream(String userHandle){
@@ -34,14 +35,25 @@ public class TwitterInputStream extends InputStream {
 		AccessToken accessToken = new AccessToken(ACCESS_TOKEN, ACCESS_TOKEN_SECRET);
 		twitter.setOAuthAccessToken(accessToken);
 		
+		//mutable string builder for storing input from twitter
 		currentIn = new StringBuilder();
 	}
 	
 	@Override
 	public int read() throws IOException {
+		if(available() == 0){
+			try {
+				Thread.currentThread().wait();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
 		if(currentIn.length() > 0){
-			int readByte = (int)((byte)currentIn.charAt(0));
-			currentIn = new StringBuilder(currentIn.substring(1));
+			int readByte = (int)((byte)currentIn.charAt(index++));
+			if(index >= currentIn.length()){
+				currentIn = currentIn.deleteCharAt(index);
+				index = 0;
+			}
 			return readByte;
 		}
 		return -1;
@@ -52,7 +64,7 @@ public class TwitterInputStream extends InputStream {
 		return currentIn.length();
 		
 	}
-	public void captureMessage(String messageString){
+	public synchronized void captureMessage(String messageString){
 		ResponseList<DirectMessage> dm;
 		try {
 			dm = twitter.getDirectMessages();
@@ -61,20 +73,27 @@ public class TwitterInputStream extends InputStream {
 			
 			for(DirectMessage d : dm){
 				currentIn.append((d.getText()) + "\n");
+				twitter.destroyDirectMessage(d.getId());
 			}
 		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
 	}
 	
-	public static void main(String[] argds){
-		TwitterInputStream tw  = new TwitterInputStream("DkfFay");
-		tw.captureMessage("lol");
-		Scanner ps= new Scanner(tw);
-		System.out.println(ps.nextLine());
-		ps.close();
+	public static void main(String[] argds) throws InterruptedException{
+//		TwitterInputStream tw  = new TwitterInputStream("DkfFay");
+//		//tw.captureMessage("lol");
+//		Scanner sc = new Scanner(System.in);
+//		//while(tw.available() == 0){
+//			tw.captureMessage("lol");
+//			System.out.println("l");
+//			sc.nextLine();
+//		//}
+//		Scanner ps= new Scanner(tw);
+//		System.out.println(ps.nextLine());
+//		sc.close();
+//		ps.close();
 	}
 
 }

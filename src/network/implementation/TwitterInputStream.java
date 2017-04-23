@@ -63,35 +63,11 @@ public class TwitterInputStream extends InputStream {
 		
 	}
 	public synchronized void captureMessage(String messageString){
-		ResponseList<DirectMessage> dm;
-		try {
-			dm = twitter.getDirectMessages();
-			Predicate <DirectMessage> dmNotRelevant = se-> (!(se.getSender().getName().equals(userHandle)));
-			dm.removeIf(dmNotRelevant);
-			
-			for(DirectMessage d : dm){
-				currentIn.append((d.getText()) + "\n");
-				twitter.destroyDirectMessage(d.getId());
-			}
-		} catch (TwitterException e) {
-			e.printStackTrace();
-		}
-		
+		currentIn.append(messageString);
 	}
 	
 	public static void main(String[] argds) throws InterruptedException{
-//		TwitterInputStream tw  = new TwitterInputStream("@DkfFay");
-//		//tw.captureMessage("lol");
-//		Scanner sc = new Scanner(System.in);
-//		//while(tw.available() == 0){
-//			tw.captureMessage("lol");
-//			System.out.println("l");
-//			sc.nextLine();
-//		//}
-//		Scanner ps= new Scanner(tw);
-//		System.out.println(ps.nextLine());
-//		sc.close();
-//		ps.close();
+
 	}
 
 }

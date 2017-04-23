@@ -68,7 +68,7 @@ public class TwitterInputStream extends InputStream {
 		ResponseList<DirectMessage> dm;
 		try {
 			dm = twitter.getDirectMessages();
-			Predicate <DirectMessage> dmNotRelevant = se-> (!(se.getSender().getScreenName().equals(userHandle)));
+			Predicate <DirectMessage> dmNotRelevant = se-> (!(se.getSender().getName().equals(userHandle)));
 			dm.removeIf(dmNotRelevant);
 			
 			for(DirectMessage d : dm){
@@ -82,7 +82,7 @@ public class TwitterInputStream extends InputStream {
 	}
 	
 	public static void main(String[] argds) throws InterruptedException{
-//		TwitterInputStream tw  = new TwitterInputStream("DkfFay");
+//		TwitterInputStream tw  = new TwitterInputStream("@DkfFay");
 //		//tw.captureMessage("lol");
 //		Scanner sc = new Scanner(System.in);
 //		//while(tw.available() == 0){

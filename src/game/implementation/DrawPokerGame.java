@@ -14,7 +14,7 @@ import dealer.framework.DealerFactory;
 import game.framework.Game;
 import gfxupdate.framework.GfxUpdate;
 
-public class DrawPokerGame implements Game {
+public class DrawPokerGame extends Thread implements Game {
     private Network network;
     private Dealer dealer;
     private Map<String, Player> players;
@@ -33,8 +33,15 @@ public class DrawPokerGame implements Game {
         this.bank = BankFactory.getBank("DrawPoker", players.keySet(), START_CHIPS);
     }
     
+    public void run(){
+    	
+    }
     public void pushTextUpdate(TextUpdate update){
-        
+        network.sendTextUpdate(update);
+    }
+    
+    public String getMessageUpdate(){
+    	return network.getMessageUpdate();
     }
     
     public void pushGfxUpdate(GfxUpdate update){

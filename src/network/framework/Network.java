@@ -7,4 +7,6 @@ public interface Network {
     public void sendTextUpdate(TextUpdate textupdate);
     
     public void sendGfxUpdate(GfxUpdate gfxupdate);
+    
+    public String getMessageUpdate();
 }

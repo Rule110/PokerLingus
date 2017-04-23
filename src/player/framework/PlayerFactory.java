@@ -1,7 +1,6 @@
 package player.framework;
 
 import game.framework.Game;
-import network.framework.Network;
 import player.implementation.AutomatedPlayer;
 import player.implementation.HumanPlayer;
 

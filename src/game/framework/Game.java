@@ -10,6 +10,8 @@ public abstract class Game extends Thread{
     
     public abstract void pushGfxUpdate(GfxUpdate update);
     
+    public abstract void pushMessageUpdate(String update);
+    
     public abstract String getMessageUpdate();
     
     public abstract void captureMessageUpdate(String newMessage);

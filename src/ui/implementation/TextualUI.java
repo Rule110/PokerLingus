@@ -6,6 +6,7 @@ import java.util.Scanner;
 import game.framework.Game;
 import hand.framework.Hand;
 import round.framework.Round;
+import textupdate.framework.TextUpdate;
 
 public class TextualUI extends UITemplate {
     
@@ -27,7 +28,7 @@ public class TextualUI extends UITemplate {
     }
     
     public void intro(){
-    	outStream.println("Welcome to the Automated Poker Machine... \nLet's Play Poker!");
+    	super.game.pushMessageUpdate("Welcome to the Automated Poker Machine... \nLet's Play Poker!");
     }
     
     public boolean isFolding(){
@@ -35,8 +36,8 @@ public class TextualUI extends UITemplate {
     	Boolean response = null;
     	
     	while(response != true || response != false){
-    		outStream.println("Would you like to fold (y/n)?: ");
-        	fold = input.nextLine();
+    		super.game.pushMessageUpdate("Would you like to fold (y/n)?: ");
+        	fold = super.game.getMessageUpdate();
         	
         	switch (fold.toLowerCase()){
 	    		case "y":
@@ -46,7 +47,7 @@ public class TextualUI extends UITemplate {
 	    			response = false;
 	    			break;
 	    		default:
-	    			outStream.println("Please enter a valid character!");
+	    			super.game.pushMessageUpdate("Please enter a valid character!");
 	    			break;    	
         	}
     	}
@@ -57,8 +58,8 @@ public class TextualUI extends UITemplate {
     	String call;
     	
     	while(isCalling != true || isCalling != false){
-    		outStream.println("Would you like to call (y/n)?: ");
-        	call = input.nextLine();
+    		super.game.pushMessageUpdate("Would you like to call (y/n)?: ");
+        	call = super.game.getMessageUpdate();
         	
         	switch (call.toLowerCase()){
 	    		case "y":
@@ -68,7 +69,7 @@ public class TextualUI extends UITemplate {
 	    			isCalling = false;
 	    			break;
 	    		default:
-	    			outStream.println("Please enter a valid character!");
+	    			super.game.pushMessageUpdate("Please enter a valid character!");
 	    			break;    	
         	}
     	}
@@ -79,8 +80,8 @@ public class TextualUI extends UITemplate {
     	String raise;
     	
     	while(isRaising != true || isRaising != false){
-    		outStream.println("Would you like to raise (y/n)?: ");
-        	raise = input.nextLine();
+    		super.game.pushMessageUpdate("Would you like to raise (y/n)?: ");
+        	raise = super.game.getMessageUpdate();
         	
         	switch (raise.toLowerCase()){
 	    		case "y":
@@ -90,7 +91,7 @@ public class TextualUI extends UITemplate {
 	    			isRaising = false;
 	    			break;
 	    		default:
-	    			outStream.println("Please enter a valid character!");
+	    			super.game.pushMessageUpdate("Please enter a valid character!");
 	    			break;    	
         	}
     	}
@@ -103,17 +104,17 @@ public class TextualUI extends UITemplate {
     	Boolean validAmount = false;
     	
     	while(validAmount != true){
-    		outStream.println("Please enter amount to raise by: ");
+    		super.game.pushMessageUpdate("Please enter amount to raise by: ");
     		try {
-    			raiseAmount = Integer.parseInt(input.nextLine());
+    			raiseAmount = Integer.parseInt(super.game.getMessageUpdate());
             } catch (NumberFormatException e) {
-                System.out.println("Please Enter A valid Integer");
+            	super.game.pushMessageUpdate("Please Enter A valid Integer");
                 continue;
             }        	
         	if (raiseAmount > playerChips)
-        		outStream.println("You cannot bet more chips than you have!");
+        		super.game.pushMessageUpdate("You cannot bet more chips than you have!");
         	else if (raiseAmount <= 0)
-        		outStream.println("Please enter an amount to raise by!");
+        		super.game.pushMessageUpdate("Please enter an amount to raise by!");
         	else
         		validAmount = true;
     	}

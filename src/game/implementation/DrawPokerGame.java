@@ -29,7 +29,7 @@ public class DrawPokerGame extends Game {
         this.network = network;
         this.dealer = DealerFactory.getDealer(gameType);
         this.players = new LinkedHashMap<String, Player>();
-        
+        pushMessageUpdate("Welcome to pokerFAIce, enjoy your game of" + gameType);
         for (int i = 0; i < 4; i++){
             this.players.put("AI" + i, PlayerFactory.getPlayer("Automated", this));
         }
@@ -59,4 +59,9 @@ public class DrawPokerGame extends Game {
     public void pushGfxUpdate(GfxUpdate update){
         
     }
+
+	@Override
+	public void pushMessageUpdate(String update) {
+		network.pushMessageUpdate(update);
+	}
 }

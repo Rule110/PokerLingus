@@ -27,16 +27,20 @@ public class DrawPokerRound extends RoundTemplate {
         //Sends start sequence to UI
     	//Players Built in Game.
     	//Player bank accounts built in game as well. 
+    	System.out.println("Num players " + players.size());
     	dealHands();
     	//discard phase;
     	openingPlayers = getOpeningPlayers();
     	// Loop through players, tell UI if player can open or not
-    	setOrder(); //This is the order for the CURRENT round.
-    	beginBettingPhase();	//controls betting phase.
-    	getWinner();
+    	if(!openingPlayers.isEmpty()){
+	    	setOrder(); //This is the order for the CURRENT round.
+	    	beginBettingPhase();	//controls betting phase.
+	    	getWinner();
+    	}
     }
     
     protected void dealHands(){
+    	dealer.reset();
         //Loop through map players, deal out cards until Hand limit is met
     	for (String p: players.keySet()){
     		//Hand temp = dealer.dealHand();
@@ -189,4 +193,3 @@ public class DrawPokerRound extends RoundTemplate {
         }
     }
 }
-//test push

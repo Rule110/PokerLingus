@@ -22,9 +22,9 @@ public class TwitterOutputStream extends OutputStream{
 		this.userHandle = userHandle;
 		TwitterFactory factory = new TwitterFactory();
 		twitter = factory.getInstance();
-		//twitter.setOAuthConsumer(CONSUMER_KEY, CONSUMER_KEY_SECRET);
+		twitter.setOAuthConsumer(CONSUMER_KEY, CONSUMER_KEY_SECRET);
 		AccessToken accessToken = new AccessToken(ACCESS_TOKEN, ACCESS_TOKEN_SECRET);
-		//twitter.setOAuthAccessToken(accessToken);
+		twitter.setOAuthAccessToken(accessToken);
 	}
     
 	@Override

@@ -10,7 +10,6 @@ import twitter4j.*;
 public class TwitterStreamListener implements UserStreamListener{
 
 	private Queue<String> creationQueue = new LinkedList<String>();
-	private boolean hasNewDM = false;
 	private PokerFAIce pfRef;
 	
 	public TwitterStreamListener(PokerFAIce pf){

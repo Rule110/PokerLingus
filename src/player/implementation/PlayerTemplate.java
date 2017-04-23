@@ -3,6 +3,7 @@ package player.implementation;
 import java.util.Vector;
 
 import hand.framework.Hand;
+import hand.implementation.OnePair;
 import hand.implementation.PlayingCard;
 import player.framework.Player;
 import round.framework.Round;
@@ -30,6 +31,10 @@ abstract public class PlayerTemplate implements Player {
     abstract public void decideStrategy(Round round);
     
     abstract public int getOpeningBet();
+    
+    public boolean canOpen(){
+    	return this.hand.getGameValue() > OnePair.ONE_PAIR_DEFAULT;
+    }
     
     public boolean isFolding(){
     	return this.isFolding;

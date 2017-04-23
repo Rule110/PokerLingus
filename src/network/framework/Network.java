@@ -10,5 +10,7 @@ public interface Network {
     
     public String getMessageUpdate();
     
+    public void pushMessageUpdate(String update);
+    
     public void captureMessageUpdate(String newMessage);
 }

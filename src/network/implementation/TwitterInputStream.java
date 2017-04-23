@@ -2,8 +2,6 @@ package network.implementation;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintStream;
-import java.util.Scanner;
 import java.util.function.Predicate;
 
 import twitter4j.DirectMessage;

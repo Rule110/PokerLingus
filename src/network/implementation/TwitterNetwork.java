@@ -43,4 +43,9 @@ public class TwitterNetwork implements Network {
     public String getUserHandle(){
     	return this.userHandle;
     }
+
+	@Override
+	public void pushMessageUpdate(String update) {
+		 outputPrinter.println(update);
+	}
 }

@@ -1,5 +1,6 @@
 package bank.implementation;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
@@ -10,6 +11,7 @@ public class DrawPokerBank implements Bank {
 	private Map<String, BankAccount> accounts;
 	
 	public DrawPokerBank(Set<String> playerIDs, int startChips){
+		accounts = new HashMap<String, BankAccount>();
     	for (String playerID: playerIDs){
     		accounts.put(playerID, new BankAccount(startChips));
     	}

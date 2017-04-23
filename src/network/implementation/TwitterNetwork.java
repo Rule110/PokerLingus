@@ -35,6 +35,11 @@ public class TwitterNetwork implements Network {
         
     }
     
+	@Override
+	public synchronized void captureMessageUpdate(String newMessage) {
+		inputStream.captureMessage(newMessage);
+	}
+	
     public String getUserHandle(){
     	return this.userHandle;
     }

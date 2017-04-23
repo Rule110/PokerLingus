@@ -9,4 +9,6 @@ public interface Network {
     public void sendGfxUpdate(GfxUpdate gfxupdate);
     
     public String getMessageUpdate();
+    
+    public void captureMessageUpdate(String newMessage);
 }

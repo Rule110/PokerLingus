@@ -15,6 +15,8 @@ public interface Player {
     
     public int getOpeningBet();
     
+    public boolean canOpen();
+    
     public boolean isFolding();
     
     public boolean isCalling();

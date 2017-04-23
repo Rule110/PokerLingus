@@ -2,6 +2,7 @@ package game.implementation;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 import bank.framework.Bank;
 import bank.framework.BankFactory;
@@ -29,7 +30,8 @@ public class DrawPokerGame extends Game {
         this.network = network;
         this.dealer = DealerFactory.getDealer(gameType);
         this.players = new LinkedHashMap<String, Player>();
-        pushMessageUpdate("Welcome to pokerFAIce, enjoy your game of" + gameType);
+        pushMessageUpdate("Welcome to pokerFAIce, enjoy your game of " + gameType);
+       
         for (int i = 0; i < 4; i++){
             this.players.put("AI" + i, PlayerFactory.getPlayer("Automated", this));
         }

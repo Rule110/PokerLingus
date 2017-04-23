@@ -27,10 +27,10 @@ public class DrawPokerRound extends RoundTemplate {
         //Sends start sequence to UI
     	//Players Built in Game.
     	//Player bank accounts built in game as well. 
-    	System.out.println("Num players " + players.size());
     	dealHands();
     	//discard phase;
     	openingPlayers = getOpeningPlayers();
+    	roundOrder = new LinkedList<String>();
     	// Loop through players, tell UI if player can open or not
     	if(!openingPlayers.isEmpty()){
 	    	setOrder(); //This is the order for the CURRENT round.
@@ -67,7 +67,7 @@ public class DrawPokerRound extends RoundTemplate {
         //return ordered vector of players who CAN open. ie have better than high hand.
     	Vector<String> open = new Vector<String>(players.size());
     	for (String p: players.keySet()){
-    		if (players.get(p).getHand().getGameValue() > OnePair.ONE_PAIR_DEFAULT){
+    		if (players.get(p).canOpen()){
     			open.addElement(p);
     		}
     	}
@@ -78,7 +78,9 @@ public class DrawPokerRound extends RoundTemplate {
 		String firstPlayer = openingPlayers.firstElement();
 	    int remainder = 0;
 	    boolean firstFound = false;
+	   
 	    for (String p: players.keySet()){
+	    	 System.out.print(p + "\n..");
 				if (p.equals(firstPlayer)){
 					firstFound = true;
 					roundOrder.addFirst(p);

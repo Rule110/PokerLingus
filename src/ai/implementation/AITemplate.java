@@ -13,11 +13,6 @@ public class AITemplate implements AI {
         this.game = game;
     }
     
-    public boolean decideOpening(Hand hand){
-        
-        return false;
-    }
-    
     public DiscardStrategy decideDiscarding(Hand hand){
         
         return null;
@@ -25,9 +20,12 @@ public class AITemplate implements AI {
     
     public Strategy decideStrategy(Hand hand, RoundState roundState){
         Scale confidence = HandAssessor.assessHand(hand);
+        
         Scale risk = RiskAssessor.assessRisk(roundState);
-        Strategy strategy = new Strategy(confidence, risk);
-        strategy.assessSubjectively(this.personality);
+        Scale reward = RewardAssessor.assessReward(roundState);
+        
+        Strategy strategy = new Strategy(confidence, risk, reward, this.personality);
+        
         return strategy;
     }
 }

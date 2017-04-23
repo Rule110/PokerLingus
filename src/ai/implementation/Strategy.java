@@ -1,5 +1,5 @@
 package ai.implementation;
 
-public class Trait {
+public class Strategy {
 
 }

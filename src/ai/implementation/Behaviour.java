@@ -1,5 +1,5 @@
 package ai.implementation;
 
-public class Learner {
+public class Behaviour {
 
 }

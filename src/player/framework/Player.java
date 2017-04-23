@@ -22,7 +22,7 @@ public interface Player {
     public boolean isRaising();
     
     public int getRaise();
-        
+    
     public Hand getHand();
     
     public void setHand(Hand hand);

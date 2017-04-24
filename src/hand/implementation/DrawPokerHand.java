@@ -67,39 +67,43 @@ public class DrawPokerHand implements Hand {
       return buffer.toString();
     }
     
+    /**
+     * Get Game Value of Hand
+     * @reutnr gameValue
+     */
     public int getGameValue(){
-        int gamevalue = 0;
+        int gameValue = 0;
         if (this.isHighHand()){
-            gamevalue = HighHand.getGameValue(this.hand, HAND_LIMIT);
+            gameValue = HighHand.getGameValue(this.hand, HAND_LIMIT);
         }
         else if (this.isOnePair()){
-            gamevalue = OnePair.getGameValue(this.hand, HAND_LIMIT);
+            gameValue = OnePair.getGameValue(this.hand, HAND_LIMIT);
         }
         else if (this.isTwoPair()){
-            gamevalue = TwoPair.getGameValue(this.hand, HAND_LIMIT);
+            gameValue = TwoPair.getGameValue(this.hand, HAND_LIMIT);
         }
         else if (this.isThreeOfAKind()){
-            gamevalue = ThreeOfAKind.getGameValue(this.hand, HAND_LIMIT);
+            gameValue = ThreeOfAKind.getGameValue(this.hand, HAND_LIMIT);
         }
         else if (this.isStraight()){
-            gamevalue = Straight.getGameValue(this.hand, HAND_LIMIT);
+            gameValue = Straight.getGameValue(this.hand, HAND_LIMIT);
         }
         else if (this.isFlush()){
-            gamevalue = Flush.getGameValue(this.hand, HAND_LIMIT);
+            gameValue = Flush.getGameValue(this.hand, HAND_LIMIT);
         }
         else if (this.isFullHouse()){
-            gamevalue = FullHouse.getGameValue(this.hand, HAND_LIMIT);
+            gameValue = FullHouse.getGameValue(this.hand, HAND_LIMIT);
         }
         else if (this.isFourOfAKind()){
-            gamevalue = FourOfAKind.getGameValue(this.hand, HAND_LIMIT);
+            gameValue = FourOfAKind.getGameValue(this.hand, HAND_LIMIT);
         }
         else if (this.isStraightFlush()){
-            gamevalue = StraightFlush.getGameValue(this.hand, HAND_LIMIT);
+            gameValue = StraightFlush.getGameValue(this.hand, HAND_LIMIT);
         }
         else if (this.isRoyalFlush()){
-            gamevalue = RoyalFlush.getGameValue();
+            gameValue = RoyalFlush.getGameValue();
         }
-        return gamevalue;
+        return gameValue;
     }
     
     /**

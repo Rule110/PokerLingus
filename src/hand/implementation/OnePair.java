@@ -2,6 +2,12 @@ package hand.implementation;
 
 import java.util.HashMap;
 
+/**
+ * One Pair Utility class
+ * @author Rory Buckley
+ * @author Darragh Fay
+ *
+ */
 public class OnePair {
 	public static final int ONE_PAIR_DEFAULT        = 1000000;//1098240;
 	public static int getGameValue(PlayingCard[] hand, int max){

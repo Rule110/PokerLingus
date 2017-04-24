@@ -2,6 +2,12 @@ package hand.implementation;
 
 import java.util.HashMap;
 
+/**
+ * Three Of A Kind Utility class
+ * @author Rory Buckley
+ * @author Darragh Fay
+ *
+ */
 public class ThreeOfAKind {
 	public static final int THREE_OF_A_KIND_DEFAULT = 3000000;//54912;
 	public static int getGameValue(PlayingCard[] hand, int max){

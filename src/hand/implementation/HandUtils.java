@@ -3,9 +3,14 @@ package hand.implementation;
 import java.util.HashMap;
 import java.util.Stack;
 
+/**
+ * Utility class to sort and analyse Hand
+ * @author Rory Buckley
+ *
+ */
 public class HandUtils {
     /**
-     * Private helper method to count the number of cards of a particular Face Value
+     * Utility method to count the number of cards of a particular Face Value
      * @return counter Counter keeps track of the number of cards of a particular Face Value
      */
     static HashMap<Integer, Integer> faceCount(PlayingCard[] hand){
@@ -46,7 +51,7 @@ public class HandUtils {
     }
     
     /**
-     * Private helper method to determine the number of pairs in the Hand
+     * Utility method to determine the number of pairs in the Hand
      * @return paircount The number of pairs in the Hand
      */
     static int pairCount(HashMap<Integer, Integer> counter){
@@ -61,7 +66,7 @@ public class HandUtils {
     }
     
     /**
-     * Private helper method to determine if the hand contains a Flush
+     * Utility method to determine if the hand contains a Flush
      * @return true if hand contains a flush
      */
     static boolean containsFlush(PlayingCard[] hand){
@@ -77,7 +82,7 @@ public class HandUtils {
     }
     
     /**
-     * Private helper method to determine if the hand contains a Straight
+     * Utility method to determine if the hand contains a Straight
      * @return true if the hand contains a straight
      */
     static boolean containsStraight(PlayingCard[] hand){
@@ -99,7 +104,7 @@ public class HandUtils {
     }
     
     /**
-     * Private helper method to determine if the hand contains a Royal Straight
+     * Utility method to determine if the hand contains a Royal Straight
      * @return true if the hand contains a royal straight
      */
     static boolean containsRoyalStraight(PlayingCard[] hand){
@@ -124,7 +129,6 @@ public class HandUtils {
     
     /**
      * Sort sorts the hand of cards dealt from the deck
-     * Also caches into class fields values needed for the boolean public methods
      */
     static PlayingCard[] sort(PlayingCard[] hand){
       for (int i = 0; i < hand.length; i++){

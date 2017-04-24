@@ -2,6 +2,12 @@ package hand.implementation;
 
 import java.util.HashMap;
 
+/**
+ * High Hand Utility class
+ * @author Rory Buckley
+ * @author Darragh Fay
+ *
+ */
 public class HighHand {
 	public static final int HIGH_HAND_DEFAULT       = 0;      //1302540 possible hands, value range [17507, 568243]
 	public static int getGameValue(PlayingCard[] hand, int max){

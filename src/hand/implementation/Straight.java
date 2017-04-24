@@ -1,5 +1,11 @@
 package hand.implementation;
 
+/**
+ * Straight Utility class
+ * @author Rory Buckley
+ * @author Darragh Fay
+ *
+ */
 public class Straight {
 	public static final int STRAIGHT_DEFAULT        = 4000000;//10200;
 	public static int getGameValue(PlayingCard hand[], int max){

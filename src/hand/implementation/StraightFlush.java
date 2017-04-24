@@ -1,5 +1,11 @@
 package hand.implementation;
 
+/**
+ * Straight Flush Utility class
+ * @author Rory Buckley
+ * @author Darragh Fay
+ *
+ */
 public class StraightFlush {
 	public static int STRAIGHT_FLUSH_DEFAULT  = 8000000;//36
 	public static int getGameValue(PlayingCard hand[], int max){

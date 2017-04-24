@@ -1,5 +1,11 @@
 package hand.implementation;
 
+/**
+ * Royal Flush Utility class
+ * @author Rory Buckley
+ * @author Darragh Fay
+ *
+ */
 public class RoyalFlush {
 	public static final int ROYAL_FLUSH_DEFAULT     = 9000000;//4
 	public static int getGameValue(){    

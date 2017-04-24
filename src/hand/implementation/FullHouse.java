@@ -2,6 +2,12 @@ package hand.implementation;
 
 import java.util.HashMap;
 
+/**
+ * Full House Utility class
+ * @author Rory Buckley
+ * @author Darragh Fay
+ *
+ */
 public class FullHouse {
 	public static final int FULL_HOUSE_DEFAULT      = 6000000;//3744
 	public static int getGameValue(PlayingCard[] hand, int max){

@@ -2,6 +2,12 @@ package hand.implementation;
 
 import java.util.HashMap;
 
+/**
+ * Two Pair Utility class
+ * @author Rory Buckley
+ * @author Darragh Fay
+ *
+ */
 public class TwoPair {
 	public static final int TWO_PAIR_DEFAULT        = 2000000;
 	public static int getGameValue(PlayingCard[] hand, int max){

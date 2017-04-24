@@ -2,6 +2,12 @@ package hand.implementation;
 
 import java.util.HashMap;
 
+/**
+ * Four Of A KInd Utility class
+ * @author Rory Buckley
+ * @author Darragh Fay
+ *
+ */
 public class FourOfAKind {
 	public static final int FOUR_OF_A_KIND_DEFAULT  = 7000000;//624
 	public static int getGameValue(PlayingCard[] hand, int max){

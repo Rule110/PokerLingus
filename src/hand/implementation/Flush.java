@@ -1,5 +1,11 @@
 package hand.implementation;
 
+/**
+ * Flush Utility class
+ * @author Rory Buckley
+ * @author Darragh Fay
+ *
+ */
 public class Flush {
 	public static final int FLUSH_DEFAULT           = 5000000;//5108;
 	public static int getGameValue(PlayingCard[] hand, int max){

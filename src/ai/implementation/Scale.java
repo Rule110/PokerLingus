@@ -18,7 +18,7 @@ public class Scale {
         return new Scale((this.scale * other.scale) / MAX_SCALE);
     }
     
-    Scale proportionalDifference(Scale other){
+    Scale differenceOnScale(Scale other){
         Integer difference = this.scale - other.scale;
         if (difference < 0){
             difference = 0;
@@ -41,5 +41,9 @@ public class Scale {
     
     Integer scale(Integer toScale){
         return (toScale * this.scale) / MAX_SCALE;
+    }
+    
+    Scale min(Scale other){
+        return this.scale < other.scale ? this : other;
     }
 }

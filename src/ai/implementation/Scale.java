@@ -2,8 +2,6 @@ package ai.implementation;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import ai.exceptions.OffTheScaleException;
-
 /**
  * Scale class represents the degree of certainty on a scale
  * Can be objective or subjective certainty
@@ -35,9 +33,15 @@ public class Scale {
      * @param scale
      */
     Scale(Integer scale){
-        if (scale > MAX_SCALE || scale < MIN_SCALE) throw new OffTheScaleException();
-        
-        this.scale = scale;
+        if (scale > Scale.MAX_SCALE){
+            this.scale = Scale.MAX_SCALE;
+        }
+        else if (scale < Scale.MIN_SCALE){
+            this.scale = Scale.MIN_SCALE;
+        }
+        else {
+            this.scale = scale;
+        }
     }
     
     /**

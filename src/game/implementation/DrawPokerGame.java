@@ -12,6 +12,7 @@ import player.framework.PlayerFactory;
 import round.framework.Round;
 import round.framework.RoundFactory;
 import textupdate.framework.TextUpdate;
+import database.framework.Database;
 import dealer.framework.Dealer;
 import dealer.framework.DealerFactory;
 import game.framework.Game;
@@ -20,6 +21,7 @@ import gfxupdate.framework.GfxUpdate;
 public class DrawPokerGame extends Game {
 	private String gameType = "DrawPoker";
     private Network network;
+    private Database database;
     private Dealer dealer;
     private Map<String, Player> players;
     private Bank bank;
@@ -64,5 +66,9 @@ public class DrawPokerGame extends Game {
 	@Override
 	public void pushMessageUpdate(String update) {
 		network.pushMessageUpdate(update);
+	}
+	
+	public Database getDatabase(){
+	    return this.database;
 	}
 }

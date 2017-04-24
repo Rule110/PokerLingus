@@ -9,7 +9,9 @@ import game.framework.Game;
  *
  */
 public class AIDynamicPersistent extends AIComplex {
+    
     public AIDynamicPersistent(Game game){
-        super(game, new Personality());
+        
+        super(game, PersistentPersonality.retrieve(game, "Dynamic"));
     }
 }

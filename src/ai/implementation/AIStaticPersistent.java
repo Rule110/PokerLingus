@@ -9,7 +9,9 @@ import game.framework.Game;
  *
  */
 public class AIStaticPersistent extends AIComplex {
+    
     public AIStaticPersistent(Game game){
-        super(game, new Personality());
+        
+        super(game, PersistentPersonality.retrieve(game, "Static"));
     }
 }

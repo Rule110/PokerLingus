@@ -1,5 +1,6 @@
 package game.framework;
 
+import database.framework.Database;
 import gfxupdate.framework.GfxUpdate;
 import textupdate.framework.TextUpdate;
 
@@ -15,4 +16,6 @@ public abstract class Game extends Thread{
     public abstract String getMessageUpdate();
     
     public abstract void captureMessageUpdate(String newMessage);
+    
+    public abstract Database getDatabase();
 }

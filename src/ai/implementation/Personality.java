@@ -8,23 +8,29 @@ public class Personality {
     private Scale jitteriness;
     private Tell tell;
     
-    Personality(String type){
-        switch (type){
-        case "Simple":
-            break;
-        case "StaticRandom":
-            break;
-        case "StaticPersistent":
-            break;
-        case "DynamicPersistent":
-            break;
-        default:
-            throw new RuntimeException("Personality Type not recognised!");
-        }
+    /**
+     * Loads up a persistently stored personality
+     * @param persistentStoredPersonality
+     */
+    Personality(Personality persistentStoredPersonality){
+        this.bluffingAbility = persistentStoredPersonality.bluffingAbility;
+        this.riskAversion = persistentStoredPersonality.riskAversion;
+        this.jitteriness = persistentStoredPersonality.jitteriness;
+        this.tell = persistentStoredPersonality.tell;
+    }
+    
+    /**
+     * Generates a new random personality
+     */
+    Personality(){
+        this.bluffingAbility = new Scale();
+        this.riskAversion = new Scale();
+        this.jitteriness = new Scale();
+        this.tell = new Tell();
     }
     
     public Scale getBluffedConfidence(Scale confidence){
-        Scale bluffedConfidence = confidence.regressToMeanByDegree(this.bluffingAbility) ;
+        Scale bluffedConfidence = confidence.regressToMeanByDegree(this.bluffingAbility);
         return bluffedConfidence;
     }
     
@@ -36,8 +42,8 @@ public class Personality {
     public Behaviour getBehaviour(){
         Behaviour behaviour;
         Scale random = new Scale(ThreadLocalRandom.current().nextInt(0, 11));
-        if (random.compareTo(jitteriness) < 0){
-            behaviour = tell;
+        if (random.compareTo(this.jitteriness) < 0){
+            behaviour = this.tell;
         }
         else {
             behaviour = new Behaviour();

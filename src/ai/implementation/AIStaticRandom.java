@@ -4,6 +4,6 @@ import game.framework.Game;
 
 public class AIStaticRandom extends AIComplex {
     public AIStaticRandom(Game game){
-        super(game, new Personality("StaticRandom"));
+        super(game, new Personality());
     }
 }

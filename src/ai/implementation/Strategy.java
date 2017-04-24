@@ -11,11 +11,15 @@ public class Strategy {
     Strategy(Scale confidence, Scale risk, Scale reward, Personality personality, Integer raisePool){
         
         Scale perceivedRisk = personality.getPerceivedRisk(risk);
-        this.setDecisions(confidence, perceivedRisk);
         
-        if (!this.isFolding){
-            Scale rewardCappedConfidence = confidence.min(reward);
+        Scale rewardCappedConfidence = confidence.min(reward);
+        
+        this.setDecisions(rewardCappedConfidence, perceivedRisk);
+        
+        if (this.isRaising){
+            
             Scale raiseConfidence = rewardCappedConfidence.differenceOnScale(perceivedRisk);
+            
             this.setRaiseAmount(raiseConfidence, personality, raisePool);
         }
     }

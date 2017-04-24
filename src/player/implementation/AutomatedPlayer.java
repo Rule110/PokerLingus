@@ -4,6 +4,7 @@ import game.framework.Game;
 import round.framework.Round;
 import ai.framework.AI;
 import ai.framework.AIFactory;
+import ai.implementation.DiscardStrategy;
 import ai.implementation.Strategy;
 
 public class AutomatedPlayer extends PlayerTemplate {
@@ -15,7 +16,8 @@ public class AutomatedPlayer extends PlayerTemplate {
     }
     
     public void decideDiscarding(){
-        
+        DiscardStrategy discardStrategy = this.ai.decideDiscarding(hand);
+        super.discardindices = discardStrategy.getDiscardableCards();
     }
     
     public int getOpeningBet(){

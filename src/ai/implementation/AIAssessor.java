@@ -29,4 +29,9 @@ public class AIAssessor {
         Scale handAssessment = new Scale(valueOnScale);
         return handAssessment;
     }
+    
+    public static DiscardStrategy assessDiscarding(Hand hand){
+        
+        return null;
+    }
 }

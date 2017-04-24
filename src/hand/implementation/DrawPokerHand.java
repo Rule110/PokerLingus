@@ -102,8 +102,13 @@ public class DrawPokerHand implements Hand {
         return gamevalue;
     }
     
+    /**
+     * discardCard method returns a discarded card from the hand and swaps with a replacement
+     * @return discardedCard
+     */
     public PlayingCard discardCard(int index, PlayingCard replacement){
-        
-        return null;
+        PlayingCard discardedCard = this.hand[index];
+        this.hand[index] = replacement;
+        return discardedCard;
     }
 }

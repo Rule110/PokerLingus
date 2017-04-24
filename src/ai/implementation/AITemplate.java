@@ -16,7 +16,7 @@ abstract public class AITemplate implements AI {
     
     public DiscardStrategy decideDiscarding(Hand hand){
         
-        return null;
+        return AIAssessor.assessDiscarding(hand);
     }
     
     public Strategy decideStrategy(Hand hand, RoundState roundState){

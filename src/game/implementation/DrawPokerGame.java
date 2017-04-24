@@ -2,7 +2,6 @@ package game.implementation;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 import bank.framework.Bank;
 import bank.framework.BankFactory;

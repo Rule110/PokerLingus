@@ -6,7 +6,9 @@ public class RiskAssessor {
     public static Scale assessRisk(RoundState roundState){
         Integer chips = roundState.getChips();
         Integer callValue = roundState.getCallValue();
-        Scale risk = new Scale((int)((callValue * 10.0) / (double)chips));
+        Double ratio = (double)callValue / (double)chips;
+        Integer scale = (int)(ratio * 10);
+        Scale risk = new Scale(scale);
         return risk;
     }
 }

@@ -24,4 +24,20 @@ public class HumanPlayer extends PlayerTemplate {
     public void decideStrategy(Round round){
         this.ui.decideStrategy(super.hand, round);
     }
+    
+    public boolean isFolding(){
+        return this.ui.isFolding();
+    }
+    
+    public boolean isCalling(){
+        return this.ui.isCalling();
+    }
+    
+    public boolean isRaising(){
+        return this.ui.isRaising();
+    }
+    
+    public int getRaise(){
+        return this.ui.getRaise();
+    }
 }

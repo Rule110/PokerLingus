@@ -12,10 +12,6 @@ abstract public class PlayerTemplate implements Player {
 	protected String ID;
     protected Hand hand;
     protected Vector<Integer> discardindices;
-    protected boolean isFolding;
-    protected boolean isCalling;
-    protected boolean isRaising;
-    protected int raiseAmount;
     
     abstract public void decideDiscarding();
     
@@ -36,21 +32,13 @@ abstract public class PlayerTemplate implements Player {
     	return this.hand.getGameValue() > OnePair.ONE_PAIR_DEFAULT;
     }
     
-    public boolean isFolding(){
-    	return this.isFolding;
-    }
+    abstract public boolean isFolding();
     
-    public boolean isCalling(){
-    	return this.isCalling;
-    }
+    abstract public boolean isCalling();
     
-    public boolean isRaising(){
-    	return this.isRaising;
-    }
+    abstract public boolean isRaising();
     
-    public int getRaise(){
-    	return this.raiseAmount;
-    }
+    abstract public int getRaise();
 
 	public void setHand(Hand hand) {
 	    this.hand = hand;

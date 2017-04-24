@@ -4,7 +4,11 @@ import player.implementation.RoundState;
 
 public class RewardAssessor {
     public static Scale assessReward(RoundState roundState){
-        Scale reward = new Scale((int)((roundState.getChips() * 10.0) / (double)roundState.getPotValue()));
+        Integer potValue = roundState.getPotValue();
+        Integer chips = roundState.getChips();
+        Double ratio = (double)potValue / (double)chips;
+        Integer scale = (int)(ratio * 10);
+        Scale reward = new Scale(scale);
         return reward;
     }
 }

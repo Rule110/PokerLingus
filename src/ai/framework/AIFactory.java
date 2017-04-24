@@ -1,10 +1,10 @@
 package ai.framework;
 
 import game.framework.Game;
-import ai.implementation.ComplexDynamicPersistentAI;
-import ai.implementation.ComplexStaticPersistentAI;
-import ai.implementation.ComplexStaticRandomAI;
-import ai.implementation.SimpleAI;
+import ai.implementation.AIDynamicPersistent;
+import ai.implementation.AIStaticPersistent;
+import ai.implementation.AIStaticRandom;
+import ai.implementation.AISimple;
 
 public class AIFactory {
     public static AI getAI(String type, Game game){
@@ -12,16 +12,16 @@ public class AIFactory {
         
         switch (type){
         case "Simple":
-            ai = new SimpleAI(game);
+            ai = new AISimple(game);
             break;
         case "ComplexStaticRandom":
-            ai = new ComplexStaticRandomAI(game);
+            ai = new AIStaticRandom(game);
             break;
         case "ComplexStaticPersistent":
-            ai = new ComplexStaticPersistentAI(game);
+            ai = new AIStaticPersistent(game);
             break;
         case "ComplexDynamicPersistent":
-            ai = new ComplexDynamicPersistentAI(game);
+            ai = new AIDynamicPersistent(game);
             break;
         default:
             throw new RuntimeException();

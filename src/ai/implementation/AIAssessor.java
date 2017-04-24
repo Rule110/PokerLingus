@@ -4,6 +4,12 @@ import hand.framework.Hand;
 import hand.implementation.RoyalFlush;
 import player.implementation.RoundState;
 
+/**
+ * AI Assessor Utility Class
+ * Utility class to help AI assess degrees of certainty on scales
+ * @author Rory Buckley
+ *
+ */
 public class AIAssessor {
     public static Scale assessReward(RoundState roundState){
         Integer potValue = roundState.getPotValue();

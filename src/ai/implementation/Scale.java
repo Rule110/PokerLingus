@@ -4,6 +4,13 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import ai.exceptions.OffTheScaleException;
 
+/**
+ * Scale class represents the degree of certainty on a scale
+ * Can be objective or subjective certainty
+ * Scale is 0 to 10 in this implementation
+ * @author Rory Buckley
+ *
+ */
 public class Scale {
     static final Integer MAX_SCALE = 10;
     static final Integer MIN_SCALE = 0;
@@ -33,10 +40,29 @@ public class Scale {
         this.scale = scale;
     }
     
+    /**
+     * Scale other scale by this scale
+     * @param other
+     * @return scaled scale
+     */
     Scale scaleByDegree(Scale other){
         return new Scale((this.scale * other.scale) / MAX_SCALE);
     }
     
+    /**
+     * Scale integer by this scale
+     * @param toScale
+     * @return scaled integer
+     */
+    Integer scale(Integer toScale){
+        return (toScale * this.scale) / MAX_SCALE;
+    }
+    
+    /**
+     * Represent the difference between two Scales as another scale
+     * @param other
+     * @return scale representing difference
+     */
     Scale differenceOnScale(Scale other){
         Integer difference = this.scale - other.scale;
         if (difference < 0){
@@ -47,6 +73,11 @@ public class Scale {
         return proportionalDifference;
     }
     
+    /**
+     * Regress a scale to its mean to the degree specified by another scale
+     * @param regressionDegree
+     * @return scale regressed to mean by degree of input scale
+     */
     Scale regressToMeanByDegree(Scale regressionDegree){
         Integer distanceToAvg = AVG_SCALE - this.scale;
         Integer regressionAmount = (distanceToAvg * regressionDegree.scale) / MAX_SCALE;
@@ -54,14 +85,23 @@ public class Scale {
         return regressedToMean;
     }
     
+    /**
+     * Compares two scales with each other
+     * @param other
+     * @return 0 if equals,
+     *  less than 0 if this scale is greater than other,
+     *  greater than 0 if this scale is smaller than other
+     */
     int compareTo(Scale other){
         return this.scale.compareTo(other.scale);
     }
     
-    Integer scale(Integer toScale){
-        return (toScale * this.scale) / MAX_SCALE;
-    }
-    
+    /**
+     * Get scale that is smallest of the this scale
+     *  and the other input scale
+     * @param other
+     * @return min
+     */
     Scale min(Scale other){
         return this.scale < other.scale ? this : other;
     }

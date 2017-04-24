@@ -5,6 +5,12 @@ import game.framework.Game;
 import hand.framework.Hand;
 import ai.framework.AI;
 
+/**
+ * AI Template class
+ * Encapsulates code shared between all implementations
+ * @author Rory Buckley
+ *
+ */
 abstract public class AITemplate implements AI {
     protected Personality personality;
     protected Game game;
@@ -14,11 +20,22 @@ abstract public class AITemplate implements AI {
         this.personality = personality;
     }
     
+    /**
+     * AI asked to decide Discard Strategy based on Hand
+     * @param hand
+     * @return discardStrategy
+     */
     public DiscardStrategy decideDiscarding(Hand hand){
         
         return AIAssessor.assessDiscarding(hand);
     }
     
+    /**
+     * AI asked to decide betting Strategy based on Hand and roundState
+     * @param hand
+     * @param roundState
+     * @return strategy
+     */
     public Strategy decideStrategy(Hand hand, RoundState roundState){
         
         Scale confidence = AIAssessor.assessHand(hand);
@@ -36,5 +53,12 @@ abstract public class AITemplate implements AI {
         return strategy;
     }
     
+    /**
+     * AI has the ability to express Personality
+     * May or may not be used by child classes
+     * Simple AI doesn't express Personality
+     * Complex AI expresses Personality
+     * @param strategy
+     */
     abstract protected void expressPersonality(Strategy strategy);
 }

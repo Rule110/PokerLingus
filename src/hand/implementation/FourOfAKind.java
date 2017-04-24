@@ -36,4 +36,13 @@ public class FourOfAKind {
         Integer maxcount = HandUtils.maxCount(facecount);
         return (maxcount == 4);
     }
+    
+    /**
+     * Distance of card from being part of HandType FourOfAKind
+     * @param cardposition
+     * @return distance
+     */
+    double distanceToFourOfAKind(int cardposition, PlayingCard[] hand){
+      return HandUtils.distanceOfCardFrom(4, cardposition, hand) / 4.0;
+    }
 }

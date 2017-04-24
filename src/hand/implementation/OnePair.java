@@ -41,11 +41,20 @@ public class OnePair {
      * Determines if the hand is a One Pair
      * @return true if the highest count is a pair and there's one pair and its not a flush
      */
-    public static boolean isType(PlayingCard[] hand){
+    static boolean isType(PlayingCard[] hand){
         HashMap<Integer, Integer> facecount = HandUtils.faceCount(hand);
         Integer maxcount = HandUtils.maxCount(facecount);
         Integer paircount = HandUtils.pairCount(facecount);
         boolean flush = HandUtils.containsFlush(hand);
         return (maxcount == 2) && (paircount == 1) && !flush;
+    }
+    
+    /**
+     * Distance of card from being part of HandType One Pair
+     * @param cardposition
+     * @return distance
+     */
+    static double distanceToOnePair(int cardposition, PlayingCard[] hand){
+      return HandUtils.distanceOfCardFrom(2, cardposition, hand) / 2.0;
     }
 }

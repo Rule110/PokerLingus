@@ -32,4 +32,20 @@ public class Flush {
         boolean royal = HandUtils.containsRoyalStraight(hand);
         return flush && !straight && !royal;
     }
+    
+    /**
+     * Distance of card from being part of HandType Flush
+     * @param cardposition
+     * @return distance
+     */
+    double distanceToFlush(int cardposition, PlayingCard[] hand){
+      int flushcount = 0;
+      char suit = hand[cardposition].getSuit();
+      for (PlayingCard card : hand){
+        if (card.getSuit() == suit){
+          flushcount++;
+        }
+      }
+      return (hand.length - flushcount) / 5.0;
+    }
 }

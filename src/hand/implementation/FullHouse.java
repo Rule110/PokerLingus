@@ -39,4 +39,16 @@ public class FullHouse {
         Integer paircount = HandUtils.pairCount(facecount);
         return (maxcount == 3) && (paircount == 1);
     }
+    
+    /**
+     * Distance of card from being part of HandType FullHouse
+     * @param cardposition
+     * @return distance
+     */
+    double distanceToFullHouse(int cardposition, PlayingCard[] hand){
+      return HandUtils.min((HandUtils.distanceOfCardFrom(3, cardposition, hand) 
+              + HandUtils.distanceOfRestFrom(2, cardposition, hand)) / 5.0,
+          (HandUtils.distanceOfCardFrom(2, cardposition, hand) 
+                  + HandUtils.distanceOfRestFrom(3, cardposition, hand)) / 5.0);
+    }
 }

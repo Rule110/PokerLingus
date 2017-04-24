@@ -1,11 +1,13 @@
 package hand.implementation;
 
+import java.util.Iterator;
+
 import hand.framework.Hand;
 
 public class DrawPokerHand implements Hand {
     
 	public static int HAND_LIMIT = 5;
-	public PlayingCard[] hand;
+	private PlayingCard[] hand;
 	
 	public DrawPokerHand(){
 		hand = new PlayingCard[HAND_LIMIT];
@@ -107,12 +109,41 @@ public class DrawPokerHand implements Hand {
     }
     
     /**
-     * discardCard method returns a discarded card from the hand and swaps with a replacement
+     * Returns a discarded card from the hand and swaps with a replacement
      * @return discardedCard
      */
     public PlayingCard discardCard(int index, PlayingCard replacement){
         PlayingCard discardedCard = this.hand[index];
         this.hand[index] = replacement;
         return discardedCard;
+    }
+    
+    /**
+     * Size of Hand is implemented for DrawPokerHand by HAND_LIMIT constant
+     */
+    public int size(){
+        return DrawPokerHand.HAND_LIMIT;
+    }
+    
+    /**
+     * Implements ability to Iterate through PlayingCards of Hand from high to low
+     */
+    public Iterator<PlayingCard> iterator(){
+        return new Iterator<PlayingCard>(){
+            private int i = 0;
+            
+            public boolean hasNext(){
+                return i < hand.length;
+            }
+            
+            public PlayingCard next(){
+                PlayingCard next = null;
+                if (this.hasNext()){
+                    next = hand[i++];
+                }
+                return next;
+            }
+            
+        };
     }
 }

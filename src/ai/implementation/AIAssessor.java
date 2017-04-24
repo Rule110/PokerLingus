@@ -37,6 +37,9 @@ public class AIAssessor {
     }
     
     public static DiscardStrategy assessDiscarding(Hand hand){
+        for (int i = 0; i < hand.size(); i++){
+            
+        }
         
         return null;
     }

@@ -41,4 +41,13 @@ public class ThreeOfAKind {
         boolean flush = HandUtils.containsFlush(hand);
         return (maxcount == 3) && (paircount == 0) && !flush;
     }
+    
+    /**
+     * Distance of card from being part of HandType ThreeOfAKind
+     * @param cardposition
+     * @return distance
+     */
+    double distanceToThreeOfAKind(int cardposition, PlayingCard[] hand){
+      return HandUtils.distanceOfCardFrom(3, cardposition, hand) / 3.0;
+    }
 }

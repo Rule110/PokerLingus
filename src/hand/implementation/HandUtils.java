@@ -2,6 +2,7 @@ package hand.implementation;
 
 import java.util.HashMap;
 import java.util.Stack;
+import java.util.Map.Entry;
 
 /**
  * Utility class to sort and analyse Hand
@@ -148,5 +149,68 @@ public class HandUtils {
         hand[i] = maxcard;
       }
       return hand;
+    }
+    
+    /**
+     * Minimum of two integer distances
+     * @param distance1
+     * @param distance2
+     * @return min
+     */
+    static int min(int distance1, int distance2){
+      return distance1 < distance2 ? distance1 : distance2;
+    }
+
+    /**
+     * Minimum of two double precision distances
+     * @param distance1
+     * @param distance2
+     * @return min
+     */
+    static double min(double distance1, double distance2){
+      return distance1 < distance2 ? distance1 : distance2;
+    }
+
+    /**
+     * Counts the multiplicity of a facevalue
+     * @param cardposition
+     * @return
+     */
+    static int multiplicityCount(int cardposition, PlayingCard[] hand){
+      int count = 0;
+      for (Entry<Integer, Integer> entry : faceCount(hand).entrySet()){
+        if (entry.getKey() == hand[cardposition].getFaceVal()){
+          count = entry.getValue();
+        }
+      }
+      return count;
+    }
+
+    /**
+     * Distance of specific Card from the targeted multiplicity
+     * Eg. How many cards away from a Three of a Kind is a certain face type
+     * @param multiplicitytarget
+     * @param cardposition
+     * @return
+     */
+    static int distanceOfCardFrom(int multiplicitytarget, int cardposition, PlayingCard[] hand){
+      int distance = multiplicitytarget - multiplicityCount(cardposition, hand);
+      return distance < 0 ? 0 : distance;
+    }
+
+    /**
+     * Distance of other cards from the targeted multiplicity
+     * @param multiplicitytarget
+     * @param cardposition
+     * @return
+     */
+    static int distanceOfRestFrom(int multiplicitytarget, int cardposition, PlayingCard[] hand){
+      int mindistance = Integer.MAX_VALUE;
+      for (int i = 0; i < hand.length; i++){
+        if (hand[i].getFaceVal() != hand[cardposition].getFaceVal()){
+          mindistance = min(mindistance, distanceOfCardFrom(multiplicitytarget, i, hand));
+        }
+      }
+      return mindistance < 0 ? 0 : mindistance;
     }
 }

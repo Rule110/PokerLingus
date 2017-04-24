@@ -30,4 +30,42 @@ public class Straight {
         boolean straight = HandUtils.containsStraight(hand);
         return straight && !flush;
     }
+    
+    /**
+     * Distance of card from being part of HandType Straight
+     * @param cardposition
+     * @return distance
+     */
+    double distanceToStraight(int cardposition, PlayingCard[] hand){
+      int straightcount = 1;
+      boolean isstraight = true;
+      int i = cardposition + 1;
+      while (i < hand.length && isstraight){
+        int thisvalue = hand[i - 1].getFaceVal();
+        int nextvalue = hand[i].getFaceVal();
+        
+        if (nextvalue + 1 != thisvalue){
+          isstraight = false;
+        }
+        else {
+          straightcount++;
+          i++;
+        }
+      }
+      isstraight = true;
+      i = cardposition - 1;
+      while (i >= 0 && isstraight){
+        int thisvalue = hand[i + 1].getFaceVal();
+        int previousvalue = hand[i].getFaceVal();
+        
+        if (previousvalue - 1 != thisvalue){
+          isstraight = false;
+        }
+        else {
+          straightcount++;
+          i--;
+        }
+      }
+      return (hand.length - straightcount) / 5.0;
+    }
 }

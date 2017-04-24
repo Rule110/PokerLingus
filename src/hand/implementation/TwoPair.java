@@ -37,4 +37,14 @@ public class TwoPair {
         boolean flush = HandUtils.containsFlush(hand);
         return (maxcount == 2) && (paircount == 2) && !flush;
     }
+    
+    /**
+     * Distance of card from being part of HandType TwoPair
+     * @param cardposition
+     * @return distance
+     */
+    double distanceToTwoPair(int cardposition, PlayingCard[] hand){
+      return (HandUtils.distanceOfCardFrom(2, cardposition, hand) 
+              + HandUtils.distanceOfRestFrom(2, cardposition, hand)) / 4.0;
+    }
 }

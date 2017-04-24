@@ -15,4 +15,15 @@ public class Flush {
 		gVal += FLUSH_DEFAULT;
 		return gVal;
 	}
+
+    /**
+     * Determines if the hand is a Flush
+     * @return true if the hand is a flush of all the same suit
+     */
+    public static boolean isType(PlayingCard[] hand){
+        boolean flush = HandUtils.containsFlush(hand);
+        boolean straight = HandUtils.containsStraight(hand);
+        boolean royal = HandUtils.containsRoyalStraight(hand);
+        return flush && !straight && !royal;
+    }
 }

@@ -21,11 +21,11 @@ abstract public class AITemplate implements AI {
     
     public Strategy decideStrategy(Hand hand, RoundState roundState){
         
-        Scale confidence = HandAssessor.assessHand(hand);
+        Scale confidence = AIAssessor.assessHand(hand);
         
-        Scale risk = RiskAssessor.assessRisk(roundState);
+        Scale risk = AIAssessor.assessRisk(roundState);
         
-        Scale reward = RewardAssessor.assessReward(roundState);
+        Scale reward = AIAssessor.assessReward(roundState);
         
         Integer raisePool = roundState.getChips() - roundState.getCallValue();
         

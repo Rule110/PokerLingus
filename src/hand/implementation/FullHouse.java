@@ -1,5 +1,7 @@
 package hand.implementation;
 
+import java.util.HashMap;
+
 public class FullHouse {
 	public static final int FULL_HOUSE_DEFAULT      = 6000000;//3744
 	public static int getGameValue(PlayingCard[] hand, int max){
@@ -20,4 +22,15 @@ public class FullHouse {
 		gVal += FULL_HOUSE_DEFAULT;
 		return gVal;
 	}
+
+    /**
+     * Determines if the hand is a Full House
+     * @return true if the highest count is 3 and there is also one pair present
+     */
+    public static boolean isType(PlayingCard[] hand){
+        HashMap<Integer, Integer> facecount = HandUtils.faceCount(hand);
+        Integer maxcount = HandUtils.maxCount(facecount);
+        Integer paircount = HandUtils.pairCount(facecount);
+        return (maxcount == 3) && (paircount == 1);
+    }
 }

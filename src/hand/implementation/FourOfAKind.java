@@ -1,5 +1,7 @@
 package hand.implementation;
 
+import java.util.HashMap;
+
 public class FourOfAKind {
 	public static final int FOUR_OF_A_KIND_DEFAULT  = 7000000;//624
 	public static int getGameValue(PlayingCard[] hand, int max){
@@ -18,4 +20,14 @@ public class FourOfAKind {
 		gVal += FOUR_OF_A_KIND_DEFAULT;
 		return gVal;
 	}
+
+    /**
+     * Determines if the hand is Four of a Kind
+     * @return true if the highest count is four
+     */
+    public static boolean isType(PlayingCard[] hand){
+        HashMap<Integer, Integer> facecount = HandUtils.faceCount(hand);
+        Integer maxcount = HandUtils.maxCount(facecount);
+        return (maxcount == 4);
+    }
 }

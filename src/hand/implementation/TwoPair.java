@@ -1,5 +1,7 @@
 package hand.implementation;
 
+import java.util.HashMap;
+
 public class TwoPair {
 	public static final int TWO_PAIR_DEFAULT        = 2000000;
 	public static int getGameValue(PlayingCard[] hand, int max){
@@ -17,4 +19,16 @@ public class TwoPair {
 		gVal += TWO_PAIR_DEFAULT;
 		return gVal;
 	}
+
+    /**
+     * Determines if the hand is a Two Pair
+     * @return true if the highest count is a pair and there's two pairs and its not a flush
+     */
+    public static boolean isType(PlayingCard[] hand){
+        HashMap<Integer, Integer> facecount = HandUtils.faceCount(hand);
+        Integer maxcount = HandUtils.maxCount(facecount);
+        Integer paircount = HandUtils.pairCount(facecount);
+        boolean flush = HandUtils.containsFlush(hand);
+        return (maxcount == 2) && (paircount == 2) && !flush;
+    }
 }

@@ -3,9 +3,9 @@ package ai.implementation;
 import ai.exceptions.OffTheScaleException;
 
 public class Scale {
-    private static final Integer MAX_SCALE = 10;
-    private static final Integer MIN_SCALE = 0;
-    private static final Integer AVG_SCALE = 5;
+    static final Integer MAX_SCALE = 10;
+    static final Integer MIN_SCALE = 0;
+    static final Integer AVG_SCALE = 5;
     private Integer scale;
     
     Scale(Integer scale){

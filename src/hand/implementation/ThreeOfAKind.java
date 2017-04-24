@@ -1,5 +1,7 @@
 package hand.implementation;
 
+import java.util.HashMap;
+
 public class ThreeOfAKind {
 	public static final int THREE_OF_A_KIND_DEFAULT = 3000000;//54912;
 	public static int getGameValue(PlayingCard[] hand, int max){
@@ -21,4 +23,16 @@ public class ThreeOfAKind {
 		gVal += THREE_OF_A_KIND_DEFAULT;
 		return gVal;
 	}
+
+    /**
+     * Determines if the hand is Three of a Kind
+     * @return true if the highest count is three and there's no pairs and its not a flush
+     */
+    public static boolean isType(PlayingCard[] hand){
+        HashMap<Integer, Integer> facecount = HandUtils.faceCount(hand);
+        Integer maxcount = HandUtils.maxCount(facecount);
+        Integer paircount = HandUtils.pairCount(facecount);
+        boolean flush = HandUtils.containsFlush(hand);
+        return (maxcount == 3) && (paircount == 0) && !flush;
+    }
 }

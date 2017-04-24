@@ -13,4 +13,14 @@ public class StraightFlush {
 		gVal += STRAIGHT_FLUSH_DEFAULT;
 		return gVal;
 	}
+
+    /**
+     * Determines if the hand is a Straight Flush
+     * @return true if a straight and a flush
+     */
+    public static boolean isType(PlayingCard[] hand){
+        boolean flush = HandUtils.containsFlush(hand);
+        boolean straight = HandUtils.containsStraight(hand);
+        return straight && flush;
+    }
 }

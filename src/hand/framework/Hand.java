@@ -2,7 +2,7 @@ package hand.framework;
 
 import hand.implementation.PlayingCard;
 
-public interface Hand {
+public interface Hand extends Iterable<PlayingCard> {
     public boolean isHighHand();
     
     public boolean isOnePair();
@@ -28,4 +28,6 @@ public interface Hand {
     public PlayingCard discardCard(int index, PlayingCard replacement);
     
     public void setCards(PlayingCard card, int i);
+    
+    public int size();
 }

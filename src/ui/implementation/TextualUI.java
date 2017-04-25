@@ -33,25 +33,24 @@ public class TextualUI extends UITemplate {
     
     public boolean isFolding(){
     	String fold;
-    	Boolean response = null;
     	
-    	while(response != true || response != false){
+    	while(isFolding != true || isFolding != false){
     		super.game.pushMessageUpdate("Would you like to fold (y/n)?: ");
         	fold = super.game.getMessageUpdate();
         	
         	switch (fold.toLowerCase()){
 	    		case "y":
-	    			response = true;
+	    			isFolding = true;
 	    			break;
 	    		case "n":
-	    			response = false;
+	    			isFolding = false;
 	    			break;
 	    		default:
 	    			super.game.pushMessageUpdate("Please enter a valid character!");
 	    			break;    	
         	}
     	}
-    	return response;
+    	return isFolding;
     }
     
     public boolean isCalling(){
@@ -100,7 +99,6 @@ public class TextualUI extends UITemplate {
     
     public int getRaise(){
         int playerChips = 0;
-    	int raiseAmount = 1;
     	Boolean validAmount = false;
     	
     	while(validAmount != true){

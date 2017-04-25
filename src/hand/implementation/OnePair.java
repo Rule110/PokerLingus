@@ -1,5 +1,13 @@
 package hand.implementation;
 
+import java.util.HashMap;
+
+/**
+ * One Pair Utility class
+ * @author Rory Buckley
+ * @author Darragh Fay
+ *
+ */
 public class OnePair {
 	public static final int ONE_PAIR_DEFAULT        = 1000000;//1098240;
 	public static int getGameValue(PlayingCard[] hand, int max){
@@ -28,4 +36,25 @@ public class OnePair {
 		gVal += ONE_PAIR_DEFAULT;
 		return gVal;
 	}
+
+    /**
+     * Determines if the hand is a One Pair
+     * @return true if the highest count is a pair and there's one pair and its not a flush
+     */
+    static boolean isType(PlayingCard[] hand){
+        HashMap<Integer, Integer> facecount = HandUtils.faceCount(hand);
+        Integer maxcount = HandUtils.maxCount(facecount);
+        Integer paircount = HandUtils.pairCount(facecount);
+        boolean flush = HandUtils.containsFlush(hand);
+        return (maxcount == 2) && (paircount == 1) && !flush;
+    }
+    
+    /**
+     * Distance of card from being part of HandType One Pair
+     * @param cardposition
+     * @return distance
+     */
+    static double distanceToOnePair(int cardposition, PlayingCard[] hand){
+      return HandUtils.distanceOfCardFrom(2, cardposition, hand) / 2.0;
+    }
 }

@@ -1,5 +1,13 @@
 package hand.implementation;
 
+import java.util.HashMap;
+
+/**
+ * High Hand Utility class
+ * @author Rory Buckley
+ * @author Darragh Fay
+ *
+ */
 public class HighHand {
 	public static final int HIGH_HAND_DEFAULT       = 0;      //1302540 possible hands, value range [17507, 568243]
 	public static int getGameValue(PlayingCard[] hand, int max){
@@ -14,5 +22,17 @@ public class HighHand {
 		}
 		gVal += HIGH_HAND_DEFAULT;
 		return gVal;
+	}
+    
+    /**
+     * Determines if the hand is a High Hand
+     * @return true if the highest count is 1 and not a flush
+     */
+	public static boolean isType(PlayingCard[] hand){
+	    HashMap<Integer, Integer> facecount = HandUtils.faceCount(hand);
+	    Integer maxcount = HandUtils.maxCount(facecount);
+	    boolean flush = HandUtils.containsFlush(hand);
+	    boolean straight = HandUtils.containsStraight(hand);
+	    return (maxcount == 1) && !straight && !flush;
 	}
 }

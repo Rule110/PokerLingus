@@ -26,7 +26,7 @@ abstract public class PlayerTemplate implements Player {
     
     abstract public void decideStrategy(Round round);
     
-    abstract public int getOpeningBet();
+    abstract public int getOpeningBet(Round round);
     
     public boolean canOpen(){
     	return this.hand.getGameValue() > OnePair.ONE_PAIR_DEFAULT;

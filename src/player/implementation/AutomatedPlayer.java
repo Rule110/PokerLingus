@@ -28,8 +28,9 @@ public class AutomatedPlayer extends PlayerTemplate {
      * The Opening Bet is decided in Automated Player by
      *  asking the AI to decide.
      */
-    public int getOpeningBet(){
-        return this.ai.decideOpening(hand);
+    public int getOpeningBet(Round round){
+        RoundState roundState = new RoundState(round, super.ID);
+        return this.ai.decideOpening(hand, roundState);
     }
     
     /**

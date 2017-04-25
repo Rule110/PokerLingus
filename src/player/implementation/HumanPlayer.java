@@ -16,7 +16,7 @@ public class HumanPlayer extends PlayerTemplate {
         
     }
     
-    public int getOpeningBet(){
+    public int getOpeningBet(Round round){
         
         return 0;
     }

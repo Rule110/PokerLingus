@@ -18,6 +18,4 @@ public abstract class Game extends Thread{
     public abstract void captureMessageUpdate(String newMessage);
     
     public abstract Database getDatabase();
-    
-    public abstract Integer getStartChips();
 }

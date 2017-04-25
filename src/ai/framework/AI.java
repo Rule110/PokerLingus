@@ -6,8 +6,10 @@ import ai.implementation.Strategy;
 
 import hand.framework.Hand;
 
-public interface AI {    
+public interface AI {
     public DiscardStrategy decideDiscarding(Hand hand);
+    
+    public Integer decideOpening(Hand hand);
     
     public Strategy decideStrategy(Hand hand, RoundState roundState);
 }

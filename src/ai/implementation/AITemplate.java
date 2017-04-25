@@ -21,6 +21,16 @@ abstract public class AITemplate implements AI {
     }
     
     /**
+     * AI asked to decide the Opening Bet
+     * @return
+     */
+    public Integer decideOpening(Hand hand){
+        Integer opening = new Integer(1);
+        Scale confidence = AIAssessor.assessHand(hand);
+        return confidence.scaleThat(opening);
+    }
+    
+    /**
      * AI asked to decide Discard Strategy based on Hand
      * @param hand
      * @return discardStrategy

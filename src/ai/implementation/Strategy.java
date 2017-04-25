@@ -30,15 +30,15 @@ public class Strategy {
      */
     private void formulateStrategy(Scale confidence, Scale risk, Scale reward, Personality personality, Integer raisePool){
         
-        Scale perceivedRisk = this.getPerceivedRisk(personality, risk);
+        Scale perceivedRisk = Strategy.getPerceivedRisk(personality, risk);
         
-        Scale rewardCappedConfidence = this.getRewardCappedConfidence(confidence, reward);
+        Scale confidenceScaledReward = Strategy.getConfidenceScaledReward(confidence, reward);
         
-        this.setDecisions(rewardCappedConfidence, perceivedRisk);
+        this.setDecisions(confidenceScaledReward, perceivedRisk);
         
         if (this.isRaising){
             
-            Scale raiseConfidence = this.getRaiseConfidence(rewardCappedConfidence, perceivedRisk);
+            Scale raiseConfidence = Strategy.getRaiseConfidence(confidenceScaledReward, perceivedRisk);
             
             this.setRaiseAmount(raiseConfidence, personality, raisePool);
         }
@@ -50,19 +50,20 @@ public class Strategy {
      * @param risk
      * @return perceivedRisk
      */
-    private Scale getPerceivedRisk(Personality personality, Scale risk){
+    private static Scale getPerceivedRisk(Personality personality, Scale risk){
         return personality.getPerceivedRisk(risk);
     }
     
     /**
-     * Get Reward Capped Confidence
-     * This is the minimum degree between confidence or anticipated reward
+     * Get Confidence Scaled Reward
+     * This is the degree of Reward scaled by the objective Confidence in the Hand 
      * @param confidence
      * @param reward
      * @return rewardCappedConfidence
      */
-    private Scale getRewardCappedConfidence(Scale confidence, Scale reward){
-        return confidence.min(reward);
+    private static Scale getConfidenceScaledReward(Scale confidence, Scale reward){
+        Scale confidenceScaledReward = reward.scaleByDegree(confidence);
+        return confidenceScaledReward;
     }
     
     /**
@@ -92,8 +93,8 @@ public class Strategy {
      * @param perceivedRisk
      * @return
      */
-    private Scale getRaiseConfidence(Scale rewardCappedConfidence, Scale perceivedRisk){
-        return rewardCappedConfidence.differenceOnScale(perceivedRisk);
+    private static Scale getRaiseConfidence(Scale confidenceScaledReward, Scale perceivedRisk){
+        return confidenceScaledReward.differenceOnScale(perceivedRisk);
     }
     
     /**
@@ -109,7 +110,7 @@ public class Strategy {
     private void setRaiseAmount(Scale raiseConfidence, Personality personality, Integer raisePool){
         
         this.bluffedConfidence = personality.getBluffedConfidence(raiseConfidence);
-        this.raiseAmount = this.bluffedConfidence.scale(raisePool);
+        this.raiseAmount = this.bluffedConfidence.scaleThat(raisePool);
     }
     
     /**

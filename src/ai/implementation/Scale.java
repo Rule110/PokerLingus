@@ -5,13 +5,13 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * Scale class represents the degree of certainty on a scale
  * Can be objective or subjective certainty
- * Scale is 0 to 10 in this implementation
+ * Scale is 1 to 10 in this implementation
  * @author Rory Buckley
  *
  */
 public class Scale {
     static final Integer MAX_SCALE = 10;
-    static final Integer MIN_SCALE = 0;
+    static final Integer MIN_SCALE = 1;
     static final Integer AVG_SCALE = 5;
     private Integer scale;
     
@@ -58,8 +58,9 @@ public class Scale {
      * @param toScale
      * @return scaled integer
      */
-    Integer scale(Integer toScale){
-        return (toScale * this.scale) / MAX_SCALE;
+    Integer scaleThat(Integer toScale){
+        Double proportion = (double)this.scale / (double)MAX_SCALE;
+        return (int)(toScale * proportion);
     }
     
     /**
@@ -98,15 +99,5 @@ public class Scale {
      */
     int compareTo(Scale other){
         return this.scale.compareTo(other.scale);
-    }
-    
-    /**
-     * Get scale that is smallest of the this scale
-     *  and the other input scale
-     * @param other
-     * @return min
-     */
-    Scale min(Scale other){
-        return this.scale < other.scale ? this : other;
     }
 }

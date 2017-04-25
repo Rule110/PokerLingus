@@ -32,7 +32,9 @@ public class TwitterStreamListener implements UserStreamListener{
 
 	@Override
 	public void onStatus(Status arg0) {
-		creationQueue.add(arg0.getUser().getName());
+		if(!creationQueue.contains(arg0.getUser().getScreenName())){
+			creationQueue.add(arg0.getUser().getScreenName());
+		}
 	}
 
 	public Queue<String> getCreationQueue(){
@@ -75,7 +77,7 @@ public class TwitterStreamListener implements UserStreamListener{
 			if(relevantGame != null){
 				relevantGame.captureMessageUpdate(arg0.getText());
 				relevantGame.notify();
-			}else if(!creationQueue.contains(arg0.getSender().getName())){
+			}else if(!creationQueue.contains(arg0.getSender().getScreenName())){
 				creationQueue.add(arg0.getSenderScreenName());
 			}
 			System.out.println(this.creationQueue);

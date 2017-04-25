@@ -11,7 +11,6 @@ import dealer.framework.Dealer;
 import hand.framework.Hand;
 import hand.framework.HandFactory;
 import hand.implementation.DrawPokerHand;
-import hand.implementation.OnePair;
 
 public class DrawPokerRound extends RoundTemplate {
 	

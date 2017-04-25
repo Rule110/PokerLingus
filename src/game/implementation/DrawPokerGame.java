@@ -71,4 +71,12 @@ public class DrawPokerGame extends Game {
 	public Database getDatabase(){
 	    return this.database;
 	}
+	
+	/**
+	 * Implements getStartChips for Game interface 
+	 *     using DrawPokerGame constant START_CHIPS
+	 */
+	public Integer getStartChips(){
+	    return DrawPokerGame.START_CHIPS;
+	}
 }

@@ -25,9 +25,10 @@ abstract public class AITemplate implements AI {
      * @return
      */
     public Integer decideOpening(Hand hand){
-        Integer opening = new Integer(1);
+        Integer opening = this.game.getStartChips() / 10;
         Scale confidence = AIAssessor.assessHand(hand);
-        return confidence.scaleThat(opening);
+        Scale bluffedConfidence = this.personality.getBluffedConfidence(confidence);
+        return bluffedConfidence.scaleThat(opening);
     }
     
     /**

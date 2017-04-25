@@ -59,7 +59,7 @@ public class Strategy {
      * This is the degree of Reward scaled by the objective Confidence in the Hand 
      * @param confidence
      * @param reward
-     * @return rewardCappedConfidence
+     * @return confidenceScaledReward
      */
     private static Scale getConfidenceScaledReward(Scale confidence, Scale reward){
         Scale confidenceScaledReward = reward.scaleByDegree(confidence);
@@ -67,16 +67,16 @@ public class Strategy {
     }
     
     /**
-     * Set the decisions based on rewardCappedconfidence and perceivedRisk
-     * @param rewardCappedConfidence
+     * Set the decisions based on confidenceScaledReward and perceivedRisk
+     * @param confidenceScaledReward
      * @param perceivedRisk
      */
-    private void setDecisions(Scale rewardCappedConfidence, Scale perceivedRisk){
+    private void setDecisions(Scale confidenceScaledReward, Scale perceivedRisk){
         
-        if (rewardCappedConfidence.compareTo(perceivedRisk) < 0){
+        if (confidenceScaledReward.compareTo(perceivedRisk) < 0){
             this.isFolding = true;
         }
-        else if (rewardCappedConfidence.compareTo(perceivedRisk) == 0){
+        else if (confidenceScaledReward.compareTo(perceivedRisk) == 0){
             this.isCalling = true;
         }
         else {
@@ -86,10 +86,10 @@ public class Strategy {
     
     /**
      * Get Raise Confidence
-     * Raise Confidence is the difference between the rewardCappedConfidence and the Risk
+     * Raise Confidence is the difference between the confidenceScaledReward and the Risk
      * It is expressed as a degree of difference on a scale itself
      * Raise Confidence is the excess confidence one has after meeting the current bet
-     * @param rewardCappedConfidence
+     * @param confidenceScaledReward
      * @param perceivedRisk
      * @return
      */

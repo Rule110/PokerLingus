@@ -16,7 +16,7 @@ public class AIAssessor {
         Integer chips = roundState.getChips();
         Double ratio = (double)potValue / (double)chips;
         Integer scale = (int)(ratio * Scale.MAX_SCALE);
-        Scale reward = new Scale(scale);
+        Scale reward = new Scale(1 + scale);
         return reward;
     }
     

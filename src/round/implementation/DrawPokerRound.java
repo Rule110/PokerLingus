@@ -111,6 +111,7 @@ public class DrawPokerRound extends RoundTemplate {
 			while (listIterator.hasNext()){				//Loops through roundOrder until reaches last player.
 		    	String playerName = listIterator.next();
 		    	Player p = players.get(playerName);
+		    		p.decideStrategy(this);
 		     		if(p.isFolding()){
 		    			roundOrder.remove(p);					//remove from linkedlist as out of round.
 		    		} else if (p.isCalling()){

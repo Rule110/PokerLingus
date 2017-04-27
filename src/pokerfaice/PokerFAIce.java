@@ -57,8 +57,9 @@ public class PokerFAIce {
         		Network newNetwork = NetworkFactory.getNetwork(networktype, newUserHandle);
         		System.out.println("Network Created");
         		Game newGame = GameFactory.getGame(gameType, newUserHandle, newNetwork);
+        		pf.games.put(newUserHandle, newGame);
         		System.out.println("Game Created");
-        		newGame.run();
+        		newGame.start();
         		System.out.print("Game running");
         		pf.games.put(newUserHandle, newGame);
         	}

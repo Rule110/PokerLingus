@@ -10,7 +10,7 @@ import network.framework.Network;
 public class TwitterNetwork implements Network {
 	
 	private String userHandle;
-	private TwitterInputStream inputStream;
+	private volatile TwitterInputStream inputStream;
 	private TwitterOutputStream outputStream;
 	private Scanner inputScanner;
 	private PrintStream outputPrinter;
@@ -25,6 +25,8 @@ public class TwitterNetwork implements Network {
 	}
 	
 	public synchronized String getMessageUpdate(){
+		//Scanner inputScanner = new Scanner(inputStream);
+		inputScanner.reset();
 		return inputScanner.nextLine();
 	}
     public synchronized void sendTextUpdate(TextUpdate textupdate){

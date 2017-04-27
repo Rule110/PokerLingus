@@ -31,7 +31,7 @@ public class DrawPokerGame extends Game {
         this.network = network;
         this.dealer = DealerFactory.getDealer(gameType);
         this.players = new LinkedHashMap<String, Player>();
-        pushMessageUpdate("Welcome to pokerFAIce, enjoy your game of " + gameType);
+        pushMessageUpdate("Welcome " + username + ", enjoy your game of " + gameType);
        
         for (int i = 0; i < 4; i++){
             this.players.put("AI" + i, PlayerFactory.getPlayer("Automated", this, "AI" + i));
@@ -51,12 +51,19 @@ public class DrawPokerGame extends Game {
         network.sendTextUpdate(update);
     }
     
-    public String getMessageUpdate(){
+    public synchronized String getMessageUpdate(){
+    	try {
+			this.wait();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     	return network.getMessageUpdate();
     }
     
-    public void captureMessageUpdate(String newMessage){
+    public synchronized void captureMessageUpdate(String newMessage){
     	network.captureMessageUpdate(newMessage);
+    	this.notify();
     }
     
     public void pushGfxUpdate(GfxUpdate update){

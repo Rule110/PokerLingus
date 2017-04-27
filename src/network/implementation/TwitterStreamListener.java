@@ -33,7 +33,7 @@ public class TwitterStreamListener implements UserStreamListener{
 	@Override
 	public void onStatus(Status arg0) {
 		boolean inCreation = creationQueue.contains(arg0.getUser().getScreenName());
-		boolean inGame = (pfRef.getGame(arg0.getUser().getScreenName()) == null);
+		boolean inGame = (pfRef.getGame(arg0.getUser().getScreenName()) != null);
 		if(!(inCreation || inGame)){
 			creationQueue.add(arg0.getUser().getScreenName());
 		}

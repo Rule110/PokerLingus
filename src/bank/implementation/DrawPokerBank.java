@@ -27,6 +27,7 @@ public class DrawPokerBank implements Bank {
 	public DrawPokerBank(Set<String> playerIDs, int startChips){
 		accounts = new HashMap<String, BankAccount>(playerIDs.size());
     	for (String playerID: playerIDs){
+    		System.out.println(playerID);
     		accounts.put(playerID, new BankAccount(startChips));
     	}
 	}   
@@ -38,6 +39,7 @@ public class DrawPokerBank implements Bank {
 	 */
     public synchronized int getAvailableFunds(String playerID){
     	if(accounts.get(playerID) == null){
+    		//System.out.println(playerID);
     		throw new BankAccountNotFoundException();
     	}
         return this.accounts.get(playerID).getAvailableFunds();

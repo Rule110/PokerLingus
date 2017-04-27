@@ -8,7 +8,8 @@ import ui.framework.UIFactory;
 public class HumanPlayer extends PlayerTemplate {
     private UI ui;
     
-    public HumanPlayer(Game game){
+    public HumanPlayer(Game game, String ID){
+    	super.ID = ID;
         this.ui = UIFactory.getUI("Textual", game);
     }
     

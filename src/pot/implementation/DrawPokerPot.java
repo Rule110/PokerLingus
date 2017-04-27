@@ -5,7 +5,7 @@ import java.util.Map;
 import pot.framework.Pot;
 
 public class DrawPokerPot implements Pot {
-    private int totalValue;
+    private int totalValue = 0;
     private Map<String, Integer> playerSplit;
     
     public void addChips(String playerID, int amount){

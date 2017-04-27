@@ -11,7 +11,8 @@ public class AutomatedPlayer extends PlayerTemplate {
     private AI ai;
     private Strategy strategy;
     
-    public AutomatedPlayer(Game game){
+    public AutomatedPlayer(Game game, String ID){
+    	super.ID = ID;
         this.ai = AIFactory.getAI("Simple", game);
     }
     

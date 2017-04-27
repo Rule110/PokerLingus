@@ -34,9 +34,9 @@ public class DrawPokerGame extends Game {
         pushMessageUpdate("Welcome to pokerFAIce, enjoy your game of " + gameType);
        
         for (int i = 0; i < 4; i++){
-            this.players.put("AI" + i, PlayerFactory.getPlayer("Automated", this));
+            this.players.put("AI" + i, PlayerFactory.getPlayer("Automated", this, "AI" + i));
         }
-        this.players.put(username, PlayerFactory.getPlayer("Human", this));
+        this.players.put(username, PlayerFactory.getPlayer("Human", this, username));
         
         this.bank = BankFactory.getBank("DrawPoker", players.keySet(), START_CHIPS);
     }

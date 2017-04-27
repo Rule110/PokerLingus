@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Vector;
 
 import player.framework.Player;
+import pot.framework.Pot;
+import pot.framework.PotFactory;
 import bank.framework.Bank;
 import dealer.framework.Dealer;
 import hand.framework.Hand;
@@ -20,6 +22,7 @@ public class DrawPokerRound extends RoundTemplate {
 	
     public DrawPokerRound(Map<String, Player> players, Dealer dealer, Bank bank){
         super(players, dealer, bank);
+        super.pot = PotFactory.getPot(pokerType);
     }
     
     public void beginRound(){

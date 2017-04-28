@@ -11,7 +11,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public class Scale {
     static final Integer MAX_SCALE = 10;
-    static final Integer MIN_SCALE = 0;
+    static final Integer MIN_SCALE = 1;
     static final Integer AVG_SCALE = 5;
     private Integer scale;
     

@@ -46,7 +46,7 @@ public class Strategy {
         }
         else {
             this.bluffedConfidence = confidence;
-            this.behaviour = personality.getBehaviour(new Scale(0));
+            this.behaviour = personality.getBehaviour();
         }
     }
     

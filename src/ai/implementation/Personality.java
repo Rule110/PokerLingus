@@ -78,4 +78,15 @@ public class Personality {
         }
         return behaviour;
     }
+    
+    /**
+     * Get the Behaviour in the case of no Bluffing
+     * If there is no Bluffing then the jitteriness would be scaled by degree 0
+     * The Likelihood of a Tell then would also be 0
+     * The behaviour will then be just a randomly generated behaviour
+     * @return
+     */
+    public Behaviour getBehaviour(){
+        return new Behaviour();
+    }
 }

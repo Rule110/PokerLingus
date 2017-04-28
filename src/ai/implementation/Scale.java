@@ -22,10 +22,8 @@ public class Scale {
     Scale(){
         Double gaussianDistributed = ThreadLocalRandom.current().nextGaussian();
         Double sd = AVG_SCALE / 2.0;
-        this.scale = (int)((gaussianDistributed * sd) + AVG_SCALE);
-        
-        if (this.scale < MIN_SCALE) this.scale = MIN_SCALE;
-        else if (this.scale > MAX_SCALE) this.scale = MAX_SCALE;
+        int scale = (int)((gaussianDistributed * sd) + AVG_SCALE);
+        this.setScale(scale);
     }
     
     /**
@@ -33,6 +31,15 @@ public class Scale {
      * @param scale
      */
     Scale(Integer scale){
+        this.setScale(scale);
+    }
+    
+    /**
+     * Sets scale to between MAX_SCALE and MIN_SCALE
+     * Doesn't allow scale to exceed these bounds
+     * @param scale
+     */
+    private void setScale(Integer scale){
         if (scale > Scale.MAX_SCALE){
             this.scale = Scale.MAX_SCALE;
         }

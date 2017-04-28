@@ -5,16 +5,22 @@ import java.util.Scanner;
 
 import game.framework.Game;
 import hand.framework.Hand;
+import network.framework.Network;
+import network.implementation.LocalNetwork;
 import round.framework.Round;
 import textupdate.framework.TextUpdate;
+import textupdate.implementation.GameStateTextUpdate;
 
 public class TextualUI extends UITemplate {
     
+	Network network = new LocalNetwork("testPlayer");
 	PrintStream outStream = System.out;
 	Scanner input = new Scanner(System.in);
+	GameStateTextUpdate message;
 	
     public TextualUI(Game game){
         super(game);
+        message = new GameStateTextUpdate();
     }
     
     public void decideStrategy(Hand hand, Round round){
@@ -28,15 +34,17 @@ public class TextualUI extends UITemplate {
     }
     
     public void intro(){
-    	super.game.pushMessageUpdate("Welcome to the Automated Poker Machine... \nLet's Play Poker!");
+    	message.setText("Welcome to the Automated Poker Machine... \nLet's Play Poker!");
+    	network.sendTextUpdate(message);
     }
     
     public boolean isFolding(){
     	String fold;
     	
     	while(isFolding != true || isFolding != false){
-    		super.game.pushMessageUpdate("Would you like to fold (y/n)?: ");
-        	fold = super.game.getMessageUpdate();
+    		message.setText("Would you like to fold (y/n)?: ");
+        	network.sendTextUpdate(message);
+        	fold = network.getMessageUpdate();
         	
         	switch (fold.toLowerCase()){
 	    		case "y":
@@ -46,7 +54,8 @@ public class TextualUI extends UITemplate {
 	    			isFolding = false;
 	    			break;
 	    		default:
-	    			super.game.pushMessageUpdate("Please enter a valid character!");
+	    			message.setText("Please enter a valid character!");
+	            	network.sendTextUpdate(message);
 	    			break;    	
         	}
     	}
@@ -57,8 +66,9 @@ public class TextualUI extends UITemplate {
     	String call;
     	
     	while(isCalling != true || isCalling != false){
-    		super.game.pushMessageUpdate("Would you like to call (y/n)?: ");
-        	call = super.game.getMessageUpdate();
+    		message.setText("Would you like to call (y/n)?: ");
+        	network.sendTextUpdate(message);
+        	call = network.getMessageUpdate();
         	
         	switch (call.toLowerCase()){
 	    		case "y":
@@ -68,7 +78,8 @@ public class TextualUI extends UITemplate {
 	    			isCalling = false;
 	    			break;
 	    		default:
-	    			super.game.pushMessageUpdate("Please enter a valid character!");
+	    			message.setText("Please enter a valid character!");
+	            	network.sendTextUpdate(message);
 	    			break;    	
         	}
     	}
@@ -79,8 +90,9 @@ public class TextualUI extends UITemplate {
     	String raise;
     	
     	while(isRaising != true || isRaising != false){
-    		super.game.pushMessageUpdate("Would you like to raise (y/n)?: ");
-        	raise = super.game.getMessageUpdate();
+    		message.setText("Would you like to raise (y/n)?: ");
+        	network.sendTextUpdate(message);
+        	raise = network.getMessageUpdate();
         	
         	switch (raise.toLowerCase()){
 	    		case "y":
@@ -90,7 +102,8 @@ public class TextualUI extends UITemplate {
 	    			isRaising = false;
 	    			break;
 	    		default:
-	    			super.game.pushMessageUpdate("Please enter a valid character!");
+	    			message.setText("Please enter a valid character!");
+	            	network.sendTextUpdate(message);
 	    			break;    	
         	}
     	}
@@ -102,18 +115,22 @@ public class TextualUI extends UITemplate {
     	Boolean validAmount = false;
     	
     	while(validAmount != true){
-    		super.game.pushMessageUpdate("Please enter amount to raise by: ");
+    		message.setText("Please enter amount to raise by: ");
+        	network.sendTextUpdate(message);
     		try {
-    			raiseAmount = Integer.parseInt(super.game.getMessageUpdate());
+    			raiseAmount = Integer.parseInt(network.getMessageUpdate());
             } catch (NumberFormatException e) {
-            	super.game.pushMessageUpdate("Please Enter A valid Integer");
+            	message.setText("Please Enter A valid Integer");
+            	network.sendTextUpdate(message);
                 continue;
             }        	
-        	if (raiseAmount > playerChips)
-        		super.game.pushMessageUpdate("You cannot bet more chips than you have!");
-        	else if (raiseAmount <= 0)
-        		super.game.pushMessageUpdate("Please enter an amount to raise by!");
-        	else
+        	if (raiseAmount > playerChips){
+        		message.setText("You cannot bet more chips than you have!");
+        		network.sendTextUpdate(message);
+        	}else if (raiseAmount <= 0){
+        		message.setText("Please enter an amount to raise by!");
+        		network.sendTextUpdate(message);
+        	}else
         		validAmount = true;
     	}
     	return raiseAmount;

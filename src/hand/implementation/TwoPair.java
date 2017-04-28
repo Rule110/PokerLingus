@@ -43,7 +43,7 @@ public class TwoPair {
      * @param cardposition
      * @return distance
      */
-    double distanceToTwoPair(int cardposition, PlayingCard[] hand){
+    static double distanceToTwoPair(int cardposition, PlayingCard[] hand){
       return (HandUtils.distanceOfCardFrom(2, cardposition, hand) 
               + HandUtils.distanceOfRestFrom(2, cardposition, hand)) / 4.0;
     }

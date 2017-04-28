@@ -79,6 +79,15 @@ public class Scale {
     }
     
     /**
+     * Difference between two scales returned as an integer
+     * @param other
+     * @return
+     */
+    Integer differenceAsInteger(Scale other){
+        return this.scale - other.scale;
+    }
+    
+    /**
      * Regress a scale to its mean to the degree specified by another scale
      * @param regressionDegree
      * @return scale regressed to mean by degree of input scale
@@ -99,5 +108,9 @@ public class Scale {
      */
     int compareTo(Scale other){
         return this.scale.compareTo(other.scale);
+    }
+    
+    int getIntegerRepresentation(){
+        return this.scale;
     }
 }

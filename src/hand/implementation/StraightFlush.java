@@ -35,7 +35,7 @@ public class StraightFlush {
      * @param cardposition
      * @return distance
      */
-    double distanceToStraightFlush(int cardposition, PlayingCard[] hand){
+    static double distanceToStraightFlush(int cardposition, PlayingCard[] hand){
       int straightflushcount = 1;
       boolean isstraightflush = true;
       int i = cardposition + 1;

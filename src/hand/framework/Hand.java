@@ -2,6 +2,11 @@ package hand.framework;
 
 import hand.implementation.PlayingCard;
 
+/**
+ * Interface for Hand module
+ * @author Rory Buckley
+ *
+ */
 public interface Hand extends Iterable<PlayingCard> {
     public boolean isHighHand();
     
@@ -24,6 +29,8 @@ public interface Hand extends Iterable<PlayingCard> {
     public boolean isRoyalFlush();
     
     public int getGameValue();
+    
+    public int getDiscardProbability(int index);
     
     public PlayingCard discardCard(int index, PlayingCard replacement);
     

@@ -12,6 +12,7 @@ public class Strategy {
     private boolean isRaising;
     private int raiseAmount;
     private Scale bluffedConfidence;
+    private Behaviour behaviour;
     
     Strategy(Scale confidence, Scale risk, Scale reward, Personality personality, Integer raisePool){
         this.formulateStrategy(confidence, risk, reward, personality, raisePool);
@@ -31,16 +32,16 @@ public class Strategy {
     private void formulateStrategy(Scale confidence, Scale risk, Scale reward, Personality personality, Integer raisePool){
         
         Scale perceivedRisk = Strategy.getPerceivedRisk(personality, risk);
-        
         Scale confidenceScaledReward = Strategy.getConfidenceScaledReward(confidence, reward);
-        
         this.setDecisions(confidenceScaledReward, perceivedRisk);
         
         if (this.isRaising){
             
             Scale raiseConfidence = Strategy.getRaiseConfidence(confidenceScaledReward, perceivedRisk);
-            
             this.setRaiseAmount(raiseConfidence, personality, raisePool);
+            
+            Scale bluffingDegree = new Scale(Math.abs(this.bluffedConfidence.differenceAsInteger(confidence)));
+            this.behaviour = personality.getBehaviour(bluffingDegree);
         }
     }
     
@@ -156,5 +157,15 @@ public class Strategy {
      */
     public Scale getBluffedConfidence(){
         return this.bluffedConfidence;
+    }
+    
+    /**
+     * Gets the behaviour as this strategy is being deployed
+     * Behaviour may be a tell or not depending on personality and ...
+     * ...the level of bluffing
+     * @return
+     */
+    public Behaviour getBehaviour(){
+        return this.behaviour;
     }
 }

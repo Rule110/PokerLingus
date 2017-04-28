@@ -66,10 +66,11 @@ public class Personality {
      *  Repetitive behaviours are likely to be tells rather than normal behaviour
      * @return
      */
-    public Behaviour getBehaviour(){
+    public Behaviour getBehaviour(Scale bluffingDegree){
         Behaviour behaviour;
+        Scale likelihoodOfTell = this.jitteriness.scaleByDegree(bluffingDegree);
         Scale random = new Scale(ThreadLocalRandom.current().nextInt(0, 11));
-        if (random.compareTo(this.jitteriness) < 0){
+        if (random.compareTo(likelihoodOfTell) < 0){
             behaviour = this.tell;
         }
         else {

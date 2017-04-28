@@ -6,6 +6,11 @@ import ai.implementation.AIStaticPersistent;
 import ai.implementation.AIStaticRandom;
 import ai.implementation.AISimple;
 
+/**
+ * Factory for AI module implementation
+ * @author Rory Buckley
+ *
+ */
 public class AIFactory {
     public static AI getAI(String type, Game game){
         AI ai;

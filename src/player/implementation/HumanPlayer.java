@@ -5,6 +5,11 @@ import round.framework.Round;
 import ui.framework.UI;
 import ui.framework.UIFactory;
 
+/**
+ * Player implementation using a human player interacting through a UI module
+ * @author Cameron Newman
+ *
+ */
 public class HumanPlayer extends PlayerTemplate {
     private UI ui;
     

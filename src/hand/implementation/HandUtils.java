@@ -213,4 +213,234 @@ public class HandUtils {
       }
       return mindistance < 0 ? 0 : mindistance;
     }
+    
+    /**
+     * Return Discard Probability
+     * Discard Probability based on completing any hand type
+     * Any hand type being completed is calculated as the sum of probabilities of ...
+     * ...completing any hand type alone.
+     * Each probability is weighted by significance of the hand type completion
+     * Discard Probability is 1 minus the probability of completing any hand
+     * Discard Probability is then expressed as a percentage
+     * @param hand
+     * @param index
+     * @return
+     */
+    static int getDiscardProbability(PlayingCard[] hand, int index){
+        double onePairCompletionProb = getOnePairCompletionProbability(hand, index) / 5.0;
+        double twoPairCompletionProb = getTwoPairCompletionProbability(hand, index) / 4.0;
+        double threeOfAKindCompletionProb = getThreeOfAKindCompletionProbability(hand, index) / 3.0;
+        double flushCompletionProb = getFlushCompletionProbability(hand, index) / 2.0;
+        double straightCompletionProb = getStraightCompletionProbability(hand, index);
+        double fullHouseCompletionProb = getFullHouseCompletionProbability(hand, index) * 2.0;
+        double fourOfAKindCompletionProb = getFourOfAKindCompletionProbability(hand, index) * 3.0;
+        double straightFlushCompletionProb = getStraightFlushCompletionProbability(hand, index) * 4.0;
+        double royalFlushCompletionProb = getRoyalFlushCompletionProbability(hand, index) * 5.0;
+        
+        double probabilityCompletingHand = 
+                onePairCompletionProb + twoPairCompletionProb + threeOfAKindCompletionProb 
+                + flushCompletionProb + straightCompletionProb + fullHouseCompletionProb 
+                + fourOfAKindCompletionProb + straightFlushCompletionProb + royalFlushCompletionProb;
+        
+        double discardProbability = 1.0 - probabilityCompletingHand;
+        return (int)(discardProbability * 100);
+    }
+    
+    /**
+     * One Pair Completion Probability
+     * @param hand
+     * @param index
+     * @return onePairCompletionProb
+     */
+    static double getOnePairCompletionProbability(PlayingCard[] hand, int index){
+        double COMPLETION_PROBABILITY = 4.0 / 52.0;
+        double onePairDistance = OnePair.distanceToOnePair(index, hand);
+        double onePairProbability = Math.pow(COMPLETION_PROBABILITY, onePairDistance);
+        
+        double weight = 0;
+        double totalDistances = 0;
+        for (int i = 0; i < hand.length; i++){
+            totalDistances += OnePair.distanceToOnePair(i, hand);
+        }
+        weight = (onePairDistance / totalDistances) * hand.length;
+        
+        double onePairCompletionProb = onePairProbability * weight;
+        return onePairCompletionProb;
+    }
+    
+    /**
+     * Two Pair Completion Probability
+     * @param hand
+     * @param index
+     * @return twoPairCompletionProb
+     */
+    static double getTwoPairCompletionProbability(PlayingCard[] hand, int index){
+        double COMPLETION_PROBABILITY = 4.0 / 52.0;
+        double twoPairDistance = TwoPair.distanceToTwoPair(index, hand);
+        double twoPairProbability = Math.pow(COMPLETION_PROBABILITY, twoPairDistance);
+        
+        double weight = 0;
+        double totalDistances = 0;
+        for (int i = 0; i < hand.length; i++){
+            totalDistances += TwoPair.distanceToTwoPair(i, hand);
+        }
+        weight = (twoPairDistance / totalDistances) * hand.length;
+        
+        double twoPairCompletionProb = twoPairProbability * weight;
+        return twoPairCompletionProb;
+    }
+    
+    /**
+     * Three of A Kind Completion Probability
+     * @param hand
+     * @param index
+     * @return threeOfAKindCompletionProb
+     */
+    static double getThreeOfAKindCompletionProbability(PlayingCard[] hand, int index){
+        double COMPLETION_PROBABILITY = 4.0 / 52.0;
+        double threeOfAKindDistance = ThreeOfAKind.distanceToThreeOfAKind(index, hand);
+        double threeOfAKindProbability = Math.pow(COMPLETION_PROBABILITY, threeOfAKindDistance);
+        
+        double weight = 0;
+        double totalDistances = 0;
+        for (int i = 0; i < hand.length; i++){
+            totalDistances += ThreeOfAKind.distanceToThreeOfAKind(i, hand);
+        }
+        weight = (threeOfAKindDistance / totalDistances) * hand.length;
+        
+        double threeOfAKindCompletionProb = threeOfAKindProbability * weight;
+        return threeOfAKindCompletionProb;
+    }
+    
+    /**
+     * Flush Completion Probability
+     * @param hand
+     * @param index
+     * @return flushCompletionProb
+     */
+    static double getFlushCompletionProbability(PlayingCard[] hand, int index){
+        double COMPLETION_PROBABILITY = 1.0 / 4.0;
+        double flushDistance = Flush.distanceToFlush(index, hand);
+        double flushProbability = Math.pow(COMPLETION_PROBABILITY, flushDistance);
+        
+        double weight = 0;
+        double totalDistances = 0;
+        for (int i = 0; i < hand.length; i++){
+            totalDistances += Flush.distanceToFlush(i, hand);
+        }
+        weight = (flushDistance / totalDistances) * hand.length;
+        
+        double flushCompletionProb = flushProbability * weight;
+        return flushCompletionProb;
+    }
+    
+    /**
+     * Straight Completion Probability
+     * @param hand
+     * @param index
+     * @return straightCompletionProb
+     */
+    static double getStraightCompletionProbability(PlayingCard[] hand, int index){
+        double COMPLETION_PROBABILITY = 4.0 / 52.0;
+        double straightDistance = Straight.distanceToStraight(index, hand);
+        double straightProbability = Math.pow(COMPLETION_PROBABILITY, straightDistance);
+        
+        double weight = 0;
+        double totalDistances = 0;
+        for (int i = 0; i < hand.length; i++){
+            totalDistances += Straight.distanceToStraight(i, hand);
+        }
+        weight = (straightDistance / totalDistances) * hand.length;
+        
+        double straightCompletionProb = straightProbability * weight;
+        return straightCompletionProb;
+    }
+    
+    /**
+     * Full House Completion Probability
+     * @param hand
+     * @param index
+     * @return fullHouseCompletionProb
+     */
+    static double getFullHouseCompletionProbability(PlayingCard[] hand, int index){
+        double COMPLETION_PROBABILITY = 4.0 / 52.0;
+        double fullHouseDistance = FullHouse.distanceToFullHouse(index, hand);
+        double fullHouseProbability = Math.pow(COMPLETION_PROBABILITY, fullHouseDistance);
+        
+        double weight = 0;
+        double totalDistances = 0;
+        for (int i = 0; i < hand.length; i++){
+            totalDistances += FullHouse.distanceToFullHouse(i, hand);
+        }
+        weight = (fullHouseDistance / totalDistances) * hand.length;
+        
+        double fullHouseCompletionProb = fullHouseProbability * weight;
+        return fullHouseCompletionProb;
+    }
+    
+    /**
+     * Four of a Kind Completion Probability
+     * @param hand
+     * @param index
+     * @return fourOfAKindCompletionProb
+     */
+    static double getFourOfAKindCompletionProbability(PlayingCard[] hand, int index){
+        double COMPLETION_PROBABILITY = 4.0 / 52.0;
+        double fourOfAKindDistance = FourOfAKind.distanceToFourOfAKind(index, hand);
+        double fourOfAKindProbability = Math.pow(COMPLETION_PROBABILITY, fourOfAKindDistance);
+        
+        double weight = 0;
+        double totalDistances = 0;
+        for (int i = 0; i < hand.length; i++){
+            totalDistances += FourOfAKind.distanceToFourOfAKind(i, hand);
+        }
+        weight = (fourOfAKindDistance / totalDistances) * hand.length;
+        
+        double fourOfAKindCompletionProb = fourOfAKindProbability * weight;
+        return fourOfAKindCompletionProb;
+    }
+    
+    /**
+     * Straight Flush Completion Probability
+     * @param hand
+     * @param index
+     * @return straightFlushCompletionProb
+     */
+    static double getStraightFlushCompletionProbability(PlayingCard[] hand, int index){
+        double COMPLETION_PROBABILITY = 4.0 / 52.0;
+        double straightFlushDistance = StraightFlush.distanceToStraightFlush(index, hand);
+        double straightFlushProbability = Math.pow(COMPLETION_PROBABILITY, straightFlushDistance);
+        
+        double weight = 0;
+        double totalDistances = 0;
+        for (int i = 0; i < hand.length; i++){
+            totalDistances += StraightFlush.distanceToStraightFlush(i, hand);
+        }
+        weight = (straightFlushDistance / totalDistances) * hand.length;
+        
+        double straightFlushCompletionProb = straightFlushProbability * weight;
+        return straightFlushCompletionProb;
+    }
+    
+    /**
+     * Royal Flush Completion Probability
+     * @param hand
+     * @param index
+     * @return royalFlushCompletionProb
+     */
+    static double getRoyalFlushCompletionProbability(PlayingCard[] hand, int index){
+        double COMPLETION_PROBABILITY = 4.0 / 52.0;
+        double royalFlushDistance = RoyalFlush.distanceToRoyalFlush(index, hand);
+        double royalFlushProbability = Math.pow(COMPLETION_PROBABILITY, royalFlushDistance);
+        
+        double weight = 0;
+        double totalDistances = 0;
+        for (int i = 0; i < hand.length; i++){
+            totalDistances += RoyalFlush.distanceToRoyalFlush(i, hand);
+        }
+        weight = (royalFlushDistance / totalDistances) * hand.length;
+        
+        double royalFlushCompletionProb = royalFlushProbability * weight;
+        return royalFlushCompletionProb;
+    }
 }

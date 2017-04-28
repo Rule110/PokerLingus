@@ -4,6 +4,12 @@ import game.framework.Game;
 import player.implementation.AutomatedPlayer;
 import player.implementation.HumanPlayer;
 
+/**
+ * Factory for Player module implementations
+ * Human and Automated are two possible Player implementations
+ * @author Rory Buckley
+ *
+ */
 public class PlayerFactory {
     public static Player getPlayer(String type, Game game, String ID){
         Player player;

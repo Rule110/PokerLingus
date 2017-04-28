@@ -42,7 +42,7 @@ public class FourOfAKind {
      * @param cardposition
      * @return distance
      */
-    double distanceToFourOfAKind(int cardposition, PlayingCard[] hand){
+    static double distanceToFourOfAKind(int cardposition, PlayingCard[] hand){
       return HandUtils.distanceOfCardFrom(4, cardposition, hand) / 4.0;
     }
 }

@@ -45,7 +45,7 @@ public class FullHouse {
      * @param cardposition
      * @return distance
      */
-    double distanceToFullHouse(int cardposition, PlayingCard[] hand){
+    static double distanceToFullHouse(int cardposition, PlayingCard[] hand){
       return HandUtils.min((HandUtils.distanceOfCardFrom(3, cardposition, hand) 
               + HandUtils.distanceOfRestFrom(2, cardposition, hand)) / 5.0,
           (HandUtils.distanceOfCardFrom(2, cardposition, hand) 

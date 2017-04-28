@@ -93,109 +93,107 @@ public class TwitterStreamListener implements UserStreamListener{
 	}
 
 	@Override
-	public void onFavoritedRetweet(User arg0, User arg1, Status arg2) {
+	public void onFavoritedRetweet(User arg0, User arg1, Status arg2) {//action not defined in implementation
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void onFollow(User arg0, User arg1) {
+	public void onFollow(User arg0, User arg1) {//action not defined in implementation
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void onFriendList(long[] arg0) {
+	public void onFriendList(long[] arg0) {//action not defined in implementation
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void onQuotedTweet(User arg0, User arg1, Status arg2) {
+	public void onQuotedTweet(User arg0, User arg1, Status arg2) {//action not defined in implementation
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void onRetweetedRetweet(User arg0, User arg1, Status arg2) {
+	public void onRetweetedRetweet(User arg0, User arg1, Status arg2) {//action not defined in implementation
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void onUnblock(User arg0, User arg1) {
+	public void onUnblock(User arg0, User arg1) {//action not defined in implementation
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void onUnfavorite(User arg0, User arg1, Status arg2) {
+	public void onUnfavorite(User arg0, User arg1, Status arg2) {//action not defined in implementation
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void onUnfollow(User arg0, User arg1) {
+	public void onUnfollow(User arg0, User arg1) {//action not defined in implementation
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void onUserDeletion(long arg0) {
+	public void onUserDeletion(long arg0) {//action not defined in implementation
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void onUserListCreation(User arg0, UserList arg1) {
+	public void onUserListCreation(User arg0, UserList arg1) {//action not defined in implementation
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void onUserListDeletion(User arg0, UserList arg1) {
+	public void onUserListDeletion(User arg0, UserList arg1) {//action not defined in implementation
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void onUserListMemberAddition(User arg0, User arg1, UserList arg2) {
+	public void onUserListMemberAddition(User arg0, User arg1, UserList arg2) {//action not defined in implementation
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void onUserListMemberDeletion(User arg0, User arg1, UserList arg2) {
+	public void onUserListMemberDeletion(User arg0, User arg1, UserList arg2) {//action not defined in implementation
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void onUserListSubscription(User arg0, User arg1, UserList arg2) {
+	public void onUserListSubscription(User arg0, User arg1, UserList arg2) {//action not defined in implementation
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void onUserListUnsubscription(User arg0, User arg1, UserList arg2) {
+	public void onUserListUnsubscription(User arg0, User arg1, UserList arg2) {//action not defined in implementation
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void onUserListUpdate(User arg0, UserList arg1) {
+	public void onUserListUpdate(User arg0, UserList arg1) {//action not defined in implementation
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void onUserProfileUpdate(User arg0) {
-		// TODO Auto-generated method stub
-		
+	public void onUserProfileUpdate(User arg0) {//action not defined in implementation
 	}
 
 	@Override
-	public void onUserSuspension(long arg0) {
+	public void onUserSuspension(long arg0) {//action not defined in implementation
 		// TODO Auto-generated method stub
 		
 	}

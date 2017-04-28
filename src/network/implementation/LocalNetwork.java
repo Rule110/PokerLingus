@@ -40,7 +40,7 @@ public class LocalNetwork implements Network {
 
 	@Override
 	public void pushMessageUpdate(String update) {
-		outputPrinter.println();
+		outputPrinter.println(update);
 	}
 }
 

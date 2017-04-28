@@ -17,7 +17,7 @@ public class TwitterNetwork implements Network {
 	
 	public TwitterNetwork(String userHandle){
 		this.userHandle = userHandle;
-		inputStream = new TwitterInputStream(userHandle);
+		inputStream = new TwitterInputStream();
 		outputStream = new TwitterOutputStream(userHandle);
 		inputScanner = new Scanner(inputStream);
 		outputPrinter = new PrintStream(outputStream);

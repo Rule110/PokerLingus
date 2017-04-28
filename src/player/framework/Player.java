@@ -8,7 +8,7 @@ import round.framework.Round;
  * Interface for Player module
  * @author Rory Buckley
  * @author Darragh Fay
- * @author Ciarain Murphy
+ * @author Ciaran Murphy
  *
  */
 public interface Player {

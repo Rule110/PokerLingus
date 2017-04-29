@@ -104,7 +104,7 @@ public class DrawPokerRound extends RoundTemplate {
 		ListIterator<String> listIterator = roundOrder.listIterator();
 		String startingPlayer = roundOrder.getFirst();	//first player must make bet
 		Player start = players.get(startingPlayer);
-		int currentBet = start.getOpeningBet(this);							
+		int currentBet = start.getOpeningBet(this);	
 		while (roundOrder.size() > 1){					//while there is more than one player still playing loop
 			listIterator.next();						//skip first player as already made bet.
 			allCalled = true;							//Set to true, only becomes false if someone raises.

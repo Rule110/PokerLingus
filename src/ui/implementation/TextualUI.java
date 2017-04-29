@@ -112,8 +112,7 @@ public class TextualUI extends UITemplate {
     	return isRaising;
     }
     
-    public int setRaise(){
-        int playerChips = 0;
+    public void setRaise(int playerChips){
     	Boolean validAmount = false;
     	
     	while(validAmount != true){
@@ -135,6 +134,5 @@ public class TextualUI extends UITemplate {
         	}else
         		validAmount = true;
     	}
-    	return raiseAmount;
     }
 }

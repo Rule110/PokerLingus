@@ -17,6 +17,11 @@ public class TextualUI extends UITemplate {
         message = new GameStateTextUpdate();
     }
     
+    public void textualDiscard(){
+    	message.setText("Which card(s) would you like to discard (e.g., 1,3): ");
+    	network.sendTextUpdate(message);
+    }
+    
     public void decideStrategy(Hand hand, Round round){
     	boolean strategy = false;
     	

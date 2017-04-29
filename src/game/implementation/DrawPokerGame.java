@@ -2,7 +2,6 @@ package game.implementation;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
-
 import bank.framework.Bank;
 import bank.framework.BankFactory;
 import network.framework.Network;
@@ -20,8 +19,8 @@ import game.framework.GameFactory;
 import gfxupdate.framework.GfxUpdate;
 
 public class DrawPokerGame extends Game {
-	public  static final String gameType = "DrawPoker";
 	
+	public  static final String gameType = "DrawPoker";
     private Network network;
     private Database database;
     private Dealer dealer;

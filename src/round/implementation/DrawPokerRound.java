@@ -31,7 +31,7 @@ public class DrawPokerRound extends RoundTemplate {
     	//Players Built in Game.
     	//Player bank accounts built in game as well. 
     	dealHands();
-    	//discard phase;
+    	beginDiscardPhase();
     	openingPlayers = getOpeningPlayers();
     	roundOrder = new LinkedList<String>();
     	// Loop through players, tell UI if player can open or not
@@ -57,13 +57,36 @@ public class DrawPokerRound extends RoundTemplate {
     }
     
     protected void beginDiscardPhase(){
+    	//Loop through players and let them discard.
     	for (String p: players.keySet()){
     		getDiscardedCards(p);
     	}
     }
     
     protected void getDiscardedCards(String playerID){
-        //Darragh will do
+    	 for (String p: players.keySet()){
+    		 	Vector<Integer> cardPositions = null;
+//				if (p.equals(playerID)){
+//					Player currentPlayer = players.get(p);
+//					System.out.println(currentPlayer.getHand());
+//					System.out.println("Are you Discarding?");	//First ask if they want to discard
+					//boolean check = currentPlayer;
+					//if(check){
+						//System.out.println("How many cards (1 to 3): ");
+						//user please enter up to 1 to 3 card positions.
+						//for (int i = 0; i < input; i++){
+						//	System.out.println("Card Position: ");
+						// 	input = scanner;
+						//	cardPositions.insertElementAt(input, i);
+						//}
+						//set positions in to discardindicies vector
+						//if(currentPlayer.isDiscarding()){	//if discardindicies is not empty
+						//	int cardPosition = 				//get next
+						//	currentPlayer.discardCard(replacement);
+						//}
+					//}
+//				}
+    	 }
     }
     
     protected Vector<String> getOpeningPlayers(){

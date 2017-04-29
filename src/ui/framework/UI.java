@@ -13,5 +13,7 @@ public interface UI {
     public boolean isRaising();
     
     public int getRaise();
+    
+    public boolean isDiscarding();
 
 }

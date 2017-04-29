@@ -10,6 +10,7 @@ abstract public class UITemplate implements UI {
     protected boolean isFolding;
     protected boolean isCalling;
     protected boolean isRaising;
+    protected boolean isDiscarding;
     protected int raiseAmount;
     
     UITemplate(Game game){
@@ -32,5 +33,9 @@ abstract public class UITemplate implements UI {
     
     public int getRaise(){
         return raiseAmount;
+    }
+    
+    public boolean isDiscarding(){
+    	return isDiscarding;
     }
 }

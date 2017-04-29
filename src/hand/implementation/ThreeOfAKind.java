@@ -47,7 +47,7 @@ public class ThreeOfAKind {
      * @param cardposition
      * @return distance
      */
-    double distanceToThreeOfAKind(int cardposition, PlayingCard[] hand){
+    static double distanceToThreeOfAKind(int cardposition, PlayingCard[] hand){
       return HandUtils.distanceOfCardFrom(3, cardposition, hand) / 3.0;
     }
 }

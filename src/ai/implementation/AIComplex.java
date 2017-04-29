@@ -1,5 +1,9 @@
 package ai.implementation;
 
+import java.util.concurrent.ThreadLocalRandom;
+
+import textupdate.framework.TextUpdate;
+import textupdate.framework.TextUpdateFactory;
 import game.framework.Game;
 
 /**
@@ -18,6 +22,17 @@ public class AIComplex extends AITemplate {
      * @param strategy
      */
     protected void expressPersonality(Strategy strategy){
+        int confidenceUpdateCode = strategy.getBluffedConfidence().getIntegerRepresentation() - 1;
+        int tellsUpdateCode = strategy.getBehaviour().getBehaviourNumber();
+        int bragsUpdateCode = ThreadLocalRandom.current().nextInt(0, 10);
         
+        TextUpdate aiConfidenceUpdate = TextUpdateFactory.getTextUpdate("AIConfidence", confidenceUpdateCode);
+        super.game.pushTextUpdate(aiConfidenceUpdate);
+        
+        TextUpdate aiTellsUpdate = TextUpdateFactory.getTextUpdate("AITells", tellsUpdateCode);
+        super.game.pushTextUpdate(aiTellsUpdate);
+        
+        TextUpdate aiBragsUpdate = TextUpdateFactory.getTextUpdate("AIBrags", bragsUpdateCode);
+        super.game.pushTextUpdate(aiBragsUpdate);
     }
 }

@@ -1,119 +1,133 @@
 package ui.implementation;
 
-import java.io.PrintStream;
-import java.util.Scanner;
-
 import game.framework.Game;
 import hand.framework.Hand;
+import network.framework.Network;
+import network.implementation.LocalNetwork;
 import round.framework.Round;
-import textupdate.framework.TextUpdate;
+import textupdate.implementation.GameStateTextUpdate;
 
 public class TextualUI extends UITemplate {
     
-	PrintStream outStream = System.out;
-	Scanner input = new Scanner(System.in);
+	private Network network = new LocalNetwork("testPlayer");
+	private GameStateTextUpdate message;
 	
     public TextualUI(Game game){
         super(game);
+        message = new GameStateTextUpdate();
     }
     
     public void decideStrategy(Hand hand, Round round){
-        if(isFolding()){
-        	
-        } else if(isRaising()){
-        	
-        } else if(isCalling()){
-        	
-        }
-    }
-    
-    public void intro(){
-    	super.game.pushMessageUpdate("Welcome to the Automated Poker Machine... \nLet's Play Poker!");
-    }
-    
-    public boolean isFolding(){
-    	String fold;
+    	boolean strategy = false;
     	
-    	while(isFolding != true || isFolding != false){
-    		super.game.pushMessageUpdate("Would you like to fold (y/n)?: ");
-        	fold = super.game.getMessageUpdate();
-        	
-        	switch (fold.toLowerCase()){
-	    		case "y":
-	    			isFolding = true;
-	    			break;
-	    		case "n":
-	    			isFolding = false;
-	    			break;
-	    		default:
-	    			super.game.pushMessageUpdate("Please enter a valid character!");
-	    			break;    	
-        	}
+    	while(!strategy){
+	        if(!setFolding()){
+		        if(!setRaising()){
+		        	if(setCalling()){
+		        		strategy = true;
+		        	}
+		        } else{
+		        	setRaise();
+		        	strategy = true;
+		        }
+	        } else
+	        	strategy = true;
+    	}
+    }
+    
+    public boolean setFolding(){
+    	String fold;
+
+		message.setText("Would you like to fold (y/n)?: ");
+    	network.sendTextUpdate(message);
+    	fold = network.getMessageUpdate();
+    	
+    	switch (fold.toLowerCase()){
+    		case "y":
+    			isFolding = true;
+    			break;
+    		case "n":
+    			isFolding = false;
+    			break;
+    		default:
+    			message.setText("Please enter a valid character!");
+            	network.sendTextUpdate(message);
+            	message.setText("Would you like to fold (y/n)?: ");
+            	network.sendTextUpdate(message);
+            	fold = network.getMessageUpdate();   	
     	}
     	return isFolding;
     }
     
-    public boolean isCalling(){
+    public boolean setCalling(){
     	String call;
+
+		message.setText("Would you like to call (y/n)?: ");
+    	network.sendTextUpdate(message);
+    	call = network.getMessageUpdate();
     	
-    	while(isCalling != true || isCalling != false){
-    		super.game.pushMessageUpdate("Would you like to call (y/n)?: ");
-        	call = super.game.getMessageUpdate();
-        	
-        	switch (call.toLowerCase()){
-	    		case "y":
-	    			isCalling = true;
-	    			break;
-	    		case "n":
-	    			isCalling = false;
-	    			break;
-	    		default:
-	    			super.game.pushMessageUpdate("Please enter a valid character!");
-	    			break;    	
-        	}
+    	switch (call.toLowerCase()){
+    		case "y":
+    			isCalling = true;
+    			break;
+    		case "n":
+    			isCalling = false;
+    			break;
+    		default:
+    			message.setText("Please enter a valid character!");
+            	network.sendTextUpdate(message);
+            	message.setText("Would you like to call (y/n)?: ");
+            	network.sendTextUpdate(message);
+            	call = network.getMessageUpdate();   	
     	}
     	return isCalling;
     }
     
-    public boolean isRaising(){
+    public boolean setRaising(){
     	String raise;
+
+		message.setText("Would you like to raise (y/n)?: ");
+    	network.sendTextUpdate(message);
+    	raise = network.getMessageUpdate();
     	
-    	while(isRaising != true || isRaising != false){
-    		super.game.pushMessageUpdate("Would you like to raise (y/n)?: ");
-        	raise = super.game.getMessageUpdate();
-        	
-        	switch (raise.toLowerCase()){
-	    		case "y":
-	    			isRaising = true;
-	    			break;
-	    		case "n":
-	    			isRaising = false;
-	    			break;
-	    		default:
-	    			super.game.pushMessageUpdate("Please enter a valid character!");
-	    			break;    	
-        	}
+    	switch (raise.toLowerCase()){
+    		case "y":
+    			isRaising = true;
+    			break;
+    		case "n":
+    			isRaising = false;
+    			break;
+    		default:
+    			message.setText("Please enter a valid character!");
+            	network.sendTextUpdate(message);
+            	message.setText("Would you like to raise (y/n)?: ");
+            	network.sendTextUpdate(message);
+            	raise = network.getMessageUpdate();   	
     	}
     	return isRaising;
     }
     
-    public int getRaise(){
+    public int setRaise(){
         int playerChips = 0;
     	Boolean validAmount = false;
     	
     	while(validAmount != true){
-    		super.game.pushMessageUpdate("Please enter amount to raise by: ");
+    		message.setText("Please enter amount to raise by: ");
+        	network.sendTextUpdate(message);
     		try {
-    			raiseAmount = Integer.parseInt(super.game.getMessageUpdate());
+    			raiseAmount = Integer.parseInt(network.getMessageUpdate());
             } catch (NumberFormatException e) {
-            	super.game.pushMessageUpdate("Please Enter A valid Integer");
+            	message.setText("Please Enter A valid Integer");
+            	network.sendTextUpdate(message);
                 continue;
             }        	
-        	if (raiseAmount > playerChips)
-        		super.game.pushMessageUpdate("You cannot bet more chips than you have!");
-        	else if (raiseAmount <= 0)
-        		super.game.pushMessageUpdate("Please enter an amount to raise by!");
-        	else
+        	if (raiseAmount > playerChips){
+        		message.setText("You cannot bet more chips than you have!");
+        		network.sendTextUpdate(message);
+        	}else if (raiseAmount <= 0){
+        		message.setText("Please enter an amount to raise by!");
+        		network.sendTextUpdate(message);
+        	}else
         		validAmount = true;
     	}
     	return raiseAmount;

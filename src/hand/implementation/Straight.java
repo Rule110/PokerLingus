@@ -36,7 +36,7 @@ public class Straight {
      * @param cardposition
      * @return distance
      */
-    double distanceToStraight(int cardposition, PlayingCard[] hand){
+    static double distanceToStraight(int cardposition, PlayingCard[] hand){
       int straightcount = 1;
       boolean isstraight = true;
       int i = cardposition + 1;

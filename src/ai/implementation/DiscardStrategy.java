@@ -1,7 +1,5 @@
 package ai.implementation;
 
-import hand.framework.Hand;
-
 import java.util.Vector;
 
 /**
@@ -13,8 +11,12 @@ import java.util.Vector;
 public class DiscardStrategy {
     private Vector<Integer> discardableCards;
     
-    DiscardStrategy(Hand hand){
-        
+    public DiscardStrategy(){
+        this.discardableCards = new Vector<Integer>();
+    }
+    
+    public void addCardToDiscard(Integer handIndex){
+        this.discardableCards.add(handIndex);
     }
     
     public Vector<Integer> getDiscardableCards(){

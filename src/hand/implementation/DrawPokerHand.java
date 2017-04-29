@@ -4,10 +4,16 @@ import java.util.Iterator;
 
 import hand.framework.Hand;
 
+/**
+ * DrawPoker Hand implementation
+ * @author Rory Buckley
+ *
+ */
 public class DrawPokerHand implements Hand {
     
 	public static int HAND_LIMIT = 5;
 	private PlayingCard[] hand;
+	private int cardCount = 0;
 	
 	public DrawPokerHand(){
 		hand = new PlayingCard[HAND_LIMIT];
@@ -15,6 +21,10 @@ public class DrawPokerHand implements Hand {
 	
 	public void setCards(PlayingCard newCard, int i){
 		hand[i] = newCard;
+		this.cardCount++;
+		if (this.cardCount == HAND_LIMIT){
+		    HandUtils.sort(this.hand);
+		}
 	}
 	
     public boolean isHighHand(){
@@ -106,6 +116,15 @@ public class DrawPokerHand implements Hand {
             gameValue = RoyalFlush.getGameValue();
         }
         return gameValue;
+    }
+    
+    /**
+     * Returns the Discard Probability for a card
+     *  based on the distance to complete a hand type weighted by value
+     *  @return discardProbability
+     */
+    public int getDiscardProbability(int index){
+        return HandUtils.getDiscardProbability(this.hand, index);
     }
     
     /**

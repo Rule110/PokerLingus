@@ -8,6 +8,13 @@ import hand.implementation.PlayingCard;
 import player.framework.Player;
 import round.framework.Round;
 
+/**
+ * Player implementation template class
+ * @author Rory Buckley
+ * @author Darragh Fay
+ * @author Ciarain Murphy
+ *
+ */
 abstract public class PlayerTemplate implements Player {
 	protected String ID;
     protected Hand hand;

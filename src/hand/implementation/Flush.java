@@ -38,7 +38,7 @@ public class Flush {
      * @param cardposition
      * @return distance
      */
-    double distanceToFlush(int cardposition, PlayingCard[] hand){
+    static double distanceToFlush(int cardposition, PlayingCard[] hand){
       int flushcount = 0;
       char suit = hand[cardposition].getSuit();
       for (PlayingCard card : hand){

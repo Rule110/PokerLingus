@@ -50,13 +50,9 @@ abstract public class AITemplate implements AI {
     public Strategy decideStrategy(Hand hand, RoundState roundState){
         
         Scale confidence = AIAssessor.assessHand(hand);
-        
         Scale risk = AIAssessor.assessRisk(roundState);
-        
         Scale reward = AIAssessor.assessReward(roundState);
-        
         Integer raisePool = roundState.getChips() - roundState.getCallValue();
-        
         Strategy strategy = new Strategy(confidence, risk, reward, this.personality, raisePool);
         
         this.expressPersonality(strategy);

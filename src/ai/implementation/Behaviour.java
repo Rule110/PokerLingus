@@ -15,7 +15,7 @@ public class Behaviour {
      * Upon Construction generate a random behaviour
      */
     Behaviour(){
-        this.behaviourNumber = ThreadLocalRandom.current().nextInt(0, 20);
+        this.behaviourNumber = ThreadLocalRandom.current().nextInt(0, 10);
     }
     
     /**

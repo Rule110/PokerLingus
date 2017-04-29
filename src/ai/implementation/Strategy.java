@@ -12,6 +12,7 @@ public class Strategy {
     private boolean isRaising;
     private int raiseAmount;
     private Scale bluffedConfidence;
+    private Behaviour behaviour;
     
     Strategy(Scale confidence, Scale risk, Scale reward, Personality personality, Integer raisePool){
         this.formulateStrategy(confidence, risk, reward, personality, raisePool);
@@ -31,16 +32,21 @@ public class Strategy {
     private void formulateStrategy(Scale confidence, Scale risk, Scale reward, Personality personality, Integer raisePool){
         
         Scale perceivedRisk = Strategy.getPerceivedRisk(personality, risk);
-        
         Scale confidenceScaledReward = Strategy.getConfidenceScaledReward(confidence, reward);
-        
         this.setDecisions(confidenceScaledReward, perceivedRisk);
         
         if (this.isRaising){
             
             Scale raiseConfidence = Strategy.getRaiseConfidence(confidenceScaledReward, perceivedRisk);
+            this.bluffedConfidence = personality.getBluffedConfidence(raiseConfidence);
+            this.setRaiseAmount(personality, raisePool);
             
-            this.setRaiseAmount(raiseConfidence, personality, raisePool);
+            Scale bluffingDegree = new Scale(Math.abs(this.bluffedConfidence.differenceAsInteger(confidence)));
+            this.behaviour = personality.getBehaviour(bluffingDegree);
+        }
+        else {
+            this.bluffedConfidence = confidence;
+            this.behaviour = personality.getBehaviour();
         }
     }
     
@@ -99,17 +105,14 @@ public class Strategy {
     
     /**
      * Set Raise Amount
-     * This sets the Raise Amount based on the raiseConfidence applied to the raisePool
+     * This sets the Raise Amount based on the bluffedConfidence applied to the raisePool
+     * Bluffed Confidence is the raiseConfidence obfuscated by the degree of the AI Personality's bluffingAbility
      * Raise Confidence is a degree on a scale that determines ...
      *  the proportion of the current chips left (raisePool) that will be used to raise.
-     * The raiseConfidence is first obfuscated by the degree of the AI Personality's bluffingAbility
-     * @param raiseConfidence
      * @param personality
      * @param raisePool
      */
-    private void setRaiseAmount(Scale raiseConfidence, Personality personality, Integer raisePool){
-        
-        this.bluffedConfidence = personality.getBluffedConfidence(raiseConfidence);
+    private void setRaiseAmount(Personality personality, Integer raisePool){
         this.raiseAmount = this.bluffedConfidence.scaleThat(raisePool);
     }
     
@@ -156,5 +159,15 @@ public class Strategy {
      */
     public Scale getBluffedConfidence(){
         return this.bluffedConfidence;
+    }
+    
+    /**
+     * Gets the behaviour as this strategy is being deployed
+     * Behaviour may be a tell or not depending on personality and ...
+     * ...the level of bluffing
+     * @return
+     */
+    public Behaviour getBehaviour(){
+        return this.behaviour;
     }
 }

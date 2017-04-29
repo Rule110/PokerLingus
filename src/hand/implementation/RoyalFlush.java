@@ -27,7 +27,7 @@ public class RoyalFlush {
      * @param cardposition
      * @return
      */
-    double distanceToRoyalFlush(int cardposition, PlayingCard[] hand){
+    static double distanceToRoyalFlush(int cardposition, PlayingCard[] hand){
       boolean isroyalflush = hand[cardposition].getGameVal() > 9;
       
       int royalflushcount = isroyalflush ? 1 : 0;

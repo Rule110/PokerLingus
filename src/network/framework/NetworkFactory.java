@@ -1,5 +1,6 @@
 package network.framework;
 
+import network.implementation.LocalNetwork;
 import network.implementation.TwitterNetwork;
 
 public class NetworkFactory {
@@ -10,6 +11,8 @@ public class NetworkFactory {
         case "Twitter":
             network = new TwitterNetwork(userHandle);
             break;
+        case "Local":
+        	network = new LocalNetwork(userHandle);
         default:
             throw new RuntimeException();
         }

@@ -4,6 +4,13 @@ import hand.framework.Hand;
 import hand.implementation.PlayingCard;
 import round.framework.Round;
 
+/**
+ * Interface for Player module
+ * @author Rory Buckley
+ * @author Darragh Fay
+ * @author Ciaran Murphy
+ *
+ */
 public interface Player {
     public boolean canOpen();
     

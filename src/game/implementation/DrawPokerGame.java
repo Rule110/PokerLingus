@@ -5,7 +5,7 @@ import java.util.Map;
 import bank.framework.Bank;
 import bank.framework.BankFactory;
 import network.framework.Network;
-
+import network.implementation.LocalNetwork;
 import player.framework.Player;
 import player.framework.PlayerFactory;
 import round.framework.Round;
@@ -15,11 +15,12 @@ import database.framework.Database;
 import dealer.framework.Dealer;
 import dealer.framework.DealerFactory;
 import game.framework.Game;
+import game.framework.GameFactory;
 import gfxupdate.framework.GfxUpdate;
 
 public class DrawPokerGame extends Game {
 	
-	private String gameType = "DrawPoker";
+	public  static final String gameType = "DrawPoker";
     private Network network;
     private Database database;
     private Dealer dealer;
@@ -52,18 +53,18 @@ public class DrawPokerGame extends Game {
     }
     
     public synchronized String getMessageUpdate(){
-    	try {
-			this.wait();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//    	try {
+//			this.wait();
+//		} catch (InterruptedException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
     	return network.getMessageUpdate();
     }
     
     public synchronized void captureMessageUpdate(String newMessage){
     	network.captureMessageUpdate(newMessage);
-    	this.notify();
+    	//this.notify();
     }
     
     public void pushGfxUpdate(GfxUpdate update){
@@ -77,5 +78,14 @@ public class DrawPokerGame extends Game {
 	
 	public Database getDatabase(){
 	    return this.database;
+	}
+	/**
+	 * Main method stub used for testing purposes
+	 * @param args
+	 */
+	public static void main(String[] args){
+		Network testNet= new LocalNetwork("Darragh");
+		Game testGame = GameFactory.getGame(DrawPokerGame.gameType, "Darragh", testNet);
+		testGame.start();
 	}
 }

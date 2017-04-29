@@ -7,13 +7,24 @@ import ai.framework.AIFactory;
 import ai.implementation.DiscardStrategy;
 import ai.implementation.Strategy;
 
+/**
+ * Player implementation with an AI deciding strategies
+ * @author Rory Buckley
+ *
+ */
 public class AutomatedPlayer extends PlayerTemplate {
     private AI ai;
     private Strategy strategy;
     
+    /**
+     * Automated Player implementation using AI module ...
+     * ...filled with ComplexStaticRandom implementation
+     * @param game
+     * @param ID
+     */
     public AutomatedPlayer(Game game, String ID){
     	super.ID = ID;
-        this.ai = AIFactory.getAI("Simple", game);
+        this.ai = AIFactory.getAI("ComplexStaticRandom", game);
     }
     
     /**

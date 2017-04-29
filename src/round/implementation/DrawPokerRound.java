@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Vector;
 
 import player.framework.Player;
+import player.implementation.HumanPlayer;
 import pot.framework.Pot;
 import pot.framework.PotFactory;
 import bank.framework.Bank;

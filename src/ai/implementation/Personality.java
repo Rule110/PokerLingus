@@ -66,15 +66,27 @@ public class Personality {
      *  Repetitive behaviours are likely to be tells rather than normal behaviour
      * @return
      */
-    public Behaviour getBehaviour(){
+    public Behaviour getBehaviour(Scale bluffingDegree){
         Behaviour behaviour;
+        Scale likelihoodOfTell = this.jitteriness.scaleByDegree(bluffingDegree);
         Scale random = new Scale(ThreadLocalRandom.current().nextInt(0, 11));
-        if (random.compareTo(this.jitteriness) < 0){
+        if (random.compareTo(likelihoodOfTell) < 0){
             behaviour = this.tell;
         }
         else {
             behaviour = new Behaviour();
         }
         return behaviour;
+    }
+    
+    /**
+     * Get the Behaviour in the case of no Bluffing
+     * If there is no Bluffing then the jitteriness would be scaled by degree 0
+     * The Likelihood of a Tell then would also be 0
+     * The behaviour will then be just a randomly generated behaviour
+     * @return
+     */
+    public Behaviour getBehaviour(){
+        return new Behaviour();
     }
 }

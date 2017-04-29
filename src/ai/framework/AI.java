@@ -6,6 +6,11 @@ import ai.implementation.Strategy;
 
 import hand.framework.Hand;
 
+/**
+ * Interface of AI module
+ * @author Rory Buckley
+ *
+ */
 public interface AI {
     public DiscardStrategy decideDiscarding(Hand hand);
     

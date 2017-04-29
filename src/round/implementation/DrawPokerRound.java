@@ -38,7 +38,6 @@ public class DrawPokerRound extends RoundTemplate {
     	if(!openingPlayers.isEmpty()){
 	    	setOrder(); //This is the order for the CURRENT round.
 	    	beginBettingPhase();	//controls betting phase.
-			System.out.println("test");
 	    	getWinner();
     	}
     }
@@ -107,25 +106,31 @@ public class DrawPokerRound extends RoundTemplate {
 		String startingPlayer = roundOrder.getFirst();	//first player must make bet
 		Player start = players.get(startingPlayer);
 		int currentBet = start.getOpeningBet(this);	
+		listIterator.next();						//skip first player as already made bet.
 		while (roundOrder.size() > 1){					//while there is more than one player still playing loop
-			listIterator.next();						//skip first player as already made bet.
 			allCalled = true;							//Set to true, only becomes false if someone raises.
 			while (listIterator.hasNext()){				//Loops through roundOrder until reaches last player.
-		    	String playerName = listIterator.next();
+				String playerName = listIterator.next();
+				System.out.println("Current Player: " + playerName);
 		    	Player p = players.get(playerName);
 		    		p.decideStrategy(this);
 		     		if(p.isFolding()){
 		    			roundOrder.remove(p);					//remove from linkedlist as out of round.
+		    			if (roundOrder.size() == 1) { break; };
 		    		} else if (p.isCalling()){
 		    			bank.withdraw(playerName, currentBet);	//subtract value from player bank account.
 		    			pot.addChips(playerName, currentBet);	//add value to pot.
 		    		} else if (p.isRaising()){
-	    				currentBet = p.getRaise();
+		    			bank.withdraw(playerName, currentBet);
+		    			pot.addChips(playerName, currentBet);
+		    			currentBet = p.getRaise();
 	    				bank.withdraw(playerName, currentBet);	//subtract value from player bank account.
 	    				pot.addChips(playerName, currentBet);
 	    				allCalled = false;						//allCall set to false as player has raised.
-	    				reOrder(p);								//Reorders players, now person who raise is first.
+	    				reOrder(playerName);								//Reorders players, now person who raise is first.
 	    				listIterator = roundOrder.listIterator(); //reset iterator
+	    				System.out.println("Re order: " + roundOrder);
+	    				listIterator.next();						//skip first player as already made bet.
 	    				break;
 		    	}
 		    }
@@ -137,8 +142,8 @@ public class DrawPokerRound extends RoundTemplate {
 		
 	}
     
-    private void reOrder(Player playerWhoRaised){				//Reorder function for when a player raises.
-		String firstPlayer = playerWhoRaised.toString();		//Makes person who raised first in the roundOrder
+    private void reOrder(String playerWhoRaised){				//Reorder function for when a player raises.
+		String firstPlayer = playerWhoRaised;		//Makes person who raised first in the roundOrder
 	    int remainder = 0;										//This means eg:Everyone else following him then calls, the person
 	    boolean firstFound = false;								//who called  CANNOT raise again. This ensures that.
 	    LinkedList<String> tempReorder = new LinkedList<String>();
@@ -175,19 +180,23 @@ public class DrawPokerRound extends RoundTemplate {
     public String getWinner(){
     	//Loop through remaining players in roundOrder. Compare hand values.
     	Player winner = null;
+    	String winnerName = null;
     	Player temp = null;
     	int handOfWinner = 0;
     	ListIterator<String> listIterator = roundOrder.listIterator();
     	while (listIterator.hasNext()){
     		String playerName = listIterator.next();
+    		System.out.println(playerName);
     		Player p = players.get(playerName);
     		int handOfTemp = p.getHand().getGameValue();
     		if (handOfTemp > handOfWinner){
     			winner = p;
+    			winnerName = playerName;
     		}
     		handOfWinner = winner.getHand().getGameValue();
     	}
-    	String winnerName = winner.toString();
+    	//winner = players.get(winner);
+    	System.out.println(winnerName);
     	addWinnings(winnerName, 0);
         return super.winner;
     }
@@ -196,6 +205,7 @@ public class DrawPokerRound extends RoundTemplate {
         int winnings = pot.getTotalValue();
         for (String p: players.keySet()){
         	if (p.equals(winner)){
+        		System.out.println("winnings:" + winnings);
         		bank.deposit(p, winnings);
         	}
         }

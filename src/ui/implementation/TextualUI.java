@@ -1,5 +1,6 @@
 package ui.implementation;
 
+import bank.framework.Bank;
 import game.framework.Game;
 import hand.framework.Hand;
 import network.framework.Network;
@@ -32,7 +33,7 @@ public class TextualUI extends UITemplate {
 		        		strategy = true;
 		        	}
 		        } else{
-		        	setRaise();
+		        	setRaise(10);
 		        	strategy = true;
 		        }
 	        } else

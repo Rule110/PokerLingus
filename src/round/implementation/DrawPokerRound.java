@@ -38,6 +38,7 @@ public class DrawPokerRound extends RoundTemplate {
     	if(!openingPlayers.isEmpty()){
 	    	setOrder(); //This is the order for the CURRENT round.
 	    	beginBettingPhase();	//controls betting phase.
+			System.out.println("test");
 	    	getWinner();
     	}
     }
@@ -124,6 +125,7 @@ public class DrawPokerRound extends RoundTemplate {
 	    				pot.addChips(playerName, currentBet);
 	    				allCalled = false;						//allCall set to false as player has raised.
 	    				reOrder(p);								//Reorders players, now person who raise is first.
+	    				listIterator = roundOrder.listIterator(); //reset iterator
 	    				break;
 		    	}
 		    }

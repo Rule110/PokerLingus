@@ -14,6 +14,7 @@ import dealer.framework.Dealer;
 import hand.framework.Hand;
 import hand.framework.HandFactory;
 import hand.implementation.DrawPokerHand;
+import hand.implementation.PlayingCard;
 import network.framework.Network;
 
 public class DrawPokerRound extends RoundTemplate {
@@ -73,30 +74,12 @@ public class DrawPokerRound extends RoundTemplate {
     	}
     }
     
-    protected void getDiscardedCards(String playerID){
-    	 for (String p: players.keySet()){
-    		 	Vector<Integer> cardPositions = null;
-//				if (p.equals(playerID)){
-//					Player currentPlayer = players.get(p);
-//					System.out.println(currentPlayer.getHand());
-//					System.out.println("Are you Discarding?");	//First ask if they want to discard
-					//boolean check = currentPlayer;
-					//if(check){
-						//System.out.println("How many cards (1 to 3): ");
-						//user please enter up to 1 to 3 card positions.
-						//for (int i = 0; i < input; i++){
-						//	System.out.println("Card Position: ");
-						// 	input = scanner;
-						//	cardPositions.insertElementAt(input, i);
-						//}
-						//set positions in to discardindicies vector
-						//if(currentPlayer.isDiscarding()){	//if discardindicies is not empty
-						//	int cardPosition = 				//get next
-						//	currentPlayer.discardCard(replacement);
-						//}
-					//}
-//				}
-    	 }
+    protected void discardCards(String playerID){
+    	while(players.get(playerID).isDiscarding()){
+    		PlayingCard discard = players.get(playerID).discardCard(dealer.dealNext());
+    		dealer.returnCard(discard);
+    	}
+    	//players.get(playerID)
     }
     
     protected Vector<String> getOpeningPlayers(){
@@ -260,4 +243,10 @@ public class DrawPokerRound extends RoundTemplate {
         	}
         }
     }
+
+	@Override
+	protected void getDiscardedCards(String playerID) {
+		// TODO Auto-generated method stub
+		
+	}
 }

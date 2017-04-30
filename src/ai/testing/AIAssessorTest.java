@@ -2,7 +2,16 @@ package ai.testing;
 
 import static org.junit.Assert.*;
 import hand.framework.Hand;
-import hand.framework.HandFactory;
+import hand.implementation.DrawPokerHand;
+import hand.implementation.Flush;
+import hand.implementation.FourOfAKind;
+import hand.implementation.FullHouse;
+import hand.implementation.OnePair;
+import hand.implementation.RoyalFlush;
+import hand.implementation.Straight;
+import hand.implementation.StraightFlush;
+import hand.implementation.ThreeOfAKind;
+import hand.implementation.TwoPair;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,6 +35,20 @@ public class AIAssessorTest {
     private RoundState round4;
     private RoundState round5;
     private RoundState round6;
+    
+    private class TestHand extends DrawPokerHand{
+        private int hardCodedGameValue;
+        
+        TestHand(int gameValue){
+            this.hardCodedGameValue = gameValue;
+        }
+        
+        @Override
+        public int getGameValue(){
+            return this.hardCodedGameValue;
+        }
+        
+    };
     private Hand hand1;
     private Hand hand2;
     private Hand hand3;
@@ -45,23 +68,15 @@ public class AIAssessorTest {
         this.round5 = new TestRoundState(100, 10, 100);
         this.round6 = new TestRoundState(5,1000, 5);
         
-        this.hand1 = HandFactory.getHand("DrawPoker");
-
-        this.hand2 = HandFactory.getHand("DrawPoker");
-
-        this.hand3 = HandFactory.getHand("DrawPoker");
-
-        this.hand4 = HandFactory.getHand("DrawPoker");
-
-        this.hand5 = HandFactory.getHand("DrawPoker");
-
-        this.hand6 = HandFactory.getHand("DrawPoker");
-
-        this.hand7 = HandFactory.getHand("DrawPoker");
-
-        this.hand8 = HandFactory.getHand("DrawPoker");
-
-        this.hand9 = HandFactory.getHand("DrawPoker");
+        this.hand1 = new TestHand(OnePair.ONE_PAIR_DEFAULT);
+        this.hand2 = new TestHand(TwoPair.TWO_PAIR_DEFAULT);
+        this.hand3 = new TestHand(ThreeOfAKind.THREE_OF_A_KIND_DEFAULT);
+        this.hand4 = new TestHand(Straight.STRAIGHT_DEFAULT);
+        this.hand5 = new TestHand(Flush.FLUSH_DEFAULT);
+        this.hand6 = new TestHand(FullHouse.FULL_HOUSE_DEFAULT);
+        this.hand7 = new TestHand(FourOfAKind.FOUR_OF_A_KIND_DEFAULT);
+        this.hand8 = new TestHand(StraightFlush.STRAIGHT_FLUSH_DEFAULT);
+        this.hand9 = new TestHand(RoyalFlush.ROYAL_FLUSH_DEFAULT);
     }
 
     @Test
@@ -86,7 +101,14 @@ public class AIAssessorTest {
 
     @Test
     public void testAssessHand() {
-        fail("Not yet implemented");
+        assertEquals(AIAssessor.assessHand(hand1), new Scale(1));
+        assertEquals(AIAssessor.assessHand(hand2), new Scale(2));
+        assertEquals(AIAssessor.assessHand(hand3), new Scale(3));
+        assertEquals(AIAssessor.assessHand(hand4), new Scale(4));
+        assertEquals(AIAssessor.assessHand(hand5), new Scale(5));
+        assertEquals(AIAssessor.assessHand(hand6), new Scale(6));
+        assertEquals(AIAssessor.assessHand(hand7), new Scale(7));
+        assertEquals(AIAssessor.assessHand(hand8), new Scale(8));
+        assertEquals(AIAssessor.assessHand(hand9), new Scale(10));
     }
-
 }

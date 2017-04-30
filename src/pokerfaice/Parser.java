@@ -1,5 +1,9 @@
 package pokerfaice;
 
+import java.util.concurrent.ThreadLocalRandom;
+
+import ai.implementation.AISymbols;
+
 import game.framework.Game;
 import gfxupdate.framework.GfxUpdate;
 import gfxupdate.framework.GfxUpdateFactory;
@@ -41,5 +45,10 @@ public class Parser {
         default: throw new RuntimeException();
         }
         
+    }
+    
+    public static final String getName(){
+        int index = ThreadLocalRandom.current().nextInt(1, 11);
+        return AISymbols.names[index];
     }
 }

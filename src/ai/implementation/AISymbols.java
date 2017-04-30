@@ -1,6 +1,19 @@
 package ai.implementation;
 
 public class AISymbols {
+    public static final String[] names = {
+        "George Boole",
+        "Edsger Dijkstra",
+        "Noam Chomsky",
+        "Charles Babbage",
+        "Ada Lovelace",
+        "John von Neumann",
+        "Alan Turing",
+        "Maurice Karnaugh",
+        "Alonzo Church",
+        "Tim Berners-Lee"
+    };
+    
     public static final String[] brags = {
         " boasts about his prowess in poker.",
         " attempts to distract you with a story from years ago.",

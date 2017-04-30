@@ -28,9 +28,10 @@ public class Scale {
     
     /**
      * Sets Scale to integer
+     * Public access for testing purposes
      * @param scale
      */
-    Scale(Integer scale){
+    public Scale(Integer scale){
         this.setScale(scale);
     }
     

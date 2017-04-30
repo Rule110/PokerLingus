@@ -38,7 +38,8 @@ public class DrawPokerGame extends Game {
         pushMessageUpdate("Welcome " + username + ", enjoy your game of " + gameType);
        
         for (int i = 0; i < 4; i++){
-            this.players.put("AI" + i, PlayerFactory.getPlayer("Automated", this, "AI" + i));
+            String name = Parser.getName();
+            this.players.put("AI" + i, PlayerFactory.getPlayer("Automated", this, name));
         }
         this.players.put(username, PlayerFactory.getPlayer("Human", this, username));
         

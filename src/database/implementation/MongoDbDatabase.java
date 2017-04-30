@@ -48,6 +48,27 @@ public class MongoDbDatabase implements Database {
 	}
 	
 	/**
+	 * Adds the players and hand types to their respective collections
+	 * @param players
+	 * @param hands
+	 */
+	public void setup(Vector<String> players, Vector<String> hands) {
+		dropDatabase();
+		
+		Document doc = new Document("Title", "Hand Frequencies");
+	    for (int i=0; i<hands.size(); i++){
+	    	doc.append(hands.get(i), 0);
+	    }
+	    insertIntoDB(doc, handCollection);
+	        
+	    Document doc1 = new Document("Title", "Leaderboard");
+	    for (int i=0; i<players.size(); i++){
+	    	doc1.append(players.get(i), 0);
+	    }
+	    insertIntoDB(doc1, leaderCollection);
+	}
+	
+	/**
 	 * Prints the specific collection to the console
 	 * @param collection
 	 */
@@ -90,27 +111,6 @@ public class MongoDbDatabase implements Database {
 				new Document().append(key, 1));
 
 		collection.updateOne(new Document(), newDocument);
-	}
-	
-	/**
-	 * Adds the players and hand types to their respective collections
-	 * @param players
-	 * @param hands
-	 */
-	public void setup(Vector<String> players, Vector<String> hands) {
-		dropDatabase();
-		
-		Document doc = new Document("Title", "Hand Frequencies");
-	    for (int i=0; i<hands.size(); i++){
-	    	doc.append(hands.get(i), 0);
-	    }
-	    insertIntoDB(doc, handCollection);
-	        
-	    Document doc1 = new Document("Title", "Leaderboard");
-	    for (int i=0; i<players.size(); i++){
-	    	doc1.append(players.get(i), 0);
-	    }
-	    insertIntoDB(doc1, leaderCollection);
 	}
 	
 	/**

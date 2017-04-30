@@ -8,11 +8,12 @@ public class DrawPokerDealer implements Dealer {
 	private Deck deck;
 	
 	public DrawPokerDealer(){
+		deck = new Deck();
 		reset();
 	}
 	
     public synchronized void reset(){
-        deck = new Deck();
+        //deck = new Deck();
         deck.shuffle();
     }
     

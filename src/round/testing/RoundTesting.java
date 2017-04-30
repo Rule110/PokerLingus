@@ -1,4 +1,4 @@
-package round.implementation;
+package round.testing;
 
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -19,6 +19,7 @@ import player.framework.Player;
 import player.framework.PlayerFactory;
 import pot.framework.PotFactory;
 import round.framework.Round;
+import round.implementation.DrawPokerRound;
 
 public class RoundTesting extends TestCase {
 	

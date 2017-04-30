@@ -48,7 +48,7 @@ public class DrawPokerGame extends Game {
     
     public void run(){
     	while(players.size() > 1){
-    		Round currentRound = RoundFactory.getRound(gameType, players, dealer, bank);
+    		Round currentRound = RoundFactory.getRound(gameType, players, dealer, bank, network);
     		currentRound.beginRound();
     	}
     }

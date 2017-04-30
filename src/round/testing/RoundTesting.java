@@ -55,7 +55,7 @@ public class RoundTesting extends TestCase {
 		//Map<String, Player> roundplayers = null;
         this.dealer = DealerFactory.getDealer(gameType);
 		//Dealer dealer = new ;
-		Round testRound = new DrawPokerRound(players, dealer, bank);
+		Round testRound = new DrawPokerRound(players, dealer, bank, networkTest);
 		assertTrue(bank.getAvailableFunds(nameP1) == 10);
 		testRound.beginRound();
 		assertTrue(players.size() > 0);

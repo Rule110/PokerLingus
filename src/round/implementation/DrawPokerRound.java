@@ -14,6 +14,7 @@ import dealer.framework.Dealer;
 import hand.framework.Hand;
 import hand.framework.HandFactory;
 import hand.implementation.DrawPokerHand;
+import network.framework.Network;
 
 public class DrawPokerRound extends RoundTemplate {
 	
@@ -22,8 +23,8 @@ public class DrawPokerRound extends RoundTemplate {
 	private LinkedList<String> roundOrder;
 	public static int openingBet = 2;
 	
-    public DrawPokerRound(Map<String, Player> players, Dealer dealer, Bank bank){
-        super(players, dealer, bank);
+    public DrawPokerRound(Map<String, Player> players, Dealer dealer, Bank bank, Network network){
+        super(players, dealer, bank, network);
         super.pot = PotFactory.getPot(pokerType);
     }
     
@@ -143,6 +144,7 @@ public class DrawPokerRound extends RoundTemplate {
 		    		p.decideStrategy(this);
 		     		if(p.isFolding()){
 		    			//roundOrder.remove(playerName);					//remove from linkedlist as out of round.
+		     			network.pushMessageUpdate(playerName + " has folded");
 		     			listIterator.remove();
 		    			if (roundOrder.size() == 1) { break; };
 		    		} else if (p.isCalling()){

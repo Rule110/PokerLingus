@@ -19,6 +19,7 @@ public class HumanPlayer extends PlayerTemplate {
     }
     
     public void decideDiscarding(){
+    	ui.checkHand(super.getHand() );
     	discardindices.clear();
     	discardindices = this.ui.decideDiscarding();
     }

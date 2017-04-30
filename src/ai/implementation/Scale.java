@@ -109,6 +109,16 @@ public class Scale {
     }
     
     /**
+     * Add two scales together
+     * @param other
+     * @return sum on Scale
+     */
+    public Scale add(Scale other){
+        Integer sumScale = this.scale + other.scale;
+        return new Scale(sumScale);
+    }
+    
+    /**
      * Compares two scales with each other
      * @param other
      * @return 0 if equals,

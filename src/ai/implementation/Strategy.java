@@ -14,7 +14,7 @@ public class Strategy {
     private Scale bluffedConfidence;
     private Behaviour behaviour;
     
-    Strategy(Scale confidence, Scale risk, Scale reward, Personality personality, Integer raisePool){
+    public Strategy(Scale confidence, Scale risk, Scale reward, Personality personality, Integer raisePool){
         this.formulateStrategy(confidence, risk, reward, personality, raisePool);
     }
     
@@ -32,12 +32,12 @@ public class Strategy {
     private void formulateStrategy(Scale confidence, Scale risk, Scale reward, Personality personality, Integer raisePool){
         
         Scale perceivedRisk = Strategy.getPerceivedRisk(personality, risk);
-        Scale confidenceScaledReward = Strategy.getConfidenceScaledReward(confidence, reward);
-        this.setDecisions(confidenceScaledReward, perceivedRisk);
+        Scale rewardBoostedConfidence = Strategy.getRewardBoostedConfidence(confidence, reward);
+        this.setDecisions(rewardBoostedConfidence, perceivedRisk);
         
         if (this.isRaising){
             
-            Scale raiseConfidence = Strategy.getRaiseConfidence(confidenceScaledReward, perceivedRisk);
+            Scale raiseConfidence = Strategy.getRaiseConfidence(rewardBoostedConfidence, perceivedRisk);
             this.bluffedConfidence = personality.getBluffedConfidence(raiseConfidence);
             this.setRaiseAmount(personality, raisePool);
             
@@ -61,28 +61,28 @@ public class Strategy {
     }
     
     /**
-     * Get Confidence Scaled Reward
-     * This is the degree of Reward scaled by the objective Confidence in the Hand 
+     * Get Reward Boosted Confidence
+     * Confidence Boosted by potential Reward
      * @param confidence
      * @param reward
-     * @return confidenceScaledReward
+     * @return rewardBoostedConfidence
      */
-    private static Scale getConfidenceScaledReward(Scale confidence, Scale reward){
-        Scale confidenceScaledReward = reward.scaleByDegree(confidence);
-        return confidenceScaledReward;
+    private static Scale getRewardBoostedConfidence(Scale confidence, Scale reward){
+        Scale rewardBoostedConfidence = confidence.add(reward);
+        return rewardBoostedConfidence;
     }
     
     /**
-     * Set the decisions based on confidenceScaledReward and perceivedRisk
-     * @param confidenceScaledReward
+     * Set the decisions based on rewardBoostedConfidence and perceivedRisk
+     * @param rewardBoostedConfidence
      * @param perceivedRisk
      */
-    private void setDecisions(Scale confidenceScaledReward, Scale perceivedRisk){
+    private void setDecisions(Scale rewardBoostedConfidence, Scale perceivedRisk){
         
-        if (confidenceScaledReward.compareTo(perceivedRisk) < 0){
+        if (rewardBoostedConfidence.compareTo(perceivedRisk) < 0){
             this.isFolding = true;
         }
-        else if (confidenceScaledReward.compareTo(perceivedRisk) == 0){
+        else if (rewardBoostedConfidence.compareTo(perceivedRisk) == 0){
             this.isCalling = true;
         }
         else {
@@ -92,15 +92,15 @@ public class Strategy {
     
     /**
      * Get Raise Confidence
-     * Raise Confidence is the difference between the confidenceScaledReward and the Risk
+     * Raise Confidence is the difference between the rewardBoostedConfidence and the Risk
      * It is expressed as a degree of difference on a scale itself
      * Raise Confidence is the excess confidence one has after meeting the current bet
-     * @param confidenceScaledReward
+     * @param rewardBoostedConfidence
      * @param perceivedRisk
      * @return
      */
-    private static Scale getRaiseConfidence(Scale confidenceScaledReward, Scale perceivedRisk){
-        return confidenceScaledReward.differenceOnScale(perceivedRisk);
+    private static Scale getRaiseConfidence(Scale rewardBoostedConfidence, Scale perceivedRisk){
+        return rewardBoostedConfidence.differenceOnScale(perceivedRisk);
     }
     
     /**

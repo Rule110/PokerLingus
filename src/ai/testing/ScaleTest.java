@@ -156,6 +156,18 @@ public class ScaleTest {
         Scale expected9 = SCALE_ONE.regressToMeanByDegree(SCALE_TEN);
         assertEquals(expected9, SCALE_FIVE);
     }
+    
+    @Test
+    public void testAdd() {
+        Scale sum1 = SCALE_ONE.add(SCALE_ONE);
+        assertEquals(sum1, SCALE_TWO);
+        Scale sum2 = SCALE_NINE.add(SCALE_TWO);
+        assertEquals(sum2, SCALE_TEN);
+        Scale sum3 = SCALE_TWO.add(SCALE_THREE);
+        assertEquals(sum3, SCALE_FIVE);
+        Scale sum4 = SCALE_THREE.add(SCALE_FIVE);
+        assertEquals(sum4, SCALE_EIGHT);
+    }
 
     @Test
     public void testCompareTo() {

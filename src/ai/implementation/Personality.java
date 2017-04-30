@@ -32,11 +32,11 @@ public class Personality {
      * @param jitteriness
      * @param tell
      */
-    public Personality(Scale bluffingAbility, Scale riskAversion, Scale jitteriness, Behaviour tell){
+    public Personality(Scale bluffingAbility, Scale riskAversion, Scale jitteriness){
         this.bluffingAbility = bluffingAbility;
         this.riskAversion = riskAversion;
         this.jitteriness = jitteriness;
-        this.tell = tell;
+        this.tell = new Behaviour();
     }
     
     /**

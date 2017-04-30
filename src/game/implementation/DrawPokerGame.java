@@ -32,6 +32,7 @@ public class DrawPokerGame extends Game {
     private Bank bank;
     private static int START_CHIPS = 10;
     
+    
     public DrawPokerGame(String username, Network network){
         this.network = network;
         this.parser = new Parser("Text");
@@ -46,6 +47,7 @@ public class DrawPokerGame extends Game {
         this.players.put(username, PlayerFactory.getPlayer("Human", this, username));
         
         this.bank = BankFactory.getBank("DrawPoker", players.keySet(), START_CHIPS);
+        
     }
     
     public void run(){
@@ -53,6 +55,8 @@ public class DrawPokerGame extends Game {
     		Round currentRound = RoundFactory.getRound(gameType, players, dealer, bank, network);
     		currentRound.beginRound();
     	}
+    	network.pushMessageUpdate("GAME HAS ENDED");
+    	return;
     }
     public void pushTextUpdate(TextUpdate update){
         network.sendTextUpdate(update);

@@ -23,6 +23,7 @@ public class DrawPokerRound extends RoundTemplate {
 	private Vector<String> openingPlayers;
 	private LinkedList<String> roundOrder;
 	public static int openingBet = 2;
+	private int currentBet = 0;
 	
     public DrawPokerRound(Map<String, Player> players, Dealer dealer, Bank bank, Network network){
         super(players, dealer, bank, network);
@@ -127,7 +128,7 @@ public class DrawPokerRound extends RoundTemplate {
 		ListIterator<String> listIterator = roundOrder.listIterator();
 		String startingPlayer = roundOrder.getFirst();	//first player must make bet
 		Player start = players.get(startingPlayer);
-		int currentBet = openingBet;
+		currentBet = openingBet;
 		bank.withdraw(startingPlayer, currentBet);
 		pot.addChips(startingPlayer, currentBet);		//add value to pot.
 		network.pushMessageUpdate(startingPlayer + " has opened with " + openingBet + " chips");
@@ -207,11 +208,6 @@ public class DrawPokerRound extends RoundTemplate {
     protected boolean isFolding(String playerID){   
         return players.get(playerID).isFolding();
     }
-    
-    public int getCallValue(){
-        //Ciaran implement?
-        return 0;
-    }
 
     @Override
     public String getWinner(){
@@ -258,6 +254,11 @@ public class DrawPokerRound extends RoundTemplate {
 	protected void getDiscardedCards(String playerID) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public int getCallValue() {
+		return currentBet;
 	}
 	
 }

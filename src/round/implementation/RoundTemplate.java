@@ -40,8 +40,6 @@ abstract public class RoundTemplate implements Round {
     
     abstract protected boolean isFolding(String playerID);
     
-    abstract public int getCallValue();
-    
     public int getPotValue(){
         return this.pot.getTotalValue();
     }

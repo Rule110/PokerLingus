@@ -40,10 +40,14 @@ public class TwitterOutputStream extends OutputStream{
 		String writeString = new String(byteRep, offset, length);
 		//System.out.println("Sent String: " + writeString);
 		try {
+			Thread.sleep(15);
 			twitter.sendDirectMessage(userHandle, "[" + new Timestamp(System.currentTimeMillis()) + "]\n" + writeString);
 			lineCount++;
 		} catch (TwitterException e) {
 			//System.out.println("write fail");
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

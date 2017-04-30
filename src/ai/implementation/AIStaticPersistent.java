@@ -10,8 +10,8 @@ import game.framework.Game;
  */
 public class AIStaticPersistent extends AIComplex {
     
-    public AIStaticPersistent(Game game){
+    public AIStaticPersistent(Game game, String playerID){
         
-        super(game, PersistentPersonality.retrieve(game, "Static"));
+        super(game, playerID, PersistentPersonality.retrieve(game, playerID, "Static"));
     }
 }

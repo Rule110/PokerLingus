@@ -13,8 +13,8 @@ import game.framework.Game;
  *
  */
 public class AIComplex extends AITemplate {
-    AIComplex(Game game, Personality personality){
-        super(game, personality);
+    AIComplex(Game game, String playerID, Personality personality){
+        super(game, playerID, personality);
     }
     
     /**
@@ -26,13 +26,16 @@ public class AIComplex extends AITemplate {
         int tellsUpdateCode = strategy.getBehaviour().getBehaviourNumber();
         int bragsUpdateCode = ThreadLocalRandom.current().nextInt(0, 10);
         
-        TextUpdate aiConfidenceUpdate = TextUpdateFactory.getTextUpdate("AIConfidence", confidenceUpdateCode);
+        TextUpdate aiConfidenceUpdate = 
+                TextUpdateFactory.getTextUpdate("AIConfidence", super.name, confidenceUpdateCode);
         super.game.pushTextUpdate(aiConfidenceUpdate);
         
-        TextUpdate aiTellsUpdate = TextUpdateFactory.getTextUpdate("AITells", tellsUpdateCode);
+        TextUpdate aiTellsUpdate = 
+                TextUpdateFactory.getTextUpdate("AITells", super.name, tellsUpdateCode);
         super.game.pushTextUpdate(aiTellsUpdate);
         
-        TextUpdate aiBragsUpdate = TextUpdateFactory.getTextUpdate("AIBrags", bragsUpdateCode);
+        TextUpdate aiBragsUpdate = 
+                TextUpdateFactory.getTextUpdate("AIBrags", super.name, bragsUpdateCode);
         super.game.pushTextUpdate(aiBragsUpdate);
     }
 }

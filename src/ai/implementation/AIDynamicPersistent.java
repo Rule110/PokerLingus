@@ -10,8 +10,8 @@ import game.framework.Game;
  */
 public class AIDynamicPersistent extends AIComplex {
     
-    public AIDynamicPersistent(Game game){
+    public AIDynamicPersistent(Game game, String playerID){
         
-        super(game, PersistentPersonality.retrieve(game, "Dynamic"));
+        super(game, playerID, PersistentPersonality.retrieve(game, playerID, "Dynamic"));
     }
 }

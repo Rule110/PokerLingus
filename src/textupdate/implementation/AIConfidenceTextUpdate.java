@@ -1,27 +1,18 @@
 package textupdate.implementation;
 
+import ai.implementation.AISymbols;
 import textupdate.framework.TextUpdate;
 
 public class AIConfidenceTextUpdate implements TextUpdate {
-    private static final String[] confidenceExpressions = {
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
-    };
     private int index;
+    private String name;
     
-    public AIConfidenceTextUpdate(int internalCode){
+    public AIConfidenceTextUpdate(String playerID, int internalCode){
         this.index = internalCode;
+        this.name = playerID;
     }
     
     public String getText(){
-        return confidenceExpressions[index];
+        return this.name + AISymbols.confidenceExpressions[index];
     }
 }

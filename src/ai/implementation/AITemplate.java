@@ -13,10 +13,12 @@ import ai.framework.AI;
  */
 abstract public class AITemplate implements AI {
     protected Personality personality;
+    protected String name;
     protected Game game;
     
-    AITemplate(Game game, Personality personality){
+    AITemplate(Game game, String playerID, Personality personality){
         this.game = game;
+        this.name = playerID;
         this.personality = personality;
     }
     

@@ -1,27 +1,18 @@
 package textupdate.implementation;
 
+import ai.implementation.AISymbols;
 import textupdate.framework.TextUpdate;
 
 public class AIBragsTextUpdate implements TextUpdate {
-    private static final String[] brags = {
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
-    };
+    private String name;
     private int index;
     
-    public AIBragsTextUpdate(int internalCode){
+    public AIBragsTextUpdate(String playerID, int internalCode){
         this.index = internalCode;
+        this.name = playerID;
     }
     
     public String getText(){
-        return brags[index];
+        return this.name + AISymbols.brags[index];
     }
 }

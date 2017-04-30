@@ -12,13 +12,13 @@ import round.framework.Round;
  * Player implementation template class
  * @author Rory Buckley
  * @author Darragh Fay
- * @author Ciarain Murphy
+ * @author Ciaran Murphy
  *
  */
 abstract public class PlayerTemplate implements Player {
 	protected String ID;
     protected Hand hand;
-    protected Vector<Integer> discardindices;
+    protected Vector<Integer> discardindices = new Vector<Integer>();
     
     abstract public void decideDiscarding();
     

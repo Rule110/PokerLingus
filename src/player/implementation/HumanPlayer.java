@@ -15,14 +15,18 @@ public class HumanPlayer extends PlayerTemplate {
     
     public HumanPlayer(Game game, String ID){
     	super.ID = ID;
-        this.ui = UIFactory.getUI("Textual", game);
+        this.ui = UIFactory.getUI("Textual", game, ID);
     }
     
     public void decideDiscarding(){
+    	ui.checkHand(super.getHand() );
+    	discardindices.clear();
+    	discardindices = this.ui.decideDiscarding();
+    	System.out.println(discardindices);
     }
     
     public boolean isDiscarding(){
-    	return this.ui.isDiscarding();
+    	return discardindices.size() > 0;
     }
     
     public int getOpeningBet(Round round){
@@ -31,6 +35,7 @@ public class HumanPlayer extends PlayerTemplate {
     }
     
     public void decideStrategy(Round round){
+    	this.ui.checkHand(super.getHand());
         this.ui.decideStrategy(super.hand, round);
     }
     

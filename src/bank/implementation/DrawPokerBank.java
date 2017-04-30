@@ -39,7 +39,7 @@ public class DrawPokerBank implements Bank {
 	 */
     public synchronized int getAvailableFunds(String playerID){
     	if(accounts.get(playerID) == null){
-    		//System.out.println(playerID);
+    		System.out.println(playerID);
     		throw new BankAccountNotFoundException();
     	}
         return this.accounts.get(playerID).getAvailableFunds();

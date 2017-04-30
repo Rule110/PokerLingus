@@ -3,6 +3,7 @@ package network.implementation;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.sql.Timestamp;
 
 import twitter4j.*;
 import twitter4j.auth.*;
@@ -17,6 +18,7 @@ public class TwitterOutputStream extends OutputStream{
     
 	private String userHandle;
 	private Twitter twitter;
+	private int lineCount = 0;
 	
 	public TwitterOutputStream(String userHandle){
 		this.userHandle = userHandle;
@@ -38,7 +40,8 @@ public class TwitterOutputStream extends OutputStream{
 		String writeString = new String(byteRep, offset, length);
 		//System.out.println("Sent String: " + writeString);
 		try {
-			twitter.sendDirectMessage(userHandle, writeString);
+			twitter.sendDirectMessage(userHandle, "[" + new Timestamp(System.currentTimeMillis()) + "]\n" + writeString);
+			lineCount++;
 		} catch (TwitterException e) {
 			//System.out.println("write fail");
 			e.printStackTrace();

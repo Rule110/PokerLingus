@@ -55,14 +55,14 @@ public class RoundTesting extends TestCase {
 		//Map<String, Player> roundplayers = null;
         this.dealer = DealerFactory.getDealer(gameType);
 		//Dealer dealer = new ;
-		Round testRound = new DrawPokerRound(players, dealer, bank);
+		Round testRound = new DrawPokerRound(players, dealer, bank, networkTest);
 		assertTrue(bank.getAvailableFunds(nameP1) == 10);
 		testRound.beginRound();
 		assertTrue(players.size() > 0);
 		assertTrue(players.get(nameP1).getHand().size() == 5);
-		System.out.println("Kevin: " + bank.getAvailableFunds(nameP1));
-		System.out.println("Billy: " + bank.getAvailableFunds(nameP2));
-		System.out.println("Sasha: " + bank.getAvailableFunds(nameP3));
+		//System.out.println("Kevin: " + bank.getAvailableFunds(nameP1));
+		//System.out.println("Billy: " + bank.getAvailableFunds(nameP2));
+		//System.out.println("Sasha: " + bank.getAvailableFunds(nameP3));
 	}
 	
 	public void testBasic(){

@@ -19,13 +19,11 @@ public class TwitterInputStream extends InputStream {
     private static final String ACCESS_TOKEN = "850829181332189184-ggJdPa7miGGsnJeDexGIjGs6qcmOprt";
     private static final String ACCESS_TOKEN_SECRET = "HIYDWwSWuoraBXYW9YjrERCFe06zp9bX7maDm8KwCUosO";
     
-	private String userHandle;
 	private volatile StringBuilder currentIn;
 	//private int index = 0;
 	private Twitter twitter;
 	
 	public TwitterInputStream(){
-		this.userHandle = userHandle;
 		
 		TwitterFactory factory = new TwitterFactory();
 		twitter = factory.getInstance();
@@ -40,12 +38,14 @@ public class TwitterInputStream extends InputStream {
 	@Override
 	public synchronized int read() throws IOException {
 		if(available() == 0){
-			try {
-				this.wait();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}//Thread.currentThread().interrupt();
+//			try {
+//				System.out.println("Waiting:" + Thread.currentThread());
+//				this.wait();
+//				System.out.println("Going");
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}//Thread.currentThread().interrupt();
 		}
 		if(currentIn.length() > 0){
 			int readByte = (int)(currentIn.charAt(0));
@@ -61,8 +61,8 @@ public class TwitterInputStream extends InputStream {
 		
 	}
 	public synchronized void captureMessage(String messageString){
+		System.out.println("thread in capture:" + Thread.currentThread());
 		currentIn.append(messageString);
-		System.out.println("captured:" + currentIn);
 	}
 	
 	public static void main(String[] args) throws InterruptedException{

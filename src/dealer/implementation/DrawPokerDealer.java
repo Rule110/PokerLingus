@@ -13,7 +13,7 @@ public class DrawPokerDealer implements Dealer {
 	}
 	
     public synchronized void reset(){
-        //deck = new Deck();
+        deck = new Deck();
         deck.shuffle();
     }
     

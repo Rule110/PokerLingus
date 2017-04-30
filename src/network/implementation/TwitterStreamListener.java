@@ -75,12 +75,16 @@ public class TwitterStreamListener implements UserStreamListener{
 		String sender = arg0.getSender().getScreenName();
 		System.out.println(sender);
 		if(!sender.equals("PokerLingus")){
+			//System.out.println(arg0.getText());
 			Game relevantGame = pfRef.getGame(sender);
 			if(relevantGame != null){
+				System.out.println("Captured");
 				relevantGame.captureMessageUpdate(arg0.getText());
 				relevantGame.notify();
 			}else if(!creationQueue.contains(arg0.getSender().getScreenName())){
-				creationQueue.add(arg0.getSenderScreenName());
+				creationQueue.add(arg0.getSender().getScreenName());
+			}else{
+				System.out.println("No Game selected");
 			}
 			System.out.println(this.creationQueue);
 		}

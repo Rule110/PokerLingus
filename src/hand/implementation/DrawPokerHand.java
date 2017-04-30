@@ -134,6 +134,7 @@ public class DrawPokerHand implements Hand {
     public PlayingCard discardCard(int index, PlayingCard replacement){
         PlayingCard discardedCard = this.hand[index];
         this.hand[index] = replacement;
+        HandUtils.sort(this.hand);
         return discardedCard;
     }
     

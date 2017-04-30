@@ -14,6 +14,8 @@ import dealer.framework.Dealer;
 import hand.framework.Hand;
 import hand.framework.HandFactory;
 import hand.implementation.DrawPokerHand;
+import hand.implementation.PlayingCard;
+import network.framework.Network;
 
 public class DrawPokerRound extends RoundTemplate {
 	
@@ -22,8 +24,8 @@ public class DrawPokerRound extends RoundTemplate {
 	private LinkedList<String> roundOrder;
 	public static int openingBet = 2;
 	
-    public DrawPokerRound(Map<String, Player> players, Dealer dealer, Bank bank){
-        super(players, dealer, bank);
+    public DrawPokerRound(Map<String, Player> players, Dealer dealer, Bank bank, Network network){
+        super(players, dealer, bank, network);
         super.pot = PotFactory.getPot(pokerType);
     }
     
@@ -31,6 +33,11 @@ public class DrawPokerRound extends RoundTemplate {
         //Sends start sequence to UI
     	//Players Built in Game.
     	//Player bank accounts built in game as well. 
+    	network.pushMessageUpdate("New Deal: ");
+    	for (String p: players.keySet()){
+    		int funds = bank.getAvailableFunds(p);
+    		network.pushMessageUpdate(p + ": I have " + funds + " chips in the bank!");
+    	}
     	dealHands();
     	beginDiscardPhase();
     	openingPlayers = getOpeningPlayers();
@@ -40,6 +47,9 @@ public class DrawPokerRound extends RoundTemplate {
 	    	setOrder(); //This is the order for the CURRENT round.
 	    	beginBettingPhase();	//controls betting phase.
 	    	getWinner();
+    	} else {
+            network.pushMessageUpdate("Looks like no one could open! Redealing...");
+            beginRound();
     	}
     }
     
@@ -60,34 +70,18 @@ public class DrawPokerRound extends RoundTemplate {
     protected void beginDiscardPhase(){
     	//Loop through players and let them discard.
     	for (String p: players.keySet()){
-    		getDiscardedCards(p);
+    		players.get(p).decideDiscarding();
+    		discardCards(p);
     	}
     }
     
-    protected void getDiscardedCards(String playerID){
-    	 for (String p: players.keySet()){
-    		 	Vector<Integer> cardPositions = null;
-//				if (p.equals(playerID)){
-//					Player currentPlayer = players.get(p);
-//					System.out.println(currentPlayer.getHand());
-//					System.out.println("Are you Discarding?");	//First ask if they want to discard
-					//boolean check = currentPlayer;
-					//if(check){
-						//System.out.println("How many cards (1 to 3): ");
-						//user please enter up to 1 to 3 card positions.
-						//for (int i = 0; i < input; i++){
-						//	System.out.println("Card Position: ");
-						// 	input = scanner;
-						//	cardPositions.insertElementAt(input, i);
-						//}
-						//set positions in to discardindicies vector
-						//if(currentPlayer.isDiscarding()){	//if discardindicies is not empty
-						//	int cardPosition = 				//get next
-						//	currentPlayer.discardCard(replacement);
-						//}
-					//}
-//				}
-    	 }
+    protected void discardCards(String playerID){
+    	while(players.get(playerID).isDiscarding()){
+    		PlayingCard discard = players.get(playerID).discardCard(dealer.dealNext());
+    		network.pushMessageUpdate("Opted to discard: " + discard);
+    		dealer.returnCard(discard);
+    	}
+    	//players.get(playerID)
     }
     
     protected Vector<String> getOpeningPlayers(){
@@ -96,7 +90,8 @@ public class DrawPokerRound extends RoundTemplate {
     	for (String p: players.keySet()){
     		if (players.get(p).canOpen()){
     			open.addElement(p);
-    		}
+    			network.pushMessageUpdate(p + " says: I can open");
+    		} else { network.pushMessageUpdate(p + " says: I cannot open");};
     	}
         return open;
     }
@@ -107,7 +102,7 @@ public class DrawPokerRound extends RoundTemplate {
 	    boolean firstFound = false;
 	   
 	    for (String p: players.keySet()){
-	    	 System.out.print(p + "\n..");
+	    	 //System.out.print(p + "\n");
 				if (p.equals(firstPlayer)){
 					firstFound = true;
 					roundOrder.addFirst(p);
@@ -121,7 +116,7 @@ public class DrawPokerRound extends RoundTemplate {
 					roundOrder.addLast(p);
 				}
 			}
-	    System.out.println("Round order: " + roundOrder);
+	    network.pushMessageUpdate("Round order: " + roundOrder);
     }
 
     @Override
@@ -133,38 +128,43 @@ public class DrawPokerRound extends RoundTemplate {
 		int currentBet = openingBet;
 		bank.withdraw(startingPlayer, currentBet);
 		pot.addChips(startingPlayer, currentBet);		//add value to pot.
+		network.pushMessageUpdate(startingPlayer + " has opened with " + openingBet + " chips");
 		listIterator.next();						//skip first player as already made bet.
 		while (roundOrder.size() > 1){					//while there is more than one player still playing loop
 			allCalled = true;							//Set to true, only becomes false if someone raises.
 			while (listIterator.hasNext()){				//Loops through roundOrder until reaches last player.
 				String playerName = listIterator.next();
-				System.out.println("Current Player: " + playerName);
+				network.pushMessageUpdate("Current Player: " + playerName);
 		    	Player p = players.get(playerName);
 		    		p.decideStrategy(this);
 		     		if(p.isFolding()){
 		    			//roundOrder.remove(playerName);					//remove from linkedlist as out of round.
+		     			network.pushMessageUpdate(playerName + " has folded");
 		     			listIterator.remove();
 		    			if (roundOrder.size() == 1) { break; };
 		    		} else if (p.isCalling()){
 		    			bank.withdraw(playerName, currentBet);	//subtract value from player bank account.
 		    			pot.addChips(playerName, currentBet);	//add value to pot.
+		    			network.pushMessageUpdate(playerName + " has called");
+		    			network.pushMessageUpdate("Current pot value: " + pot.getTotalValue());
 		    		} else if (p.isRaising()){
 		    			bank.withdraw(playerName, currentBet);
 		    			pot.addChips(playerName, currentBet);
 		    			currentBet = p.getRaise();
+		    			network.pushMessageUpdate(playerName + " has raised by " + currentBet);
 	    				bank.withdraw(playerName, currentBet);	//subtract value from player bank account.
 	    				pot.addChips(playerName, currentBet);
 	    				allCalled = false;						//allCall set to false as player has raised.
 	    				reOrder(playerName);								//Reorders players, now person who raise is first.
 	    				listIterator = roundOrder.listIterator(); //reset iterator
-	    				System.out.println("Re order: " + roundOrder);
+	    				//System.out.println("Re order: " + roundOrder);
 	    				listIterator.next();						//skip first player as already made bet.
+	    				network.pushMessageUpdate("Current pot value: " + pot.getTotalValue());
 	    				break;
 		    	}
 		    }
 		    //Check to see if everyone has called.
 		    if (allCalled == true){
-		    	System.out.println("test");
 		    	break;	//If all have called then break from while loop. Betting Phase over.
 			    }
 	    	}
@@ -212,10 +212,16 @@ public class DrawPokerRound extends RoundTemplate {
     	String winnerName = null;
     	Player temp = null;
     	int handOfWinner = 0;
+    	ListIterator<String> handShowIterator = roundOrder.listIterator();
+    	while (handShowIterator.hasNext()){
+    		String playerName = handShowIterator.next();
+    		Player p = players.get(playerName);
+    		network.pushMessageUpdate(playerName + "'s hand: " + p.getHand());
+    	}
     	ListIterator<String> listIterator = roundOrder.listIterator();
     	while (listIterator.hasNext()){
     		String playerName = listIterator.next();
-    		System.out.println(playerName);
+    		//System.out.println(playerName);
     		Player p = players.get(playerName);
     		int handOfTemp = p.getHand().getGameValue();
     		if (handOfTemp > handOfWinner){
@@ -224,19 +230,33 @@ public class DrawPokerRound extends RoundTemplate {
     		}
     		handOfWinner = winner.getHand().getGameValue();
     	}
-    	//winner = players.get(winner);
-    	System.out.println("Winner: " + winnerName);
     	addWinnings(winnerName, 0);
+    	network.pushMessageUpdate(winnerName + " has won!");
         return super.winner;
     }
     
     protected void addWinnings(String winner, int potSplit){
         int winnings = pot.getTotalValue();
+        network.pushMessageUpdate("Pot total: " + winnings);
         for (String p: players.keySet()){
         	if (p.equals(winner)){
-        		System.out.println("winnings:" + winnings);
         		bank.deposit(p, winnings);
+                network.pushMessageUpdate(p + " now has " + bank.getAvailableFunds(p) + " chips in the bank.");
         	}
         }
     }
+
+	@Override
+	protected void getDiscardedCards(String playerID) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	protected void nextRound(){
+		if(p.nextRound){
+			beginRound();
+		} else {
+			//quit
+		}
+	}
 }

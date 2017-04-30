@@ -108,7 +108,7 @@ public class DrawPokerRound extends RoundTemplate {
 	    boolean firstFound = false;
 	   
 	    for (String p: players.keySet()){
-	    	 System.out.print(p + "\n..");
+	    	 //System.out.print(p + "\n");
 				if (p.equals(firstPlayer)){
 					firstFound = true;
 					roundOrder.addFirst(p);
@@ -150,10 +150,12 @@ public class DrawPokerRound extends RoundTemplate {
 		    		} else if (p.isCalling()){
 		    			bank.withdraw(playerName, currentBet);	//subtract value from player bank account.
 		    			pot.addChips(playerName, currentBet);	//add value to pot.
+		    			network.pushMessageUpdate(playerName + " has called");
 		    		} else if (p.isRaising()){
 		    			bank.withdraw(playerName, currentBet);
 		    			pot.addChips(playerName, currentBet);
 		    			currentBet = p.getRaise();
+		    			network.pushMessageUpdate(playerName + " has raised by " + currentBet);
 	    				bank.withdraw(playerName, currentBet);	//subtract value from player bank account.
 	    				pot.addChips(playerName, currentBet);
 	    				allCalled = false;						//allCall set to false as player has raised.
@@ -225,17 +227,16 @@ public class DrawPokerRound extends RoundTemplate {
     		}
     		handOfWinner = winner.getHand().getGameValue();
     	}
-    	//winner = players.get(winner);
-    	System.out.println("Winner: " + winnerName);
     	addWinnings(winnerName, 0);
+    	network.pushMessageUpdate(winnerName + " has won!");
         return super.winner;
     }
     
     protected void addWinnings(String winner, int potSplit){
         int winnings = pot.getTotalValue();
+        network.pushMessageUpdate("Pot total: " + winnings);
         for (String p: players.keySet()){
         	if (p.equals(winner)){
-        		System.out.println("winnings:" + winnings);
         		bank.deposit(p, winnings);
         	}
         }

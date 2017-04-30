@@ -218,10 +218,16 @@ public class DrawPokerRound extends RoundTemplate {
     	String winnerName = null;
     	Player temp = null;
     	int handOfWinner = 0;
+    	ListIterator<String> handShowIterator = roundOrder.listIterator();
+    	while (handShowIterator.hasNext()){
+    		String playerName = handShowIterator.next();
+    		Player p = players.get(playerName);
+    		network.pushMessageUpdate(playerName + "'s hand: " + p.getHand());
+    	}
     	ListIterator<String> listIterator = roundOrder.listIterator();
     	while (listIterator.hasNext()){
     		String playerName = listIterator.next();
-    		System.out.println(playerName);
+    		//System.out.println(playerName);
     		Player p = players.get(playerName);
     		int handOfTemp = p.getHand().getGameValue();
     		if (handOfTemp > handOfWinner){

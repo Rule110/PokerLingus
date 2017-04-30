@@ -2,18 +2,25 @@ package ai.testing;
 
 import static org.junit.Assert.*;
 
+import org.junit.After;
 import org.junit.AfterClass;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class ScaleTest {
+import ai.implementation.Scale;
 
-    @BeforeClass
-    public static void setUpBeforeClass() throws Exception {
+public class ScaleTest {
+    private Scale SCALE_ONE;
+    private Scale SCALE_TWO;
+    private Scale SCALE_THREE;
+
+    @Before
+    public void setUp() throws Exception {
     }
 
-    @AfterClass
-    public static void tearDownAfterClass() throws Exception {
+    @After
+    public void tearDown() throws Exception {
     }
 
     @Test

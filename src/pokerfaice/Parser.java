@@ -48,7 +48,7 @@ public class Parser {
     }
     
     public static final String getName(){
-        int index = ThreadLocalRandom.current().nextInt(1, 11);
+        int index = ThreadLocalRandom.current().nextInt(0, 10);
         return AISymbols.names[index];
     }
 }

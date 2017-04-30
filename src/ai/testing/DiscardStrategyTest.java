@@ -5,10 +5,9 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class AIAssessorTest {
+public class DiscardStrategyTest {
 
     @Before
     public void setUp() throws Exception {
@@ -19,22 +18,17 @@ public class AIAssessorTest {
     }
 
     @Test
-    public void testAssessReward() {
+    public void testDiscardStrategy() {
         fail("Not yet implemented");
     }
 
     @Test
-    public void testAssessRisk() {
+    public void testAddCardToDiscard() {
         fail("Not yet implemented");
     }
 
     @Test
-    public void testAssessHand() {
-        fail("Not yet implemented");
-    }
-
-    @Test
-    public void testAssessDiscarding() {
+    public void testGetDiscardableCards() {
         fail("Not yet implemented");
     }
 

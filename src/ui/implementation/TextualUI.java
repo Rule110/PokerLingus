@@ -58,10 +58,11 @@ public class TextualUI extends UITemplate {
     		default:
     			message.setText("Please enter a valid character!");
             	network.sendTextUpdate(message);
-            	message.setText("Would you like to fold (y/n)?: ");
-            	network.sendTextUpdate(message);
-            	fold = network.getMessageUpdate();   	
-    	}
+            	//message.setText("Would you like to fold (y/n)?: ");
+            	//network.sendTextUpdate(message);
+            	//fold = network.getMessageUpdate();
+            	//System.out.println(fold);
+           }
     	return isFolding;
     }
     
@@ -82,9 +83,9 @@ public class TextualUI extends UITemplate {
     		default:
     			message.setText("Please enter a valid character!");
             	network.sendTextUpdate(message);
-            	message.setText("Would you like to call (y/n)?: ");
-            	network.sendTextUpdate(message);
-            	call = network.getMessageUpdate();   	
+            	//message.setText("Would you like to call (y/n)?: ");
+            	//network.sendTextUpdate(message);
+            	//call = network.getMessageUpdate();   	
     	}
     	return isCalling;
     }
@@ -106,9 +107,9 @@ public class TextualUI extends UITemplate {
     		default:
     			message.setText("Please enter a valid character!");
             	network.sendTextUpdate(message);
-            	message.setText("Would you like to raise (y/n)?: ");
-            	network.sendTextUpdate(message);
-            	raise = network.getMessageUpdate();   	
+            	//message.setText("Would you like to raise (y/n)?: ");
+            	//network.sendTextUpdate(message);
+            	//raise = network.getMessageUpdate();   	
     	}
     	return isRaising;
     }

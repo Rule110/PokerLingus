@@ -138,7 +138,7 @@ public class DrawPokerRound extends RoundTemplate {
 		    	Player p = players.get(playerName);
 		    		p.decideStrategy(this);
 		     		if(p.isFolding()){
-		    			roundOrder.remove(p);					//remove from linkedlist as out of round.
+		    			roundOrder.remove(playerName);					//remove from linkedlist as out of round.
 		    			if (roundOrder.size() == 1) { break; };
 		    		} else if (p.isCalling()){
 		    			bank.withdraw(playerName, currentBet);	//subtract value from player bank account.
@@ -219,7 +219,7 @@ public class DrawPokerRound extends RoundTemplate {
     		handOfWinner = winner.getHand().getGameValue();
     	}
     	//winner = players.get(winner);
-    	System.out.println(winnerName);
+    	System.out.println("Winner: " + winnerName);
     	addWinnings(winnerName, 0);
         return super.winner;
     }

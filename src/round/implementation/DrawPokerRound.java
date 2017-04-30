@@ -78,7 +78,7 @@ public class DrawPokerRound extends RoundTemplate {
     protected void discardCards(String playerID){
     	while(players.get(playerID).isDiscarding()){
     		PlayingCard discard = players.get(playerID).discardCard(dealer.dealNext());
-    		System.out.println("--" + discard);
+    		network.pushMessageUpdate("Opted to discard: " + discard);
     		dealer.returnCard(discard);
     	}
     	//players.get(playerID)
@@ -250,5 +250,13 @@ public class DrawPokerRound extends RoundTemplate {
 	protected void getDiscardedCards(String playerID) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	protected void nextRound(){
+		if(p.nextRound){
+			beginRound();
+		} else {
+			//quit
+		}
 	}
 }

@@ -60,9 +60,9 @@ public class RoundTesting extends TestCase {
 		testRound.beginRound();
 		assertTrue(players.size() > 0);
 		assertTrue(players.get(nameP1).getHand().size() == 5);
-		System.out.println("Kevin: " + bank.getAvailableFunds(nameP1));
-		System.out.println("Billy: " + bank.getAvailableFunds(nameP2));
-		System.out.println("Sasha: " + bank.getAvailableFunds(nameP3));
+		//System.out.println("Kevin: " + bank.getAvailableFunds(nameP1));
+		//System.out.println("Billy: " + bank.getAvailableFunds(nameP2));
+		//System.out.println("Sasha: " + bank.getAvailableFunds(nameP3));
 	}
 	
 	public void testBasic(){

@@ -32,6 +32,11 @@ public class DrawPokerRound extends RoundTemplate {
         //Sends start sequence to UI
     	//Players Built in Game.
     	//Player bank accounts built in game as well. 
+    	network.pushMessageUpdate("New Deal: ");
+    	for (String p: players.keySet()){
+    		int funds = bank.getAvailableFunds(p);
+    		network.pushMessageUpdate(p + ": I have " + funds + " chips in the bank!");
+    	}
     	dealHands();
     	beginDiscardPhase();
     	openingPlayers = getOpeningPlayers();
@@ -41,6 +46,9 @@ public class DrawPokerRound extends RoundTemplate {
 	    	setOrder(); //This is the order for the CURRENT round.
 	    	beginBettingPhase();	//controls betting phase.
 	    	getWinner();
+    	} else {
+            network.pushMessageUpdate("Looks like no one could open! Redealing...");
+            beginRound();
     	}
     }
     
@@ -248,6 +256,7 @@ public class DrawPokerRound extends RoundTemplate {
         for (String p: players.keySet()){
         	if (p.equals(winner)){
         		bank.deposit(p, winnings);
+                network.pushMessageUpdate(p + " now has " + bank.getAvailableFunds(p) + " chips in the bank.");
         	}
         }
     }

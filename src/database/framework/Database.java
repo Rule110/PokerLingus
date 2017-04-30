@@ -15,7 +15,7 @@ public interface Database {
 	
 	public void incrementValue(String key, MongoCollection<Document> collection);
 		
-	public Map<String, Integer> getLeaderboard();
+	public Map<String, Integer> getStatistics(MongoCollection<Document> collection);
 
 
 }

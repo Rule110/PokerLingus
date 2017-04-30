@@ -20,6 +20,7 @@ public class DrawPokerRound extends RoundTemplate {
 	public static String pokerType = "DrawPoker";
 	private Vector<String> openingPlayers;
 	private LinkedList<String> roundOrder;
+	public static int openingBet = 2;
 	
     public DrawPokerRound(Map<String, Player> players, Dealer dealer, Bank bank){
         super(players, dealer, bank);
@@ -128,7 +129,9 @@ public class DrawPokerRound extends RoundTemplate {
 		ListIterator<String> listIterator = roundOrder.listIterator();
 		String startingPlayer = roundOrder.getFirst();	//first player must make bet
 		Player start = players.get(startingPlayer);
-		int currentBet = start.getOpeningBet(this);	
+		int currentBet = openingBet;
+		bank.withdraw(startingPlayer, currentBet);
+		pot.addChips(startingPlayer, currentBet);		//add value to pot.
 		listIterator.next();						//skip first player as already made bet.
 		while (roundOrder.size() > 1){					//while there is more than one player still playing loop
 			allCalled = true;							//Set to true, only becomes false if someone raises.

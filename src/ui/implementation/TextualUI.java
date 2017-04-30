@@ -62,6 +62,7 @@ public class TextualUI extends UITemplate {
             	//network.sendTextUpdate(message);
             	//fold = network.getMessageUpdate();
             	//System.out.println(fold);
+            	setFolding();
            }
     	return isFolding;
     }
@@ -85,7 +86,8 @@ public class TextualUI extends UITemplate {
             	network.sendTextUpdate(message);
             	//message.setText("Would you like to call (y/n)?: ");
             	//network.sendTextUpdate(message);
-            	//call = network.getMessageUpdate();   	
+            	//call = network.getMessageUpdate();   
+            	setCalling();
     	}
     	return isCalling;
     }
@@ -109,7 +111,8 @@ public class TextualUI extends UITemplate {
             	network.sendTextUpdate(message);
             	//message.setText("Would you like to raise (y/n)?: ");
             	//network.sendTextUpdate(message);
-            	//raise = network.getMessageUpdate();   	
+            	//raise = network.getMessageUpdate(); 
+            	setRaising();
     	}
     	return isRaising;
     }

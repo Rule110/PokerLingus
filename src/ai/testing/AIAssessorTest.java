@@ -66,10 +66,10 @@ public class AIAssessorTest {
 
     @Test
     public void testAssessReward() {
-        assertEquals(AIAssessor.assessReward(round1), new Scale(10));
+        assertEquals(AIAssessor.assessReward(round1), new Scale(9));
         assertEquals(AIAssessor.assessReward(round2), new Scale(1));
-        assertEquals(AIAssessor.assessReward(round3), new Scale(6));
-        assertEquals(AIAssessor.assessReward(round4), new Scale(3));
+        assertEquals(AIAssessor.assessReward(round3), new Scale(4));
+        assertEquals(AIAssessor.assessReward(round4), new Scale(1));
         assertEquals(AIAssessor.assessReward(round5), new Scale(10));
         assertEquals(AIAssessor.assessReward(round6), new Scale(1));
     }

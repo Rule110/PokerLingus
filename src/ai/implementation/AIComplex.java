@@ -2,8 +2,7 @@ package ai.implementation;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import textupdate.framework.TextUpdate;
-import textupdate.framework.TextUpdateFactory;
+import pokerfaice.Parser;
 import game.framework.Game;
 
 /**
@@ -26,16 +25,9 @@ public class AIComplex extends AITemplate {
         int tellsUpdateCode = strategy.getBehaviour().getBehaviourNumber();
         int bragsUpdateCode = ThreadLocalRandom.current().nextInt(0, 10);
         
-        TextUpdate aiConfidenceUpdate = 
-                TextUpdateFactory.getTextUpdate("AIConfidence", super.name, confidenceUpdateCode);
-        super.game.pushTextUpdate(aiConfidenceUpdate);
-        
-        TextUpdate aiTellsUpdate = 
-                TextUpdateFactory.getTextUpdate("AITells", super.name, tellsUpdateCode);
-        super.game.pushTextUpdate(aiTellsUpdate);
-        
-        TextUpdate aiBragsUpdate = 
-                TextUpdateFactory.getTextUpdate("AIBrags", super.name, bragsUpdateCode);
-        super.game.pushTextUpdate(aiBragsUpdate);
+        Parser parser = super.game.getParser();
+        parser.pushUpdateToGame(super.game, "AIConfidence", super.name, confidenceUpdateCode);
+        parser.pushUpdateToGame(super.game, "AITells", super.name, tellsUpdateCode);
+        parser.pushUpdateToGame(super.game, "AIBrags", super.name, bragsUpdateCode);
     }
 }

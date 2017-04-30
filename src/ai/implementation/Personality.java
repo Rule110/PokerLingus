@@ -27,7 +27,6 @@ public class Personality {
     
     /**
      * Generates Personality with predefined traits on scales
-     * Public access for testing purposes
      * @param bluffingAbility
      * @param riskAversion
      * @param jitteriness

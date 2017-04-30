@@ -28,7 +28,6 @@ public class Scale {
     
     /**
      * Sets Scale to integer
-     * Public access for testing purposes
      * @param scale
      */
     public Scale(Integer scale){
@@ -57,7 +56,7 @@ public class Scale {
      * @param other
      * @return scaled scale
      */
-    Scale scaleByDegree(Scale other){
+    public Scale scaleByDegree(Scale other){
         return new Scale((this.scale * other.scale) / MAX_SCALE);
     }
     
@@ -66,7 +65,7 @@ public class Scale {
      * @param toScale
      * @return scaled integer
      */
-    Integer scaleThat(Integer toScale){
+    public Integer scaleThat(Integer toScale){
         Double proportion = (double)this.scale / (double)MAX_SCALE;
         return (int)(toScale * proportion);
     }
@@ -76,13 +75,15 @@ public class Scale {
      * @param other
      * @return scale representing difference
      */
-    Scale differenceOnScale(Scale other){
+    public Scale differenceOnScale(Scale other){
         Integer difference = this.scale - other.scale;
         if (difference < 0){
             difference = 0;
         }
         Integer residual = MAX_SCALE - other.scale;
-        Scale proportionalDifference = new Scale(difference / residual);
+        double differenceRatioResidual = (double)difference / (double)residual;
+        int proportionalDifferenceOnScale = (int)(differenceRatioResidual * MAX_SCALE);
+        Scale proportionalDifference = new Scale(proportionalDifferenceOnScale);
         return proportionalDifference;
     }
     
@@ -91,7 +92,7 @@ public class Scale {
      * @param other
      * @return
      */
-    Integer differenceAsInteger(Scale other){
+    public Integer differenceAsInteger(Scale other){
         return this.scale - other.scale;
     }
     
@@ -100,7 +101,7 @@ public class Scale {
      * @param regressionDegree
      * @return scale regressed to mean by degree of input scale
      */
-    Scale regressToMeanByDegree(Scale regressionDegree){
+    public Scale regressToMeanByDegree(Scale regressionDegree){
         Integer distanceToAvg = AVG_SCALE - this.scale;
         Integer regressionAmount = (distanceToAvg * regressionDegree.scale) / MAX_SCALE;
         Scale regressedToMean = new Scale(this.scale + regressionAmount);
@@ -114,11 +115,42 @@ public class Scale {
      *  less than 0 if this scale is greater than other,
      *  greater than 0 if this scale is smaller than other
      */
-    int compareTo(Scale other){
+    public int compareTo(Scale other){
         return this.scale.compareTo(other.scale);
     }
     
-    int getIntegerRepresentation(){
+    /**
+     * Get Integer representation of Scale
+     * @return
+     */
+    public int getIntegerRepresentation(){
         return this.scale;
+    }
+    
+    /**
+     * Equality testing method
+     * @param other
+     * @return
+     */
+    @Override
+    public boolean equals(Object o){
+        boolean equals;
+        if (o == null){
+            equals = false;
+        }
+        else if (!Scale.class.isAssignableFrom(o.getClass())){
+            equals = false;
+        
+        }
+        else {
+            final Scale other = (Scale) o;
+            if (this.scale.equals(other.scale)){
+                equals = true;
+            }
+            else{
+                equals = false;
+            }
+        }
+        return equals;
     }
 }

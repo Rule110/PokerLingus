@@ -51,6 +51,8 @@ public class DrawPokerRound extends RoundTemplate {
             network.pushMessageUpdate("Looks like no one could open! Redealing...");
             beginRound();
     	}
+    	
+    	
     }
     
     protected void dealHands(){
@@ -134,6 +136,11 @@ public class DrawPokerRound extends RoundTemplate {
 			allCalled = true;							//Set to true, only becomes false if someone raises.
 			while (listIterator.hasNext()){				//Loops through roundOrder until reaches last player.
 				String playerName = listIterator.next();
+				if(bank.getAvailableFunds(playerName) < openingBet){
+					players.remove(playerName);
+					listIterator.remove();
+					continue;
+				}
 				network.pushMessageUpdate("Current Player: " + playerName);
 		    	Player p = players.get(playerName);
 		    		p.decideStrategy(this);
@@ -194,6 +201,7 @@ public class DrawPokerRound extends RoundTemplate {
 					roundOrder.addLast(p);
 				}
 			}
+	    
     }
     
     protected boolean isFolding(String playerID){   
@@ -252,11 +260,4 @@ public class DrawPokerRound extends RoundTemplate {
 		
 	}
 	
-	protected void nextRound(){
-		if(p.nextRound){
-			beginRound();
-		} else {
-			//quit
-		}
-	}
 }

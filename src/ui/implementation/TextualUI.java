@@ -1,11 +1,12 @@
 package ui.implementation;
 
+import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Vector;
-
 import bank.framework.Bank;
 import game.framework.Game;
 import hand.framework.Hand;
+import hand.implementation.PlayingCard;
 import network.framework.Network;
 import network.implementation.LocalNetwork;
 import round.framework.Round;
@@ -164,5 +165,16 @@ public class TextualUI extends UITemplate {
 			discardIndices.addElement(index);
 		}
 		return discardIndices;
+	}
+
+	@Override
+	public void checkHand(Hand hand) {
+		String handStr = "";
+		Iterator<PlayingCard> it = hand.iterator();
+		while(it.hasNext()){
+			handStr += "[" + it.next() + "]";
+		}
+		message.setText(handStr);
+		network.sendTextUpdate(message);
 	}
 }

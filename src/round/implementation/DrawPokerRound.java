@@ -166,7 +166,6 @@ public class DrawPokerRound extends RoundTemplate {
 		    }
 		    //Check to see if everyone has called.
 		    if (allCalled == true){
-		    	System.out.println("test");
 		    	break;	//If all have called then break from while loop. Betting Phase over.
 			    }
 	    	}

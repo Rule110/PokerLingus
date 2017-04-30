@@ -6,7 +6,7 @@ import gfxupdate.implementation.AITellsGfxUpdate;
 import gfxupdate.implementation.CardGfxUpdate;
 
 public class GfxUpdateFactory {
-    public static GfxUpdate getGfxUpdate(String type){
+    public static GfxUpdate getGfxUpdate(String type, String playerID, int internalCode){
         GfxUpdate update;
         
         switch (type){
@@ -14,13 +14,13 @@ public class GfxUpdateFactory {
             update = new CardGfxUpdate();
             break;
         case "AIConfidence":
-            update = new AIConfidenceGfxUpdate();
+            update = new AIConfidenceGfxUpdate(playerID, internalCode);
             break;
         case "AITells":
-            update = new AITellsGfxUpdate();
+            update = new AITellsGfxUpdate(playerID, internalCode);
             break;
         case "AIBrags":
-            update = new AIBragsGfxUpdate();
+            update = new AIBragsGfxUpdate(playerID, internalCode);
             break;
         default:
             throw new RuntimeException();

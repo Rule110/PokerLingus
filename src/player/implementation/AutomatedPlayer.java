@@ -24,7 +24,7 @@ public class AutomatedPlayer extends PlayerTemplate {
      */
     public AutomatedPlayer(Game game, String ID){
     	super.ID = ID;
-        this.ai = AIFactory.getAI("ComplexStaticRandom", game);
+        this.ai = AIFactory.getAI("ComplexStaticRandom", game, super.ID);
     }
     
     /**

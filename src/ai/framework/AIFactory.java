@@ -12,21 +12,21 @@ import ai.implementation.AISimple;
  *
  */
 public class AIFactory {
-    public static AI getAI(String type, Game game){
+    public static AI getAI(String type, Game game, String playerID){
         AI ai;
         
         switch (type){
         case "Simple":
-            ai = new AISimple(game);
+            ai = new AISimple(game, playerID);
             break;
         case "ComplexStaticRandom":
-            ai = new AIStaticRandom(game);
+            ai = new AIStaticRandom(game, playerID);
             break;
         case "ComplexStaticPersistent":
-            ai = new AIStaticPersistent(game);
+            ai = new AIStaticPersistent(game, playerID);
             break;
         case "ComplexDynamicPersistent":
-            ai = new AIDynamicPersistent(game);
+            ai = new AIDynamicPersistent(game, playerID);
             break;
         default:
             throw new RuntimeException();

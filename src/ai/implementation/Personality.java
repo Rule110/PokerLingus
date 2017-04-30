@@ -26,6 +26,21 @@ public class Personality {
     }
     
     /**
+     * Generates Personality with predefined traits on scales
+     * Public access for testing purposes
+     * @param bluffingAbility
+     * @param riskAversion
+     * @param jitteriness
+     * @param tell
+     */
+    public Personality(Scale bluffingAbility, Scale riskAversion, Scale jitteriness, Behaviour tell){
+        this.bluffingAbility = bluffingAbility;
+        this.riskAversion = riskAversion;
+        this.jitteriness = jitteriness;
+        this.tell = tell;
+    }
+    
+    /**
      * Generates a new random personality
      */
     Personality(){
@@ -69,7 +84,7 @@ public class Personality {
     public Behaviour getBehaviour(Scale bluffingDegree){
         Behaviour behaviour;
         Scale likelihoodOfTell = this.jitteriness.scaleByDegree(bluffingDegree);
-        Scale random = new Scale(ThreadLocalRandom.current().nextInt(0, 11));
+        Scale random = new Scale(ThreadLocalRandom.current().nextInt(1, 11));
         if (random.compareTo(likelihoodOfTell) < 0){
             behaviour = this.tell;
         }

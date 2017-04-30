@@ -12,7 +12,7 @@ import textupdate.implementation.CardTextUpdate;
  *
  */
 public class TextUpdateFactory {
-    public static TextUpdate getTextUpdate(String type, int internalCode){
+    public static TextUpdate getTextUpdate(String type, String playerID, int internalCode){
         TextUpdate update;
         
         switch (type){
@@ -20,13 +20,13 @@ public class TextUpdateFactory {
             update = new CardTextUpdate();
             break;
         case "AIConfidence":
-            update = new AIConfidenceTextUpdate(internalCode);
+            update = new AIConfidenceTextUpdate(playerID, internalCode);
             break;
         case "AITells":
-            update = new AITellsTextUpdate(internalCode);
+            update = new AITellsTextUpdate(playerID, internalCode);
             break;
         case "AIBrags":
-            update = new AIBragsTextUpdate(internalCode);
+            update = new AIBragsTextUpdate(playerID, internalCode);
             break;
         default:
             throw new RuntimeException();

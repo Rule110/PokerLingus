@@ -8,6 +8,7 @@ import network.framework.Network;
 import network.implementation.LocalNetwork;
 import player.framework.Player;
 import player.framework.PlayerFactory;
+import pokerfaice.Parser;
 import round.framework.Round;
 import round.framework.RoundFactory;
 import textupdate.framework.TextUpdate;
@@ -23,6 +24,7 @@ public class DrawPokerGame extends Game {
 	public  static final String gameType = "DrawPoker";
     private Network network;
     private Database database;
+    private Parser parser;
     private Dealer dealer;
     private Map<String, Player> players;
     private Bank bank;
@@ -30,12 +32,14 @@ public class DrawPokerGame extends Game {
     
     public DrawPokerGame(String username, Network network){
         this.network = network;
+        this.parser = new Parser("Text");
         this.dealer = DealerFactory.getDealer(gameType);
         this.players = new LinkedHashMap<String, Player>();
         pushMessageUpdate("Welcome " + username + ", enjoy your game of " + gameType);
        
         for (int i = 0; i < 4; i++){
-            this.players.put("AI" + i, PlayerFactory.getPlayer("Automated", this, "AI" + i));
+            String name = Parser.getName();
+            this.players.put("AI" + i, PlayerFactory.getPlayer("Automated", this, name));
         }
         this.players.put(username, PlayerFactory.getPlayer("Human", this, username));
         
@@ -79,6 +83,11 @@ public class DrawPokerGame extends Game {
 	public Database getDatabase(){
 	    return this.database;
 	}
+	
+	public Parser getParser(){
+	    return this.parser;
+	}
+	
 	/**
 	 * Main method stub used for testing purposes
 	 * @param args

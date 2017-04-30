@@ -1,5 +1,6 @@
 package game.framework;
 
+import pokerfaice.Parser;
 import database.framework.Database;
 import gfxupdate.framework.GfxUpdate;
 import textupdate.framework.TextUpdate;
@@ -18,4 +19,6 @@ public abstract class Game extends Thread{
     public abstract void captureMessageUpdate(String newMessage);
     
     public abstract Database getDatabase();
+    
+    public abstract Parser getParser();
 }

@@ -9,7 +9,7 @@ import game.framework.Game;
  *
  */
 public class AIStaticRandom extends AIComplex {
-    public AIStaticRandom(Game game){
-        super(game, new Personality());
+    public AIStaticRandom(Game game, String playerID){
+        super(game, playerID, new Personality());
     }
 }

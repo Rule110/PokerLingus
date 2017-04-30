@@ -1,27 +1,18 @@
 package textupdate.implementation;
 
+import ai.implementation.AISymbols;
 import textupdate.framework.TextUpdate;
 
 public class AITellsTextUpdate implements TextUpdate {
-    private static final String[] tells = {
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
-    };
+    private String name;
     private int index;
     
-    public AITellsTextUpdate(int internalCode){
+    public AITellsTextUpdate(String playerID, int internalCode){
         this.index = internalCode;
+        this.name = playerID;
     }
     
     public String getText(){
-        return tells[index];
+        return this.name + AISymbols.tells[index];
     }
 }

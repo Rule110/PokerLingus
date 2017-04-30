@@ -10,8 +10,8 @@ import game.framework.Game;
  *
  */
 public class AISimple extends AITemplate {
-    public AISimple(Game game){
-        super(game, new Personality());
+    public AISimple(Game game, String playerID){
+        super(game, playerID, new Personality());
     }
     
     /**

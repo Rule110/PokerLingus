@@ -152,6 +152,7 @@ public class DrawPokerRound extends RoundTemplate {
 		    			bank.withdraw(playerName, currentBet);	//subtract value from player bank account.
 		    			pot.addChips(playerName, currentBet);	//add value to pot.
 		    			network.pushMessageUpdate(playerName + " has called");
+		    			network.pushMessageUpdate("Current pot value: " + pot.getTotalValue());
 		    		} else if (p.isRaising()){
 		    			bank.withdraw(playerName, currentBet);
 		    			pot.addChips(playerName, currentBet);
@@ -164,6 +165,7 @@ public class DrawPokerRound extends RoundTemplate {
 	    				listIterator = roundOrder.listIterator(); //reset iterator
 	    				System.out.println("Re order: " + roundOrder);
 	    				listIterator.next();						//skip first player as already made bet.
+	    				network.pushMessageUpdate("Current pot value: " + pot.getTotalValue());
 	    				break;
 		    	}
 		    }

@@ -12,21 +12,21 @@ public class TwitterNetwork implements Network {
 	private String userHandle;
 	private volatile TwitterInputStream inputStream;
 	private TwitterOutputStream outputStream;
-	private Scanner inputScanner;
+	//private Scanner inputScanner;
 	private PrintStream outputPrinter;
 	
 	public TwitterNetwork(String userHandle){
 		this.userHandle = userHandle;
 		inputStream = new TwitterInputStream();
 		outputStream = new TwitterOutputStream(userHandle);
-		inputScanner = new Scanner(inputStream);
+		//inputScanner = new Scanner(inputStream);
 		outputPrinter = new PrintStream(outputStream);
 		
 	}
 	
 	public synchronized String getMessageUpdate(){
-		//Scanner inputScanner = new Scanner(inputStream);
-		inputScanner.reset();
+		//Scanner inputScanner = new Scanner(inputStream);}		
+		Scanner inputScanner = new Scanner(inputStream);
 		return inputScanner.nextLine();
 	}
     public synchronized void sendTextUpdate(TextUpdate textupdate){
@@ -38,7 +38,7 @@ public class TwitterNetwork implements Network {
     }
     
 	@Override
-	public synchronized void captureMessageUpdate(String newMessage) {
+	public void captureMessageUpdate(String newMessage) {
 		inputStream.captureMessage(newMessage);
 	}
 	

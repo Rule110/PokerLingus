@@ -14,7 +14,7 @@ import textupdate.implementation.GameStateTextUpdate;
 
 public class TextualUI extends UITemplate {
     
-	private Network network = new LocalNetwork("testPlayer");
+	//private Network network = new LocalNetwork("testPlayer");
 	private GameStateTextUpdate message;
 	
     public TextualUI(Game game){
@@ -24,7 +24,7 @@ public class TextualUI extends UITemplate {
     
     public void textualDiscard(){
     	message.setText("Which card(s) would you like to discard (e.g., 1,3): ");
-    	network.sendTextUpdate(message);
+    	game.pushTextUpdate(message);
     }
     
     public void decideStrategy(Hand hand, Round round){
@@ -49,8 +49,8 @@ public class TextualUI extends UITemplate {
     	String fold;
 
 		message.setText("Would you like to fold (y/n)?: ");
-    	network.sendTextUpdate(message);
-    	fold = network.getMessageUpdate();
+    	game.pushTextUpdate(message);
+    	fold = game.getMessageUpdate();
     	
     	switch (fold.toLowerCase()){
     		case "y":
@@ -61,7 +61,7 @@ public class TextualUI extends UITemplate {
     			break;
     		default:
     			message.setText("Please enter a valid character!");
-            	network.sendTextUpdate(message);
+            	game.pushTextUpdate(message);
             	//message.setText("Would you like to fold (y/n)?: ");
             	//network.sendTextUpdate(message);
             	//fold = network.getMessageUpdate();
@@ -75,8 +75,8 @@ public class TextualUI extends UITemplate {
     	String call;
 
 		message.setText("Would you like to call (y/n)?: ");
-    	network.sendTextUpdate(message);
-    	call = network.getMessageUpdate();
+    	game.pushTextUpdate(message);
+    	call = game.getMessageUpdate();
     	
     	switch (call.toLowerCase()){
     		case "y":
@@ -87,7 +87,7 @@ public class TextualUI extends UITemplate {
     			break;
     		default:
     			message.setText("Please enter a valid character!");
-            	network.sendTextUpdate(message);
+            	game.pushTextUpdate(message);
             	//message.setText("Would you like to call (y/n)?: ");
             	//network.sendTextUpdate(message);
             	//call = network.getMessageUpdate();   
@@ -100,8 +100,8 @@ public class TextualUI extends UITemplate {
     	String raise;
 
 		message.setText("Would you like to raise (y/n)?: ");
-    	network.sendTextUpdate(message);
-    	raise = network.getMessageUpdate();
+    	game.pushTextUpdate(message);
+    	raise = game.getMessageUpdate();
     	
     	switch (raise.toLowerCase()){
     		case "y":
@@ -112,7 +112,7 @@ public class TextualUI extends UITemplate {
     			break;
     		default:
     			message.setText("Please enter a valid character!");
-            	network.sendTextUpdate(message);
+            	game.pushTextUpdate(message);
             	//message.setText("Would you like to raise (y/n)?: ");
             	//network.sendTextUpdate(message);
             	//raise = network.getMessageUpdate(); 
@@ -126,20 +126,20 @@ public class TextualUI extends UITemplate {
     	
     	while(validAmount != true){
     		message.setText("Please enter amount to raise by: ");
-        	network.sendTextUpdate(message);
+        	game.pushTextUpdate(message);
     		try {
-    			raiseAmount = Integer.parseInt(network.getMessageUpdate());
+    			raiseAmount = Integer.parseInt(game.getMessageUpdate());
             } catch (NumberFormatException e) {
             	message.setText("Please Enter A valid Integer");
-            	network.sendTextUpdate(message);
+            	game.pushTextUpdate(message);
                 continue;
             }        	
         	if (raiseAmount > playerChips){
         		message.setText("You cannot bet more chips than you have!");
-        		network.sendTextUpdate(message);
+        		game.pushTextUpdate(message);
         	}else if (raiseAmount <= 0){
         		message.setText("Please enter an amount to raise by!");
-        		network.sendTextUpdate(message);
+        		game.pushTextUpdate(message);
         	}else
         		validAmount = true;
     	}
@@ -148,9 +148,9 @@ public class TextualUI extends UITemplate {
 	@Override
 	public Vector<Integer> decideDiscarding() {
 		message.setText("Which card(s) would you like to discard (e.g. 1,3)?");
-		network.sendTextUpdate(message);
+		game.pushTextUpdate(message);
 		
-		String discardCards = network.getMessageUpdate();
+		String discardCards = game.getMessageUpdate();
 		Vector<Integer> discardIndices = new Vector<Integer>();
 		Scanner discardScan = new Scanner(discardCards);
 		boolean inputValid = true;
@@ -159,8 +159,9 @@ public class TextualUI extends UITemplate {
 			int index = discardScan.nextInt();
 			if(index < 0 || index > 4){
 				message.setText("Invalid input for card indices (should be 0-4), Please Try again");
-				network.sendTextUpdate(message);
+				game.pushTextUpdate(message);
 				discardIndices.clear();
+				continue;
 			}
 			discardIndices.addElement(index);
 		}
@@ -175,6 +176,6 @@ public class TextualUI extends UITemplate {
 			handStr += "[" + it.next() + "]";
 		}
 		message.setText(handStr);
-		network.sendTextUpdate(message);
+		game.pushTextUpdate(message);
 	}
 }

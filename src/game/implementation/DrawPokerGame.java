@@ -6,6 +6,7 @@ import bank.framework.Bank;
 import bank.framework.BankFactory;
 import network.framework.Network;
 import network.implementation.LocalNetwork;
+import network.implementation.TwitterNetwork;
 import player.framework.Player;
 import player.framework.PlayerFactory;
 import pokerfaice.Parser;
@@ -21,7 +22,8 @@ import gfxupdate.framework.GfxUpdate;
 
 public class DrawPokerGame extends Game {
 	
-	public  static final String gameType = "DrawPoker";
+	public static final String gameType = "DrawPoker";
+	public static final int OPPONENT_COUNT = 4;
     private Network network;
     private Database database;
     private Parser parser;
@@ -37,9 +39,9 @@ public class DrawPokerGame extends Game {
         this.players = new LinkedHashMap<String, Player>();
         pushMessageUpdate("Welcome " + username + ", enjoy your game of " + gameType);
        
-        for (int i = 0; i < 4; i++){
+        for (int i = 0; i < OPPONENT_COUNT; i++){
             String name = Parser.getName();
-            this.players.put("AI" + i, PlayerFactory.getPlayer("Automated", this, name));
+            this.players.put(name, PlayerFactory.getPlayer("Automated", this, name));
         }
         this.players.put(username, PlayerFactory.getPlayer("Human", this, username));
         
@@ -57,18 +59,25 @@ public class DrawPokerGame extends Game {
     }
     
     public synchronized String getMessageUpdate(){
-//    	try {
-//			this.wait();
-//		} catch (InterruptedException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
+    	if(network.getClass() == TwitterNetwork.class){
+			try {
+				//System.out.println("Waiting:" + Thread.currentThread());
+				this.wait();
+				//System.out.println("Going");
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
     	return network.getMessageUpdate();
     }
     
     public synchronized void captureMessageUpdate(String newMessage){
+    	System.out.println("Capture start" + Thread.currentThread());
+    	System.out.println("Game Thread" + this);
     	network.captureMessageUpdate(newMessage);
-    	//this.notify();
+    	System.out.println("Capture finish");
+    	this.notify();
     }
     
     public void pushGfxUpdate(GfxUpdate update){

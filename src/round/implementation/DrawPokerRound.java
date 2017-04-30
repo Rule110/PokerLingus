@@ -251,4 +251,12 @@ public class DrawPokerRound extends RoundTemplate {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	protected void nextRound(){
+		if(p.nextRound){
+			beginRound();
+		} else {
+			//quit
+		}
+	}
 }

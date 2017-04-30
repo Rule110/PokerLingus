@@ -24,5 +24,5 @@ public class DatabaseFactoryTest {
 	public void testGetDatabase() {
 		assertEquals(MongoDbDatabase.class, DatabaseFactory.getDatabase(MONGODB).getClass());
 	}
-
+	
 }

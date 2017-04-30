@@ -148,28 +148,36 @@ public class MongoDbDatabase implements Database {
 	}
 	
 	/**
-	 * Retrieves the number of wins each player has and sorted them in descending order
-	 *  
-	 * @return sorted leaderboard as a hash map in descending order  
+	 * Retrieves the statistics for the leaderboard or hand frequencies
+	 * @param collection
+	 * @return sorted statistics as a hash map in descending order of values
 	 */
-	public Map<String, Integer> getLeaderboard() {
-		Vector<String> players = new Vector<String>();
-		Map<String, Integer> leaderboard = new HashMap<String, Integer>();
-		players = getPlayerList();
+	public Map<String, Integer> getStatistics(MongoCollection<Document> collection) {
+		Vector<String> vector = new Vector<String>();
+		Map<String, Integer> stats = new HashMap<String, Integer>();
+		String name=null;
+		
+		if (collection.equals(handCollection)){
+			vector=getHandList();
+			name = "Hand Frequencies";
+		} else if (collection.equals(leaderCollection)) {
+			vector=getPlayerList();
+			name = "Leaderboard";
+		} 
 
-		for (int i=0; i<players.size(); i++) {
-			Document document = leaderCollection
-					.find(new Document("Title", "Leaderboard"))
-					.projection(Projections.fields(Projections.include(players.get(i)), Projections.excludeId())).first();
-			int number = document.getInteger(players.get(i));
-			leaderboard.put(players.get(i), number);
+		for (int i=0; i<vector.size(); i++) {
+			Document document = collection
+					.find(new Document("Title", name))
+					.projection(Projections.fields(Projections.include(vector.get(i)), Projections.excludeId())).first();
+			int number = document.getInteger(vector.get(i));
+			stats.put(vector.get(i), number);
 		}
-		leaderboard=sortByValue(leaderboard);
-		return leaderboard;
+		stats=sortByValue(stats);
+		return stats;
 	}
 	
 	/**
-	 * Sorts the Map created by getLeaderBoard() into descending order, as a leaderboard should.
+	 * Sorts the Map created by getStatistics() into descending order
 	 * 
 	 * @param map
 	 * @return sorted map
@@ -192,17 +200,29 @@ public class MongoDbDatabase implements Database {
 	
 
 	public static void main(String[] args) throws UnknownHostException{			        
-		MongoDbDatabase insert = new MongoDbDatabase();
+		MongoDbDatabase database = new MongoDbDatabase();
 		
-	    insert.incrementValue("Player 1", leaderCollection);
-	    insert.incrementValue("Player 1", leaderCollection);
-	    insert.incrementValue("Player 1", leaderCollection);
-	    insert.incrementValue("AI Player 1", leaderCollection);
-	    insert.incrementValue("AI Player 2", leaderCollection);
+		database.incrementValue("Player 1", leaderCollection);
+		database.incrementValue("Player 1", leaderCollection);
+		database.incrementValue("Player 1", leaderCollection);
+		database.incrementValue("AI Player 1", leaderCollection);
+		database.incrementValue("AI Player 2", leaderCollection);
+		
+		database.incrementValue("Highhand", handCollection);
+		database.incrementValue("Two Pair", handCollection);
+		database.incrementValue("Two Pair", handCollection);
+		database.incrementValue("Three of a King", handCollection);
+		database.incrementValue("Straight", handCollection);
+		database.incrementValue("Straight", handCollection);
+		database.incrementValue("Straight", handCollection);
+		database.incrementValue("Flush", handCollection);
 
-	    insert.displayContents(leaderCollection);
-	    insert.displayContents(handCollection);
-	    System.out.println("Leaderboard = " + insert.getLeaderboard());
+		database.displayContents(leaderCollection);
+		database.displayContents(handCollection);
+
+		System.out.println("Hand Statistics = " + database.getStatistics(handCollection));
+	    System.out.println("Leaderboard = " + database.getStatistics(leaderCollection));
+
 		    
 		}
 	}

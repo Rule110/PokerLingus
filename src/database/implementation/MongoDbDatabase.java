@@ -190,7 +190,7 @@ public class MongoDbDatabase implements Database {
 	    return result;
 	}
 	
-	
+
 	public static void main(String[] args) throws UnknownHostException{			        
 		MongoDbDatabase insert = new MongoDbDatabase();
 		

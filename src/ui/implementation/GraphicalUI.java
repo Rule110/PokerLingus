@@ -8,8 +8,8 @@ import hand.implementation.PlayingCard;
 import round.framework.Round;
 
 public class GraphicalUI extends UITemplate {
-    public GraphicalUI(Game game){
-        super(game);
+    public GraphicalUI(Game game, String ID){
+        super(game, ID);
     }
     
     public void decideStrategy(Hand hand, Round round){

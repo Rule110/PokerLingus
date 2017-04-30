@@ -15,7 +15,7 @@ public class HumanPlayer extends PlayerTemplate {
     
     public HumanPlayer(Game game, String ID){
     	super.ID = ID;
-        this.ui = UIFactory.getUI("Textual", game);
+        this.ui = UIFactory.getUI("Textual", game, ID);
     }
     
     public void decideDiscarding(){

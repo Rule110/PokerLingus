@@ -17,8 +17,8 @@ public class TextualUI extends UITemplate {
 	//private Network network = new LocalNetwork("testPlayer");
 	private GameStateTextUpdate message;
 	
-    public TextualUI(Game game){
-        super(game);
+    public TextualUI(Game game, String ID){
+        super(game, ID);
         message = new GameStateTextUpdate();
     }
     
@@ -37,7 +37,7 @@ public class TextualUI extends UITemplate {
 		        		strategy = true;
 		        	}
 		        } else{
-		        	setRaise(10);
+		        	setRaise(round.getAvailableFunds(ID));
 		        	strategy = true;
 		        }
 	        } else

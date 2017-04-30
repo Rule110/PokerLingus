@@ -27,7 +27,9 @@ public class TwitterNetwork implements Network {
 	public synchronized String getMessageUpdate(){
 		//Scanner inputScanner = new Scanner(inputStream);}		
 		Scanner inputScanner = new Scanner(inputStream);
-		return inputScanner.nextLine();
+		String line = inputScanner.nextLine();
+		inputScanner.close();
+		return line;
 	}
     public synchronized void sendTextUpdate(TextUpdate textupdate){
         outputPrinter.print(textupdate.getText());

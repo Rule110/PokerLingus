@@ -14,8 +14,10 @@ abstract public class UITemplate implements UI {
     protected boolean isRaising;
     protected boolean isDiscarding;
     protected int raiseAmount;
+	protected String ID;
     
-    UITemplate(Game game){
+    UITemplate(Game game, String ID){
+    	this.ID = ID;
         this.game = game;
     }
     

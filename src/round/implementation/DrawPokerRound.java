@@ -97,7 +97,8 @@ public class DrawPokerRound extends RoundTemplate {
     	for (String p: players.keySet()){
     		if (players.get(p).canOpen()){
     			open.addElement(p);
-    		}
+    			network.pushMessageUpdate(p + " says: I can open");
+    		} else { network.pushMessageUpdate(p + " says: I cannot open");};
     	}
         return open;
     }
@@ -122,7 +123,7 @@ public class DrawPokerRound extends RoundTemplate {
 					roundOrder.addLast(p);
 				}
 			}
-	    System.out.println("Round order: " + roundOrder);
+	    network.pushMessageUpdate("Round order: " + roundOrder);
     }
 
     @Override
@@ -140,7 +141,7 @@ public class DrawPokerRound extends RoundTemplate {
 			allCalled = true;							//Set to true, only becomes false if someone raises.
 			while (listIterator.hasNext()){				//Loops through roundOrder until reaches last player.
 				String playerName = listIterator.next();
-				System.out.println("Current Player: " + playerName);
+				network.pushMessageUpdate("Current Player: " + playerName);
 		    	Player p = players.get(playerName);
 		    		p.decideStrategy(this);
 		     		if(p.isFolding()){
@@ -163,7 +164,7 @@ public class DrawPokerRound extends RoundTemplate {
 	    				allCalled = false;						//allCall set to false as player has raised.
 	    				reOrder(playerName);								//Reorders players, now person who raise is first.
 	    				listIterator = roundOrder.listIterator(); //reset iterator
-	    				System.out.println("Re order: " + roundOrder);
+	    				//System.out.println("Re order: " + roundOrder);
 	    				listIterator.next();						//skip first player as already made bet.
 	    				network.pushMessageUpdate("Current pot value: " + pot.getTotalValue());
 	    				break;

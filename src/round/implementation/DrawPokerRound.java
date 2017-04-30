@@ -32,6 +32,11 @@ public class DrawPokerRound extends RoundTemplate {
         //Sends start sequence to UI
     	//Players Built in Game.
     	//Player bank accounts built in game as well. 
+    	network.pushMessageUpdate("New Deal: ");
+    	for (String p: players.keySet()){
+    		int funds = bank.getAvailableFunds(p);
+    		network.pushMessageUpdate(p + ": I have " + funds + " chips in the bank!");
+    	}
     	dealHands();
     	beginDiscardPhase();
     	openingPlayers = getOpeningPlayers();
@@ -41,6 +46,9 @@ public class DrawPokerRound extends RoundTemplate {
 	    	setOrder(); //This is the order for the CURRENT round.
 	    	beginBettingPhase();	//controls betting phase.
 	    	getWinner();
+    	} else {
+            network.pushMessageUpdate("Looks like no one could open! Redealing...");
+            beginRound();
     	}
     }
     
@@ -97,7 +105,8 @@ public class DrawPokerRound extends RoundTemplate {
     	for (String p: players.keySet()){
     		if (players.get(p).canOpen()){
     			open.addElement(p);
-    		}
+    			network.pushMessageUpdate(p + " says: I can open");
+    		} else { network.pushMessageUpdate(p + " says: I cannot open");};
     	}
         return open;
     }
@@ -122,7 +131,7 @@ public class DrawPokerRound extends RoundTemplate {
 					roundOrder.addLast(p);
 				}
 			}
-	    System.out.println("Round order: " + roundOrder);
+	    network.pushMessageUpdate("Round order: " + roundOrder);
     }
 
     @Override
@@ -134,12 +143,13 @@ public class DrawPokerRound extends RoundTemplate {
 		int currentBet = openingBet;
 		bank.withdraw(startingPlayer, currentBet);
 		pot.addChips(startingPlayer, currentBet);		//add value to pot.
+		network.pushMessageUpdate(startingPlayer + " has opened with " + openingBet + " chips");
 		listIterator.next();						//skip first player as already made bet.
 		while (roundOrder.size() > 1){					//while there is more than one player still playing loop
 			allCalled = true;							//Set to true, only becomes false if someone raises.
 			while (listIterator.hasNext()){				//Loops through roundOrder until reaches last player.
 				String playerName = listIterator.next();
-				System.out.println("Current Player: " + playerName);
+				network.pushMessageUpdate("Current Player: " + playerName);
 		    	Player p = players.get(playerName);
 		    		p.decideStrategy(this);
 		     		if(p.isFolding()){
@@ -151,6 +161,7 @@ public class DrawPokerRound extends RoundTemplate {
 		    			bank.withdraw(playerName, currentBet);	//subtract value from player bank account.
 		    			pot.addChips(playerName, currentBet);	//add value to pot.
 		    			network.pushMessageUpdate(playerName + " has called");
+		    			network.pushMessageUpdate("Current pot value: " + pot.getTotalValue());
 		    		} else if (p.isRaising()){
 		    			bank.withdraw(playerName, currentBet);
 		    			pot.addChips(playerName, currentBet);
@@ -161,8 +172,9 @@ public class DrawPokerRound extends RoundTemplate {
 	    				allCalled = false;						//allCall set to false as player has raised.
 	    				reOrder(playerName);								//Reorders players, now person who raise is first.
 	    				listIterator = roundOrder.listIterator(); //reset iterator
-	    				System.out.println("Re order: " + roundOrder);
+	    				//System.out.println("Re order: " + roundOrder);
 	    				listIterator.next();						//skip first player as already made bet.
+	    				network.pushMessageUpdate("Current pot value: " + pot.getTotalValue());
 	    				break;
 		    	}
 		    }
@@ -215,10 +227,16 @@ public class DrawPokerRound extends RoundTemplate {
     	String winnerName = null;
     	Player temp = null;
     	int handOfWinner = 0;
+    	ListIterator<String> handShowIterator = roundOrder.listIterator();
+    	while (handShowIterator.hasNext()){
+    		String playerName = handShowIterator.next();
+    		Player p = players.get(playerName);
+    		network.pushMessageUpdate(playerName + "'s hand: " + p.getHand());
+    	}
     	ListIterator<String> listIterator = roundOrder.listIterator();
     	while (listIterator.hasNext()){
     		String playerName = listIterator.next();
-    		System.out.println(playerName);
+    		//System.out.println(playerName);
     		Player p = players.get(playerName);
     		int handOfTemp = p.getHand().getGameValue();
     		if (handOfTemp > handOfWinner){
@@ -238,6 +256,7 @@ public class DrawPokerRound extends RoundTemplate {
         for (String p: players.keySet()){
         	if (p.equals(winner)){
         		bank.deposit(p, winnings);
+                network.pushMessageUpdate(p + " now has " + bank.getAvailableFunds(p) + " chips in the bank.");
         	}
         }
     }

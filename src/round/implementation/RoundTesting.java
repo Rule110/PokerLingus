@@ -38,23 +38,6 @@ public class RoundTesting extends TestCase {
 	protected int i;
 	
 	protected void setup(){
-        this.players = new LinkedHashMap<String, Player>();
-        //pushMessageUpdate("Welcome " + username + ", enjoy your game of " + gameType);
-        String name = "Kevin";
-        // for (int i = 0; i < 4; i++){
-        //     this.players.put("AI" + i, PlayerFactory.getPlayer("Automated", this, "AI" + i));
-        // }
-        // String test = "test";
-        // Player player1 = null;
-        Network networkTest = new LocalNetwork(name);
-        Game gameTest = new DrawPokerGame(name, networkTest);
-        this.players.put(name, PlayerFactory.getPlayer("Human", gameTest, name));       
-        this.bank = BankFactory.getBank(gameType, players.keySet(), START_CHIPS);
-		//Map<String, Player> roundplayers = null;
-		Dealer dealer = null;
-		Bank bank = null;
-		Round testRound = new DrawPokerRound(players, dealer, bank);
-		i = 1;
 	}
 	
 	public void testAdd(){

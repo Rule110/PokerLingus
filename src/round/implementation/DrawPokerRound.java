@@ -134,6 +134,7 @@ public class DrawPokerRound extends RoundTemplate {
 		int currentBet = openingBet;
 		bank.withdraw(startingPlayer, currentBet);
 		pot.addChips(startingPlayer, currentBet);		//add value to pot.
+		network.pushMessageUpdate(startingPlayer + " has opened with " + openingBet + " chips");
 		listIterator.next();						//skip first player as already made bet.
 		while (roundOrder.size() > 1){					//while there is more than one player still playing loop
 			allCalled = true;							//Set to true, only becomes false if someone raises.

@@ -19,7 +19,10 @@ public class HumanPlayer extends PlayerTemplate {
     }
     
     public void decideDiscarding(){
-        
+    }
+    
+    public boolean isDiscarding(){
+    	return this.ui.isDiscarding();
     }
     
     public int getOpeningBet(Round round){

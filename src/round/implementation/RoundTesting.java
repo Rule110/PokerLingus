@@ -61,10 +61,12 @@ public class RoundTesting extends TestCase {
 		this.players = new LinkedHashMap<String, Player>();
         String nameP1 = "Kevin";
         String nameP2 = "Billy";
+        String nameP3 = "Sasha";
         Network networkTest = new LocalNetwork(nameP1);
         Game gameTest = new DrawPokerGame(nameP1, networkTest);
         this.players.put(nameP1, PlayerFactory.getPlayer("Human", gameTest, nameP1)); 
-        this.players.put(nameP2, PlayerFactory.getPlayer("Human", gameTest, nameP2));       
+        this.players.put(nameP2, PlayerFactory.getPlayer("Human", gameTest, nameP2)); 
+        this.players.put(nameP3, PlayerFactory.getPlayer("Human", gameTest, nameP3));       
         this.bank = BankFactory.getBank(gameType, players.keySet(), START_CHIPS);
 		//Map<String, Player> roundplayers = null;
         this.dealer = DealerFactory.getDealer(gameType);
@@ -74,8 +76,9 @@ public class RoundTesting extends TestCase {
 		testRound.beginRound();
 		assertTrue(players.size() > 0);
 		assertTrue(players.get(nameP1).getHand().size() == 5);
-		System.out.println(bank.getAvailableFunds(nameP1));
-		System.out.println(bank.getAvailableFunds(nameP2));
+		System.out.println("Kevin: " + bank.getAvailableFunds(nameP1));
+		System.out.println("Billy: " + bank.getAvailableFunds(nameP2));
+		System.out.println("Sasha: " + bank.getAvailableFunds(nameP3));
 	}
 	
 	public void testBasic(){

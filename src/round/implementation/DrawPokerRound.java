@@ -121,6 +121,7 @@ public class DrawPokerRound extends RoundTemplate {
 					roundOrder.addLast(p);
 				}
 			}
+	    System.out.println("Round order: " + roundOrder);
     }
 
     @Override
@@ -141,7 +142,8 @@ public class DrawPokerRound extends RoundTemplate {
 		    	Player p = players.get(playerName);
 		    		p.decideStrategy(this);
 		     		if(p.isFolding()){
-		    			roundOrder.remove(playerName);					//remove from linkedlist as out of round.
+		    			//roundOrder.remove(playerName);					//remove from linkedlist as out of round.
+		     			listIterator.remove();
 		    			if (roundOrder.size() == 1) { break; };
 		    		} else if (p.isCalling()){
 		    			bank.withdraw(playerName, currentBet);	//subtract value from player bank account.
@@ -162,6 +164,7 @@ public class DrawPokerRound extends RoundTemplate {
 		    }
 		    //Check to see if everyone has called.
 		    if (allCalled == true){
+		    	System.out.println("test");
 		    	break;	//If all have called then break from while loop. Betting Phase over.
 			    }
 	    	}

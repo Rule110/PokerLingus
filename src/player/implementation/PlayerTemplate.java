@@ -18,7 +18,7 @@ import round.framework.Round;
 abstract public class PlayerTemplate implements Player {
 	protected String ID;
     protected Hand hand;
-    protected Vector<Integer> discardindices;
+    protected Vector<Integer> discardindices = new Vector<Integer>();
     
     abstract public void decideDiscarding();
     

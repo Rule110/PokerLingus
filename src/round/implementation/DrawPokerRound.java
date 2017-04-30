@@ -70,13 +70,15 @@ public class DrawPokerRound extends RoundTemplate {
     protected void beginDiscardPhase(){
     	//Loop through players and let them discard.
     	for (String p: players.keySet()){
-    		getDiscardedCards(p);
+    		players.get(p).decideDiscarding();
+    		discardCards(p);
     	}
     }
     
     protected void discardCards(String playerID){
     	while(players.get(playerID).isDiscarding()){
     		PlayingCard discard = players.get(playerID).discardCard(dealer.dealNext());
+    		System.out.println("--" + discard);
     		dealer.returnCard(discard);
     	}
     	//players.get(playerID)

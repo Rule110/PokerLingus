@@ -22,10 +22,11 @@ public class HumanPlayer extends PlayerTemplate {
     	ui.checkHand(super.getHand() );
     	discardindices.clear();
     	discardindices = this.ui.decideDiscarding();
+    	System.out.println(discardindices);
     }
     
     public boolean isDiscarding(){
-    	return this.ui.isDiscarding();
+    	return discardindices.size() > 0;
     }
     
     public int getOpeningBet(Round round){
@@ -34,6 +35,7 @@ public class HumanPlayer extends PlayerTemplate {
     }
     
     public void decideStrategy(Round round){
+    	this.ui.checkHand(super.getHand());
         this.ui.decideStrategy(super.hand, round);
     }
     

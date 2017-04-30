@@ -1,5 +1,7 @@
 package ui.framework;
 
+import java.util.Vector;
+
 import hand.framework.Hand;
 import round.framework.Round;
 
@@ -15,5 +17,7 @@ public interface UI {
     public int getRaise();
     
     public boolean isDiscarding();
+
+	public Vector<Integer> decideDiscarding();
 
 }

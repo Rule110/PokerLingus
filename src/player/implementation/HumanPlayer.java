@@ -19,6 +19,8 @@ public class HumanPlayer extends PlayerTemplate {
     }
     
     public void decideDiscarding(){
+    	discardindices.clear();
+    	discardindices = this.ui.decideDiscarding();
     }
     
     public boolean isDiscarding(){

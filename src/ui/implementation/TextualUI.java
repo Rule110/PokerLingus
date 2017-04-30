@@ -1,5 +1,8 @@
 package ui.implementation;
 
+import java.util.Scanner;
+import java.util.Vector;
+
 import bank.framework.Bank;
 import game.framework.Game;
 import hand.framework.Hand;
@@ -140,4 +143,26 @@ public class TextualUI extends UITemplate {
         		validAmount = true;
     	}
     }
+
+	@Override
+	public Vector<Integer> decideDiscarding() {
+		message.setText("Which card(s) would you like to discard (e.g. 1,3)?");
+		network.sendTextUpdate(message);
+		
+		String discardCards = network.getMessageUpdate();
+		Vector<Integer> discardIndices = new Vector<Integer>();
+		Scanner discardScan = new Scanner(discardCards);
+		boolean inputValid = true;
+		
+		while(discardScan.hasNext()){
+			int index = discardScan.nextInt();
+			if(index < 0 || index > 4){
+				message.setText("Invalid input for card indices (should be 0-4), Please Try again");
+				network.sendTextUpdate(message);
+				discardIndices.clear();
+			}
+			discardIndices.addElement(index);
+		}
+		return discardIndices;
+	}
 }

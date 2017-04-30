@@ -1,5 +1,7 @@
 package ui.implementation;
 
+import java.util.Vector;
+
 import game.framework.Game;
 import hand.framework.Hand;
 import round.framework.Round;
@@ -18,6 +20,8 @@ abstract public class UITemplate implements UI {
     }
     
     abstract public void decideStrategy(Hand hand, Round round);
+    
+    abstract public Vector<Integer> decideDiscarding();
     
     public boolean isFolding(){
         return isFolding;

@@ -1,18 +1,50 @@
 package pot.testing;
 
-import junit.framework.TestCase;
+import static org.junit.Assert.*;
 
-public class DrawPokerPotTest extends TestCase {
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 
-		protected void setUp(){
-			
-		}
+import pot.framework.Pot;
+import pot.implementation.DrawPokerPot;
+
+public class DrawPokerPotTest {
+
+	private Pot testPot;
+	@Before
+	public void setUp() throws Exception {
+		testPot = new DrawPokerPot();
+	}
+
+	@After
+	public void tearDown() throws Exception {
+	}
+
+	@Test
+	public void testAddChips() {
 		
-		public void testOutput(){
-			
-		}
 		
-		public void testInput(){
-			
-		}
+	}
+
+	@Test
+	public void testRemoveChips() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetTotalValue() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testEnteringSplitPot() {
+		fail("Not yet implemented");
+	}
+
+	@Test
+	public void testGetPotSplit() {
+		fail("Not yet implemented");
+	}
+
 }

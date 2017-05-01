@@ -1,5 +1,6 @@
 package round.implementation;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.ListIterator;
 import java.util.Map;
@@ -33,6 +34,7 @@ public class DrawPokerRound extends RoundTemplate {
 	private Vector<String> openingPlayers;
 	private LinkedList<String> roundOrder;
 	private int currentBet = 0;
+	private Map<String, Integer > bettingMap = new HashMap<String, Integer>();
 	/**
 	 * This round constructor takes in object references from its game thread to operate on
 	 * during round life.
@@ -53,6 +55,7 @@ public class DrawPokerRound extends RoundTemplate {
     	//Players Built in Game.
     	//Player bank accounts built in game as well. 
     	network.pushMessageUpdate("New Deal: ");
+    	bettingMap.clear();
     	showBank();
     	dealHands();
     	beginDiscardPhase();
@@ -175,6 +178,9 @@ public class DrawPokerRound extends RoundTemplate {
      */
     @Override
     protected void beginBettingPhase(){ 
+    	for (String p: players.keySet()){
+    		bettingMap.put(p, 0);
+    	}
 		boolean allCalled = true;
 		ListIterator<String> listIterator = roundOrder.listIterator();
 		String startingPlayer = roundOrder.getFirst();	//first player must make bet
@@ -183,6 +189,7 @@ public class DrawPokerRound extends RoundTemplate {
 		bank.withdraw(startingPlayer, currentBet);
 		pot.addChips(startingPlayer, currentBet);		//add value to pot.
 		network.pushMessageUpdate(startingPlayer + " has opened with " + openingBet + " chips");
+		bettingMap.put(startingPlayer, currentBet);
 		listIterator.next();						//skip first player as already made bet.
 		boolean allIn = false;
 		while (roundOrder.size() > 1){					//while there is more than one player still playing loop
@@ -204,27 +211,39 @@ public class DrawPokerRound extends RoundTemplate {
 		    			//roundOrder.remove(playerName);					//remove from linkedlist as out of round.
 		     			network.pushMessageUpdate(playerName + " has folded");
 		     			listIterator.remove();
+	    				network.pushMessageUpdate(playerName + " has " + bank.getAvailableFunds(playerName) + " in their bank account");
 		    			if (roundOrder.size() == 1) { break; };
 		    		} else if (p.isCalling()){
-		    			bankToPot(playerName, currentBet);
+		    			int lastBet = bettingMap.get(playerName);			//Value taken from map. Value of what they have bet so far
+		    			int callValue = pot.getTotalValue() - lastBet;      //Pot total - Minus what they have bet = what they need to bet to call
+		    			bankToPot(playerName, callValue);
+		    			bettingMap.put(playerName, lastBet+callValue);		//updates betting map
 		    			network.pushMessageUpdate(playerName + " has called");
 		    			network.pushMessageUpdate("Current pot value: " + pot.getTotalValue());
+	    				network.pushMessageUpdate(playerName + " has " + bank.getAvailableFunds(playerName) + " in their bank account");
 		    		} else if (p.isRaising()){
-		    			bankToPot(playerName, currentBet);
-		    			int oldBet = currentBet;
-		    			currentBet = p.getRaise();
-		    			currentBet += oldBet;
+		    			int lastBet = bettingMap.get(playerName);			//Value taken from map. Value of what they have bet so far
+		    			int callValue = pot.getTotalValue() - lastBet;		//Pot total - Minus what they have bet = what they need to bet to call
+		    			//bankToPot(playerName, callValue);
+		    			//bettingMap.put(playerName, lastBet+callValue);		//updates betting map
+		    			//bankToPot(playerName, currentBet);
+		    			//int oldBet = currentBet;
+		    			currentBet = p.getRaise();							//gets raise value
+		    			//currentBet += oldBet;
 		    			network.pushMessageUpdate("\n" + playerName + " has raised by " + currentBet);
-		    			bankToPot(playerName, currentBet);
+		    			bankToPot(playerName, currentBet+callValue);					//transfers raise from bank to pot
+		    			lastBet = bettingMap.get(playerName);				//gets last bet (now equal to pot value)
+		    			bettingMap.put(playerName, lastBet+callValue);		//updates betting map to raised value.
 	    				if(bank.getAvailableFunds(playerName) == 0){
 	    					allIn = true;
 	    				}
-	    				allCalled = false;						//allCall set to false as player has raised.
+	    				allCalled = false;									//allCall set to false as player has raised.
 	    				reOrder(playerName);								//Reorders players, now person who raise is first.
-	    				listIterator = roundOrder.listIterator(); //reset iterator
+	    				listIterator = roundOrder.listIterator(); 			//reset iterator
 	    				//System.out.println("Re order: " + roundOrder);
-	    				listIterator.next();						//skip first player as already made bet.
+	    				listIterator.next();								//skip first player as already made bet.
 	    				network.pushMessageUpdate("Current pot value: " + pot.getTotalValue());
+	    				network.pushMessageUpdate(playerName + " has " + bank.getAvailableFunds(playerName) + " in their bank account");
 	    				break;
 		    	}
 		    }
@@ -239,13 +258,17 @@ public class DrawPokerRound extends RoundTemplate {
     /**
      * This method moves money from a players bank account into the pot
      */
-    private boolean bankToPot(String playerName, int amount){
+    private void bankToPot(String playerName, int amount){
     	if(amount <= bank.getAvailableFunds(playerName)){
     		bank.withdraw(playerName, amount);
     		pot.addChips(playerName, amount);
-    		return true;
+    		
+    	} else {
+    		int allin = bank.getAvailableFunds(playerName);
+    		bank.withdraw(playerName, allin);
+    		pot.addChips(playerName, allin);
+    		network.pushMessageUpdate(playerName + " is all in!");
     	}
-    	return false;
     }
     /**
      * This method returns the current call value for the pot

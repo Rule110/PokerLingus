@@ -50,9 +50,10 @@ public class PokerFAIce {
         twitterStream.addListener(listener);
         twitterStream.user();
         
-        while(true){
+        while(true){//Main control loop runs until forced termination
         	pf.hasCreationQueued = !(listener.getCreationQueue().isEmpty());
-        	if(pf.hasCreationQueued){
+        	
+        	if(pf.hasCreationQueued){//Spawns new game thread if game creation is queued
         		String newUserHandle = listener.popCreationQueue();
         		Network newNetwork = NetworkFactory.getNetwork(networktype, newUserHandle);
         		System.out.println("Network Created");
@@ -66,9 +67,15 @@ public class PokerFAIce {
         
     }
     
+    /**
+     * 
+     * @param userHandle
+     * @return game thread instances the user is playing
+     */
     public Game getGame(String userHandle){
     	return games.get(userHandle);
     }
+    
     
     public void deleteMessage(long messageId){
     	try {

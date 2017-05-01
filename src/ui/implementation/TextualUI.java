@@ -82,29 +82,38 @@ public class TextualUI extends UITemplate {
 
 	@Override
 	public Vector<Integer> decideDiscarding() {
-		message.setText("Which card(s) would you like to discard (e.g. 1,3)?");
+		message.setText("Which card(s) would you like to discard (e.g. 1,3)?(Type non number characters to skip discarding)");
 		game.pushTextUpdate(message);
-		
+
 		String discardCards = game.getMessageUpdate();
-		Vector<Integer> discardIndices = new Vector<Integer>();
 		Scanner discardScan = new Scanner(discardCards);
+		boolean validInput = false;
+		Vector<Integer> discardIndices = new Vector<Integer>();
 		
-		while(discardScan.hasNextInt()){
-			int index = discardScan.nextInt();
-			if(index < 0 || index > 4){
-				message.setText("Invalid input for card indices (should be 0-4), Please Try again");
-				game.pushTextUpdate(message);
-				discardIndices.clear();
-				continue;
+	
+			while(discardScan.hasNextInt()){
+				int index = discardScan.nextInt();
+				if(index < 0 || index > 4){
+					message.setText("Invalid input for card indices (should be 0-4), Please Try again");
+					game.pushTextUpdate(message);
+					discardIndices.clear();
+					continue;
+				}
+				discardIndices.addElement(index);
+				validInput = true;
 			}
-			discardIndices.addElement(index);
-		}
-		discardScan.close();
+			discardScan.close();
 		return discardIndices;
 	}
 
 	@Override
 	public void checkHand(int chips, Hand hand) {
+		checkHand(hand);
+		message.setText("Chips: " + Integer.toString(chips));
+		game.pushTextUpdate(message);
+	}
+	@Override
+	public void checkHand(Hand hand) {
 		String handStr = "";
 		Iterator<PlayingCard> it = hand.iterator();
 		while(it.hasNext()){
@@ -115,7 +124,7 @@ public class TextualUI extends UITemplate {
 		//cardGraphic.generateImage(chips, hand);
 		//game.pushGfxUpdate(cardGraphic);
 		
-		message.setText(handStr);
+		message.setText(handStr + "\n");
 		game.pushTextUpdate(message);
 	}
 	

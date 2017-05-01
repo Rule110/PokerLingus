@@ -27,4 +27,10 @@ public class GraphicalUI extends UITemplate {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void checkHand(Hand hand) {
+		// TODO Auto-generated method stub
+		
+	}
 }

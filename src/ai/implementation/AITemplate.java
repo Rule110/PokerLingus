@@ -65,7 +65,7 @@ abstract public class AITemplate implements AI {
             Scale confidence = AIAssessor.assessHand(hand);
             Scale risk = AIAssessor.assessRisk(roundState);
             Scale reward = AIAssessor.assessReward(roundState);
-            Integer maxRaise = callValue * 2;
+            Integer maxRaise = 10;
             if (maxRaise > chips - callValue){
                 maxRaise = chips - callValue;
             }

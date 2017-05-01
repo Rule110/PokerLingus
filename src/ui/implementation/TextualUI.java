@@ -33,7 +33,7 @@ public class TextualUI extends UITemplate {
 		        		strategy = true;
 		        	}
 		        } else{
-		        	setRaise(round.getAvailableFunds(ID));
+		        	setRaise(round.getAvailableFunds(ID) - round.getCallValue());
 		        	strategy = true;
 		        }
 	        } else
@@ -60,7 +60,7 @@ public class TextualUI extends UITemplate {
     	Boolean validAmount = false;
     	
     	while(validAmount != true){
-    		message.setText("Please enter amount to raise by: ");
+    		message.setText("Please enter amount to raise by: (max=" + playerChips + ")");
         	game.pushTextUpdate(message);
     		try {
     			raiseAmount = Integer.parseInt(game.getMessageUpdate());

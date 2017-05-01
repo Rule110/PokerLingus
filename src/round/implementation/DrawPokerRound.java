@@ -189,12 +189,13 @@ public class DrawPokerRound extends RoundTemplate {
 			allCalled = true;							//Set to true, only becomes false if someone raises.
 			while (listIterator.hasNext()){				//Loops through roundOrder until reaches last player.
 				String playerName = listIterator.next();
-				network.pushMessageUpdate("Current Player: " + playerName);
+				network.pushMessageUpdate("\nCurrent Player: " + playerName);
 		    	Player p = players.get(playerName);
 		    	p.decideStrategy(this);
 			
 				if(bank.getAvailableFunds(playerName) < openingBet){
 					players.remove(playerName);
+					network.pushMessageUpdate(playerName + " has folded");
 					listIterator.remove();
 					continue;
 				}
@@ -205,17 +206,16 @@ public class DrawPokerRound extends RoundTemplate {
 		     			listIterator.remove();
 		    			if (roundOrder.size() == 1) { break; };
 		    		} else if (p.isCalling()){
-		    			bank.withdraw(playerName, currentBet);	//subtract value from player bank account.
-		    			pot.addChips(playerName, currentBet);	//add value to pot.
+		    			bankToPot(playerName, currentBet);
 		    			network.pushMessageUpdate(playerName + " has called");
 		    			network.pushMessageUpdate("Current pot value: " + pot.getTotalValue());
 		    		} else if (p.isRaising()){
-		    			bank.withdraw(playerName, currentBet);
-		    			pot.addChips(playerName, currentBet);
+		    			bankToPot(playerName, currentBet);
+		    			int oldBet = currentBet;
 		    			currentBet = p.getRaise();
-		    			network.pushMessageUpdate(playerName + " has raised by " + currentBet);
-	    				bank.withdraw(playerName, currentBet);	//subtract value from player bank account.
-	    				pot.addChips(playerName, currentBet);
+		    			currentBet += oldBet;
+		    			network.pushMessageUpdate("\n" + playerName + " has raised by " + currentBet);
+		    			bankToPot(playerName, currentBet);
 	    				if(bank.getAvailableFunds(playerName) == 0){
 	    					allIn = true;
 	    				}
@@ -236,6 +236,17 @@ public class DrawPokerRound extends RoundTemplate {
 		
 	}
     
+    /**
+     * This method moves money from a players bank account into the pot
+     */
+    private boolean bankToPot(String playerName, int amount){
+    	if(amount <= bank.getAvailableFunds(playerName)){
+    		bank.withdraw(playerName, amount);
+    		pot.addChips(playerName, amount);
+    		return true;
+    	}
+    	return false;
+    }
     /**
      * This method returns the current call value for the pot
      * @return callValue

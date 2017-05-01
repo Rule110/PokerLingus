@@ -20,6 +20,12 @@ import game.framework.Game;
 import game.framework.GameFactory;
 import gfxupdate.framework.GfxUpdate;
 
+/**
+ * This class models a runnable game of draw poker that can run locally and self contained
+ * or as one thread of many in a muli-threaded twitter application.
+ * @author Darragh
+ *
+ */
 public class DrawPokerGame extends Game {
 	
 	public static final String gameType = "DrawPoker";
@@ -49,7 +55,11 @@ public class DrawPokerGame extends Game {
        
         for (int i = 0; i < OPPONENT_COUNT; i++){
             String name = Parser.getName();
-            this.players.put(name, PlayerFactory.getPlayer("Automated", this, name));
+            if(!players.containsKey(name)){
+            	this.players.put(name, PlayerFactory.getPlayer("Automated", this, name));
+            }else{
+            	i--;
+            }
         }
         this.players.put(username, PlayerFactory.getPlayer("Human", this, username));
         

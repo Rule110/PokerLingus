@@ -13,4 +13,6 @@ public interface Network {
     public void pushMessageUpdate(String update);
     
     public void captureMessageUpdate(String newMessage);
+
+	public void pushGFxUpdate(GfxUpdate update);
 }

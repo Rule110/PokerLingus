@@ -44,4 +44,6 @@ abstract public class UITemplate implements UI {
     public boolean isDiscarding(){
     	return isDiscarding;
     }
+
+	public abstract void checkHand(int chips, Hand hand);
 }

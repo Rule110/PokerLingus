@@ -21,5 +21,5 @@ public interface UI {
 
 	public Vector<Integer> decideDiscarding();
 
-	public void checkHand(Hand hand);
+	public void checkHand(int chips, Hand hand);
 }

@@ -42,5 +42,11 @@ public class LocalNetwork implements Network {
 	public void pushMessageUpdate(String update) {
 		outputPrinter.println(update);
 	}
+
+	@Override
+	public void pushGFxUpdate(GfxUpdate update) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 

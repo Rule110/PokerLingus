@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.util.Vector;
 import bank.framework.Bank;
 import game.framework.Game;
+import gfxupdate.implementation.CardGfxUpdate;
 import hand.framework.Hand;
 import hand.implementation.PlayingCard;
 import network.framework.Network;
@@ -20,11 +21,6 @@ public class TextualUI extends UITemplate {
     public TextualUI(Game game, String ID){
         super(game, ID);
         message = new GameStateTextUpdate();
-    }
-    
-    public void textualDiscard(){
-    	message.setText("Which card(s) would you like to discard (e.g., 1,3): ");
-    	game.pushTextUpdate(message);
     }
     
     public void decideStrategy(Hand hand, Round round){
@@ -46,78 +42,17 @@ public class TextualUI extends UITemplate {
     }
     
     public boolean setFolding(){
-    	String fold;
-
-		message.setText("Would you like to fold (y/n)?: ");
-    	game.pushTextUpdate(message);
-    	fold = game.getMessageUpdate();
-    	
-    	switch (fold.toLowerCase()){
-    		case "y":
-    			isFolding = true;
-    			break;
-    		case "n":
-    			isFolding = false;
-    			break;
-    		default:
-    			message.setText("Please enter a valid character!");
-            	game.pushTextUpdate(message);
-            	//message.setText("Would you like to fold (y/n)?: ");
-            	//network.sendTextUpdate(message);
-            	//fold = network.getMessageUpdate();
-            	//System.out.println(fold);
-            	setFolding();
-           }
+    	isFolding = acceptanceLoop("Would you like to fold (y/n)?: ");
     	return isFolding;
     }
     
     public boolean setCalling(){
-    	String call;
-
-		message.setText("Would you like to call (y/n)?: ");
-    	game.pushTextUpdate(message);
-    	call = game.getMessageUpdate();
-    	
-    	switch (call.toLowerCase()){
-    		case "y":
-    			isCalling = true;
-    			break;
-    		case "n":
-    			isCalling = false;
-    			break;
-    		default:
-    			message.setText("Please enter a valid character!");
-            	game.pushTextUpdate(message);
-            	//message.setText("Would you like to call (y/n)?: ");
-            	//network.sendTextUpdate(message);
-            	//call = network.getMessageUpdate();   
-            	setCalling();
-    	}
+    	isCalling = acceptanceLoop("Would you like to call (y/n)?: ");
     	return isCalling;
     }
     
     public boolean setRaising(){
-    	String raise;
-
-		message.setText("Would you like to raise (y/n)?: ");
-    	game.pushTextUpdate(message);
-    	raise = game.getMessageUpdate();
-    	
-    	switch (raise.toLowerCase()){
-    		case "y":
-    			isRaising = true;
-    			break;
-    		case "n":
-    			isRaising = false;
-    			break;
-    		default:
-    			message.setText("Please enter a valid character!");
-            	game.pushTextUpdate(message);
-            	//message.setText("Would you like to raise (y/n)?: ");
-            	//network.sendTextUpdate(message);
-            	//raise = network.getMessageUpdate(); 
-            	setRaising();
-    	}
+    	isRaising = acceptanceLoop("Would you like to raise (y/n)?: ");
     	return isRaising;
     }
     
@@ -138,7 +73,7 @@ public class TextualUI extends UITemplate {
         		message.setText("You cannot bet more chips than you have!");
         		game.pushTextUpdate(message);
         	}else if (raiseAmount <= 0){
-        		message.setText("Please enter an amount to raise by!");
+        		message.setText("Please enter a valid amount to raise by!");
         		game.pushTextUpdate(message);
         	}else
         		validAmount = true;
@@ -153,9 +88,8 @@ public class TextualUI extends UITemplate {
 		String discardCards = game.getMessageUpdate();
 		Vector<Integer> discardIndices = new Vector<Integer>();
 		Scanner discardScan = new Scanner(discardCards);
-		boolean inputValid = true;
 		
-		while(discardScan.hasNext()){
+		while(discardScan.hasNextInt()){
 			int index = discardScan.nextInt();
 			if(index < 0 || index > 4){
 				message.setText("Invalid input for card indices (should be 0-4), Please Try again");
@@ -165,17 +99,44 @@ public class TextualUI extends UITemplate {
 			}
 			discardIndices.addElement(index);
 		}
+		discardScan.close();
 		return discardIndices;
 	}
 
 	@Override
-	public void checkHand(Hand hand) {
+	public void checkHand(int chips, Hand hand) {
 		String handStr = "";
 		Iterator<PlayingCard> it = hand.iterator();
 		while(it.hasNext()){
 			handStr += "[" + it.next() + "]";
 		}
+		// Twitter 4j has yet to provide support for direct messages with pictures
+		//CardGfxUpdate cardGraphic= new CardGfxUpdate();
+		//cardGraphic.generateImage(chips, hand);
+		//game.pushGfxUpdate(cardGraphic);
+		
 		message.setText(handStr);
 		game.pushTextUpdate(message);
+	}
+	
+	private boolean acceptanceLoop(String prompt){
+		boolean isAccepting = false;
+		boolean isValid     = false;
+		String accept = "";
+    	
+    	while (!isValid){
+    		message.setText(prompt);
+        	game.pushTextUpdate(message);
+        	accept = game.getMessageUpdate();
+        	if(accept.toLowerCase().equals("y")){
+        		isAccepting =  isValid  = true;
+        	}else if(accept.toLowerCase().equals("n")){
+        		isAccepting =  !(isValid = true);
+        	}else{
+        		message.setText("Invalid input, please enter (y/n)\n");
+            	game.pushTextUpdate(message);
+        	}
+    	}
+    	return isAccepting;
 	}
 }

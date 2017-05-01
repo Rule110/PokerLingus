@@ -23,7 +23,7 @@ import gfxupdate.framework.GfxUpdate;
 public class DrawPokerGame extends Game {
 	
 	public static final String gameType = "DrawPoker";
-	public static final int OPPONENT_COUNT = 4;
+	private static final int OPPONENT_COUNT = 4;
     private Network network;
     private Database database;
     private Parser parser;
@@ -85,7 +85,7 @@ public class DrawPokerGame extends Game {
     }
     
     public void pushGfxUpdate(GfxUpdate update){
-        
+        network.pushGFxUpdate(update);
     }
 
 	@Override

@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.sql.Timestamp;
 
+import gfxupdate.framework.GfxUpdate;
 import twitter4j.*;
 import twitter4j.auth.*;
 
@@ -40,7 +41,7 @@ public class TwitterOutputStream extends OutputStream{
 		String writeString = new String(byteRep, offset, length);
 		//System.out.println("Sent String: " + writeString);
 		try {
-			Thread.sleep(15);
+			Thread.sleep(500);
 			twitter.sendDirectMessage(userHandle, "[" + new Timestamp(System.currentTimeMillis()) + "]\n" + writeString);
 			lineCount++;
 		} catch (TwitterException e) {
@@ -56,6 +57,12 @@ public class TwitterOutputStream extends OutputStream{
 		PrintStream ps= new PrintStream(new TwitterOutputStream("DkfFay"));
 		ps.print("waddup, fam");
 		ps.close();
+	}
+
+	public void pushImage(GfxUpdate update) {
+		// Currently twitter 4j doesn't allow you to post images
+		// via direct messages however this may be added to the API
+		// soon as it is the highest requested feature.
 	}
 
 }

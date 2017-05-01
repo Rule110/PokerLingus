@@ -52,4 +52,9 @@ public class TwitterNetwork implements Network {
 	public void pushMessageUpdate(String update) {
 		 outputPrinter.print(update);
 	}
+
+	@Override
+	public void pushGFxUpdate(GfxUpdate update) {
+		outputStream.pushImage(update);
+	}
 }

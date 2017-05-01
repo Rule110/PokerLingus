@@ -12,7 +12,6 @@ import ui.framework.UIFactory;
  */
 public class HumanPlayer extends PlayerTemplate {
     private UI ui;
-    private Round roundRef;
     
     public HumanPlayer(Game game, String ID){
     	super.ID = ID;
@@ -31,7 +30,6 @@ public class HumanPlayer extends PlayerTemplate {
     }
     
     public int getOpeningBet(Round round){
-    	this.roundRef = round;
         return 0;
     }
     

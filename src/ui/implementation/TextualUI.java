@@ -91,7 +91,7 @@ public class TextualUI extends UITemplate {
 		Vector<Integer> discardIndices = new Vector<Integer>();
 		
 	
-			while(discardScan.hasNextInt()){
+			while(discardScan.hasNextInt() && discardIndices.size() < 3){
 				int index = discardScan.nextInt();
 				if(index < 0 || index > 4){
 					message.setText("Invalid input for card indices (should be 0-4), Please Try again");
@@ -109,12 +109,12 @@ public class TextualUI extends UITemplate {
 	@Override
 	public void checkHand(int chips, Hand hand) {
 		checkHand(hand);
-		message.setText("Chips: " + Integer.toString(chips));
+		message.setText(ID + "'s Chips: " + Integer.toString(chips) + "\n");
 		game.pushTextUpdate(message);
 	}
 	@Override
 	public void checkHand(Hand hand) {
-		String handStr = "";
+		String handStr = ID + "'s hand: ";
 		Iterator<PlayingCard> it = hand.iterator();
 		while(it.hasNext()){
 			handStr += "[" + it.next() + "]";

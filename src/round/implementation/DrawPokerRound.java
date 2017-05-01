@@ -23,22 +23,22 @@ public class DrawPokerRound extends RoundTemplate {
 	private Vector<String> openingPlayers;
 	private LinkedList<String> roundOrder;
 	public static int openingBet = 2;
+	public static final int DISCARD_LIMIT = 3;
 	private int currentBet = 0;
 	
     public DrawPokerRound(Map<String, Player> players, Dealer dealer, Bank bank, Network network){
         super(players, dealer, bank, network);
         super.pot = PotFactory.getPot(pokerType);
     }
-    
+    /**
+     * Method runs sequence of events associated with a single round of poker
+     */
     public void beginRound(){
         //Sends start sequence to UI
     	//Players Built in Game.
     	//Player bank accounts built in game as well. 
     	network.pushMessageUpdate("New Deal: ");
-    	for (String p: players.keySet()){
-    		int funds = bank.getAvailableFunds(p);
-    		network.pushMessageUpdate(p + ": I have " + funds + " chips in the bank!");
-    	}
+    	showBank();
     	dealHands();
     	beginDiscardPhase();
     	openingPlayers = getOpeningPlayers();
@@ -48,12 +48,19 @@ public class DrawPokerRound extends RoundTemplate {
 	    	setOrder(); //This is the order for the CURRENT round.
 	    	beginBettingPhase();	//controls betting phase.
 	    	getWinner();
-    	} else {
+    	}else {
             network.pushMessageUpdate("Looks like no one could open! Redealing...");
             beginRound();
     	}
     	
     	
+    }
+    
+    private void showBank(){
+    	for (String p: players.keySet()){
+    		int funds = bank.getAvailableFunds(p);
+    		network.pushMessageUpdate(p + ": I have " + funds + " chips in the bank!");
+    	}
     }
     
     protected void dealHands(){
@@ -79,12 +86,14 @@ public class DrawPokerRound extends RoundTemplate {
     }
     
     protected void discardCards(String playerID){
-    	while(players.get(playerID).isDiscarding()){
+    	int discardSum = 0;
+    	
+    	while(players.get(playerID).isDiscarding() && (discardSum < 3)){
     		PlayingCard discard = players.get(playerID).discardCard(dealer.dealNext());
-    		network.pushMessageUpdate("Opted to discard: " + discard);
+    		discardSum++;
     		dealer.returnCard(discard);
     	}
-    	//players.get(playerID)
+    	network.pushMessageUpdate(playerID + " opted to discard " + discardSum + " cards");
     }
     
     protected Vector<String> getOpeningPlayers(){
@@ -133,18 +142,21 @@ public class DrawPokerRound extends RoundTemplate {
 		pot.addChips(startingPlayer, currentBet);		//add value to pot.
 		network.pushMessageUpdate(startingPlayer + " has opened with " + openingBet + " chips");
 		listIterator.next();						//skip first player as already made bet.
+		boolean allIn = false;
 		while (roundOrder.size() > 1){					//while there is more than one player still playing loop
 			allCalled = true;							//Set to true, only becomes false if someone raises.
 			while (listIterator.hasNext()){				//Loops through roundOrder until reaches last player.
 				String playerName = listIterator.next();
+				network.pushMessageUpdate("Current Player: " + playerName);
+		    	Player p = players.get(playerName);
+		    	p.decideStrategy(this);
+			
 				if(bank.getAvailableFunds(playerName) < openingBet){
 					players.remove(playerName);
 					listIterator.remove();
 					continue;
 				}
-				network.pushMessageUpdate("Current Player: " + playerName);
-		    	Player p = players.get(playerName);
-		    		p.decideStrategy(this);
+				
 		     		if(p.isFolding()){
 		    			//roundOrder.remove(playerName);					//remove from linkedlist as out of round.
 		     			network.pushMessageUpdate(playerName + " has folded");
@@ -162,6 +174,9 @@ public class DrawPokerRound extends RoundTemplate {
 		    			network.pushMessageUpdate(playerName + " has raised by " + currentBet);
 	    				bank.withdraw(playerName, currentBet);	//subtract value from player bank account.
 	    				pot.addChips(playerName, currentBet);
+	    				if(bank.getAvailableFunds(playerName) == 0){
+	    					allIn = true;
+	    				}
 	    				allCalled = false;						//allCall set to false as player has raised.
 	    				reOrder(playerName);								//Reorders players, now person who raise is first.
 	    				listIterator = roundOrder.listIterator(); //reset iterator

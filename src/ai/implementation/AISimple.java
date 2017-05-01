@@ -10,8 +10,23 @@ import game.framework.Game;
  *
  */
 public class AISimple extends AITemplate {
+    /**
+     * Constructor with randomly created Personality
+     * @param game
+     * @param playerID
+     */
     public AISimple(Game game, String playerID){
         super(game, playerID, new Personality());
+    }
+    
+    /**
+     * Constructor where personality can be input
+     * @param game
+     * @param playerID
+     * @param personality
+     */
+    public AISimple(Game game, String playerID, Personality personality){
+        super(game, playerID, personality);
     }
     
     /**

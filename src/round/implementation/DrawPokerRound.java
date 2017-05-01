@@ -267,7 +267,7 @@ public class DrawPokerRound extends RoundTemplate {
     		int allin = bank.getAvailableFunds(playerName);
     		bank.withdraw(playerName, allin);
     		pot.addChips(playerName, allin);
-    		network.pushMessageUpdate(playerName + " is all in!");
+    		network.pushMessageUpdate(playerName + " is all in!" + playerName + " put " + allin + " into the pot.");
     	}
     }
     /**

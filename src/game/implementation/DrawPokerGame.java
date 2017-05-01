@@ -31,7 +31,7 @@ public class DrawPokerGame extends Game {
 	public static final String gameType = "DrawPoker";
 	private static final int OPPONENT_COUNT = 4;
 	
-	private static final int START_CHIPS = 100;
+	private static final int START_CHIPS = 100;	//Starting funds for players
 	   
     private Network network;
     private Database database;
@@ -74,8 +74,10 @@ public class DrawPokerGame extends Game {
     	while(players.size() > 1){
     		Round currentRound = RoundFactory.getRound(gameType, players, dealer, bank, network);
     		currentRound.beginRound();
-    		if(quitPrompt()){
-    			break;
+    		if(players.size() > 1){
+    			if(quitPrompt()){
+        			break;
+        		}
     		}
     	}
     	network.pushMessageUpdate("GAME HAS ENDED");

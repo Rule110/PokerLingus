@@ -7,19 +7,13 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.FlowLayout;
 import java.awt.image.BufferedImage;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 import hand.framework.Hand;
 import hand.implementation.PlayingCard;
 
-import javax.swing.ImageIcon;
 import javax.imageio.ImageIO;
 
-import java.util.Iterator;
 public class ImageGenerator
 {
 	// Width and height of the final image
@@ -42,7 +36,7 @@ public class ImageGenerator
 		
 		for (int i = 0; i < MAX_CARDS; i++)
 		{
-			cardLocations[i] = "src/Images/Cards/" + cardAr[i] + ".png";
+			cardLocations[i] = "resources/Cards/" + cardAr[i] + ".png";
 		}
 		
 		// System message for testing
@@ -65,7 +59,7 @@ public class ImageGenerator
 		// Adds the "Total Chips:" (1000x200) text to the final image
 		x = 700;
 		y += 776;
-		BufferedImage tempImage = ImageIO.read(new File("src/Images/Numbers/TotalChips.png"));
+		BufferedImage tempImage = ImageIO.read(new File("resources/Numbers/TotalChips.png"));
 		g.drawImage(tempImage, x, y, null);
 		
 		// Adds the individual number images (100x200) to represent the chip total
@@ -74,7 +68,7 @@ public class ImageGenerator
 		String chipsTotal = Integer.toString(chips);
 		
 		for(int i = 0; i <= (chips/10); i++){
-			tempImage = ImageIO.read(new File("src/Images/Numbers/" + chipsTotal.charAt(i) + ".png"));
+			tempImage = ImageIO.read(new File("resources/Numbers/" + chipsTotal.charAt(i) + ".png"));
 			g.drawImage(tempImage, x, y, null);
 			x+= 75;
 		}
@@ -82,4 +76,6 @@ public class ImageGenerator
 		// Writes the generated image to the specified location
 		return generatedImage;
 	}
+	
+	
 }

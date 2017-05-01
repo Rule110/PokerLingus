@@ -62,11 +62,11 @@ public class AIAssessorTest {
     @Before
     public void setUp() throws Exception {
         this.round1 = new TestRoundState(50, 50, 50);
-        this.round2 = new TestRoundState(9, 100, 9);
-        this.round3 = new TestRoundState(50, 100, 50);
-        this.round4 = new TestRoundState(20, 100, 20);
-        this.round5 = new TestRoundState(100, 10, 100);
-        this.round6 = new TestRoundState(5,1000, 5);
+        this.round2 = new TestRoundState(9, 100, 200);
+        this.round3 = new TestRoundState(50, 100, 300);
+        this.round4 = new TestRoundState(20, 100, 400);
+        this.round5 = new TestRoundState(100, 100, 500);
+        this.round6 = new TestRoundState(5,1000, 6000);
         
         this.hand1 = new TestHand(OnePair.ONE_PAIR_DEFAULT);
         this.hand2 = new TestHand(TwoPair.TWO_PAIR_DEFAULT);
@@ -81,12 +81,12 @@ public class AIAssessorTest {
 
     @Test
     public void testAssessReward() {
-        assertEquals(AIAssessor.assessReward(round1), new Scale(9));
-        assertEquals(AIAssessor.assessReward(round2), new Scale(1));
-        assertEquals(AIAssessor.assessReward(round3), new Scale(4));
-        assertEquals(AIAssessor.assessReward(round4), new Scale(1));
-        assertEquals(AIAssessor.assessReward(round5), new Scale(10));
-        assertEquals(AIAssessor.assessReward(round6), new Scale(1));
+        assertEquals(AIAssessor.assessReward(round1), new Scale(1));
+        assertEquals(AIAssessor.assessReward(round2), new Scale(2));
+        assertEquals(AIAssessor.assessReward(round3), new Scale(3));
+        assertEquals(AIAssessor.assessReward(round4), new Scale(4));
+        assertEquals(AIAssessor.assessReward(round5), new Scale(5));
+        assertEquals(AIAssessor.assessReward(round6), new Scale(6));
     }
 
     @Test

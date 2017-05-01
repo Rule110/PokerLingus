@@ -18,6 +18,15 @@ public class Strategy {
         this.formulateStrategy(confidence, risk, reward, personality, raisePool);
     }
     
+    public Strategy(){
+        this.isFolding = true;
+        this.isCalling = false;
+        this.isRaising = false;
+        this.raiseAmount = 0;
+        this.bluffedConfidence = new Scale(1);
+        this.behaviour = new Behaviour();
+    }
+    
     /**
      * Formulate Strategy based on
      *  degrees of confidence, risk, reward

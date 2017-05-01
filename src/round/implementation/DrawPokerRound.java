@@ -201,7 +201,7 @@ public class DrawPokerRound extends RoundTemplate {
 			while (listIterator.hasNext()){				//Loops through roundOrder until reaches last player.
 				callValue();
 				String playerName = listIterator.next();
-				network.pushMessageUpdate("\n" + playerName + "will need to bet: " + (highestBet - bettingMap.get(playerName)));
+				network.pushMessageUpdate("\n" + playerName + " will need to bet: " + (highestBet - bettingMap.get(playerName) + " to call this round"));
 				network.pushMessageUpdate("Current Player: " + playerName);
 		    	Player p = players.get(playerName);
 		    	p.decideStrategy(this);
@@ -232,12 +232,12 @@ public class DrawPokerRound extends RoundTemplate {
 		    			int callValue = highestBet - lastBet;		//Pot total - Minus what they have bet = what they need to bet to call
 		    			//bankToPot(playerName, callValue);
 		    			//bettingMap.put(playerName, lastBet+callValue);		//updates betting map
-		    			//bankToPot(playerName, currentBet);
+		    			bankToPot(playerName, callValue);
 		    			//int oldBet = currentBet;
 		    			currentBet = p.getRaise();							//gets raise value
 		    			//currentBet += oldBet;
 		    			network.pushMessageUpdate("\n" + playerName + " has raised by " + currentBet);
-		    			bankToPot(playerName, currentBet+callValue);					//transfers raise from bank to pot
+		    			bankToPot(playerName, currentBet);					//transfers raise from bank to pot
 		    			lastBet = bettingMap.get(playerName);				//gets last bet (now equal to pot value)
 		    			bettingMap.put(playerName, lastBet+callValue+currentBet);		//updates betting map to raised value.
 	    				if(bank.getAvailableFunds(playerName) == 0){

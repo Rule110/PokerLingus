@@ -33,6 +33,7 @@ public class DrawPokerGame extends Game {
     private static int START_CHIPS = 10;
     
     
+    
     public DrawPokerGame(String username, Network network){
         this.network = network;
         this.parser = new Parser("Text");
@@ -54,6 +55,9 @@ public class DrawPokerGame extends Game {
     	while(players.size() > 1){
     		Round currentRound = RoundFactory.getRound(gameType, players, dealer, bank, network);
     		currentRound.beginRound();
+    		if(quitPrompt()){
+    			break;
+    		}
     	}
     	network.pushMessageUpdate("GAME HAS ENDED");
     	return;
@@ -69,7 +73,6 @@ public class DrawPokerGame extends Game {
 				this.wait();
 				//System.out.println("Going");
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
     	}
@@ -100,6 +103,25 @@ public class DrawPokerGame extends Game {
 	public Parser getParser(){
 	    return this.parser;
 	}
+	
+	private boolean quitPrompt(){
+	boolean isQuiting = false;
+	boolean isValid     = false;
+	String quit = "";
+	
+	while (!isValid){
+    	pushMessageUpdate("Play another round? Type q to quit the game, or type y to continue...");
+    	quit = getMessageUpdate();
+    	if(quit.toLowerCase().equals("q")){
+    		isQuiting =  isValid  = true;
+    	}else if(quit.toLowerCase().equals("y")){
+    		isQuiting =  !(isValid = true);
+    	}else{
+    		pushMessageUpdate("Invalid input, please enter (q/y)\n");
+    	}
+	}
+	return isQuiting;
+}
 	
 	/**
 	 * Main method stub used for testing purposes

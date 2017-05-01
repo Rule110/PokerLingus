@@ -34,8 +34,6 @@ abstract public class RoundTemplate implements Round {
     
     abstract protected void beginDiscardPhase();
     
-    abstract protected void getDiscardedCards(String playerID);
-    
     abstract protected void beginBettingPhase();
     
     abstract protected boolean isFolding(String playerID);

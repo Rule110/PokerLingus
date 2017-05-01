@@ -34,13 +34,13 @@ public class TwitterStreamListener implements UserStreamListener{
 			//System.out.println(arg0.getText());
 			Game relevantGame = pfRef.getGame(sender);
 			if(relevantGame != null){
-				System.out.println("Captured");
-				relevantGame.captureMessageUpdate(arg0.getText());
-				relevantGame.notify();
-			}else if(!creationQueue.contains(arg0.getSender().getScreenName())){
-				creationQueue.add(arg0.getSender().getScreenName());
+				if(relevantGame.isAlive()){
+					relevantGame.captureMessageUpdate(arg0.getText());
+					relevantGame.notify();
+				}else if(!creationQueue.contains(arg0.getSender().getScreenName())){
+					creationQueue.add(arg0.getSender().getScreenName());
+				}
 			}
-			System.out.println(this.creationQueue);
 		}
 		pfRef.deleteMessage(arg0.getId());
 	}
@@ -53,6 +53,7 @@ public class TwitterStreamListener implements UserStreamListener{
 		return creationQueue.remove();
 	}
 	
+	//Other listener events not used as action wasn't expected in requirements
 	@Override
 	public void onDeletionNotice(StatusDeletionNotice arg0) {}
 
@@ -125,8 +126,7 @@ public class TwitterStreamListener implements UserStreamListener{
 	public void onUserListUpdate(User arg0, UserList arg1) {}
 
 	@Override
-	public void onUserProfileUpdate(User arg0) {//action not defined in implementation
-	}
+	public void onUserProfileUpdate(User arg0) {}
 
 	@Override
 	public void onUserSuspension(long arg0) {}

@@ -251,12 +251,6 @@ public class DrawPokerRound extends RoundTemplate {
     }
 
 	@Override
-	protected void getDiscardedCards(String playerID) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public int getCallValue() {
 		return currentBet;
 	}

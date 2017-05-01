@@ -32,12 +32,10 @@ public class TwitterOutputStream extends OutputStream{
 	@Override
 	public void write(byte[] byteRep, int offset, int length){
 		String writeString = new String(byteRep, offset, length);
-		//System.out.println("Sent String: " + writeString);
 		try {
 			Thread.sleep(500);
 			twitter.sendDirectMessage(userHandle, "[" + new Timestamp(System.currentTimeMillis()) + "]\n" + writeString);
 		} catch (TwitterException e) {
-			//System.out.println("write fail");
 			e.printStackTrace();
 		} catch (InterruptedException e) {
 			e.printStackTrace();

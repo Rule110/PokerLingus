@@ -141,6 +141,9 @@ public class TextualUI extends UITemplate {
 		return discardIndices;
 	}
 
+	/**
+	 * Method displays the user's hand of cards on their output device.
+	 */
 	@Override
 	public void checkHand(int chips, Hand hand) {
 		checkHand(hand);

@@ -28,7 +28,6 @@ public class TwitterInputStream extends InputStream {
 		
 	}
 	public synchronized void captureMessage(String messageString){
-		//System.out.println("thread in capture:" + Thread.currentThread());
 		currentIn.append(messageString);
 	}
 	

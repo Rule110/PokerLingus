@@ -45,8 +45,6 @@ public class LocalNetwork implements Network {
 
 	@Override
 	public void pushGFxUpdate(GfxUpdate update) {
-		// TODO Auto-generated method stub
-		
 	}
 }
 

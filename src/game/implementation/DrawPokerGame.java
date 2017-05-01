@@ -74,8 +74,10 @@ public class DrawPokerGame extends Game {
     	while(players.size() > 1){
     		Round currentRound = RoundFactory.getRound(gameType, players, dealer, bank, network);
     		currentRound.beginRound();
-    		if(quitPrompt()){
-    			break;
+    		if(players.size() > 1){
+    			if(quitPrompt()){
+        			break;
+        		}
     		}
     	}
     	network.pushMessageUpdate("GAME HAS ENDED");

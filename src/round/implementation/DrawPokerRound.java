@@ -33,6 +33,7 @@ public class DrawPokerRound extends RoundTemplate {
 	private Vector<String> openingPlayers;
 	private LinkedList<String> roundOrder;
 	private int currentBet = 0;
+	private int callValue = 0;
 	/**
 	 * This round constructor takes in object references from its game thread to operate on
 	 * during round life.
@@ -186,14 +187,15 @@ public class DrawPokerRound extends RoundTemplate {
 		listIterator.next();						//skip first player as already made bet.
 		boolean allIn = false;
 		while (roundOrder.size() > 1){					//while there is more than one player still playing loop
-			allCalled = true;							//Set to true, only becomes false if someone raises.
+			allCalled = true;	
+			
 			while (listIterator.hasNext()){				//Loops through roundOrder until reaches last player.
 				String playerName = listIterator.next();
 				network.pushMessageUpdate("\nCurrent Player: " + playerName);
 		    	Player p = players.get(playerName);
 		    	p.decideStrategy(this);
 			
-				if(bank.getAvailableFunds(playerName) < openingBet){
+				if(bank.getAvailableFunds(playerName) < openingBet){//handles elimination if bet cant be met
 					players.remove(playerName);
 					network.pushMessageUpdate(playerName + " has folded");
 					listIterator.remove();
@@ -211,10 +213,9 @@ public class DrawPokerRound extends RoundTemplate {
 		    			network.pushMessageUpdate("Current pot value: " + pot.getTotalValue());
 		    		} else if (p.isRaising()){
 		    			bankToPot(playerName, currentBet);
-		    			int oldBet = currentBet;
 		    			currentBet = p.getRaise();
-		    			currentBet += oldBet;
 		    			network.pushMessageUpdate("\n" + playerName + " has raised by " + currentBet);
+		    			
 		    			bankToPot(playerName, currentBet);
 	    				if(bank.getAvailableFunds(playerName) == 0){
 	    					allIn = true;
@@ -253,7 +254,7 @@ public class DrawPokerRound extends RoundTemplate {
      */
 	@Override
 	public int getCallValue() {
-		return currentBet;
+		return callValue;
 	}
 	
     /**

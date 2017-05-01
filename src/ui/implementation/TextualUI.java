@@ -33,7 +33,7 @@ public class TextualUI extends UITemplate {
 		        		strategy = true;
 		        	}
 		        } else{
-		        	setRaise(round.getAvailableFunds(ID) - round.getCallValue());
+		        	setRaise(Math.max(round.getAvailableFunds(ID) - round.getCallValue(), 0));
 		        	strategy = true;
 		        }
 	        } else

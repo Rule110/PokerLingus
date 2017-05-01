@@ -271,7 +271,7 @@ public class DrawPokerRound extends RoundTemplate {
     	}
     }
     /**
-     * This method returns the current call value for the pot
+     * This method returns the current call value for the pot for the round.
      * @return callValue
      */
 	@Override

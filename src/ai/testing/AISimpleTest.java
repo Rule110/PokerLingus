@@ -83,11 +83,6 @@ public class AISimpleTest {
     }
 
     @Test
-    public void testDecideOpening() {
-        fail("Not yet implemented");
-    }
-
-    @Test
     public void testDecideStrategy() {
         Strategy expectedStrategy1 = new Strategy();
         Strategy strategy1 = this.ai.decideStrategy(this.hand1, this.round1);

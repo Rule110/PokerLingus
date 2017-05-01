@@ -57,6 +57,10 @@ abstract public class AITemplate implements AI {
         if (callValue > chips){
             strategy = new Strategy();
         }
+        else if (callValue == chips){
+            boolean decideCall = true;
+            strategy = new Strategy(decideCall);
+        }
         else {
             Scale confidence = AIAssessor.assessHand(hand);
             Scale risk = AIAssessor.assessRisk(roundState);

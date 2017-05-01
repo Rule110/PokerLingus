@@ -18,9 +18,25 @@ public class Strategy {
         this.formulateStrategy(confidence, risk, reward, personality, raisePool);
     }
     
+    /**
+     * Default constructor used to default to Fold
+     */
     public Strategy(){
         this.isFolding = true;
         this.isCalling = false;
+        this.isRaising = false;
+        this.raiseAmount = 0;
+        this.bluffedConfidence = new Scale(1);
+        this.behaviour = new Behaviour();
+    }
+    
+    /**
+     * Constructor used to default to Call
+     * @param callFlag
+     */
+    public Strategy(boolean call){
+        this.isFolding = !call;
+        this.isCalling = call;
         this.isRaising = false;
         this.raiseAmount = 0;
         this.bluffedConfidence = new Scale(1);

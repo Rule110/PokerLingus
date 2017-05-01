@@ -66,7 +66,7 @@ public class AISimpleTest {
         this.ai = new AISimple(null, "AI", this.personality);
         
         this.round1 = new TestRoundState(11, 10, 50);
-        this.round2 = new TestRoundState(20, 10, 200);
+        this.round2 = new TestRoundState(10, 10, 200);
         this.round3 = new TestRoundState(40, 100, 300);
         this.round4 = new TestRoundState(20, 100, 400);
         this.round5 = new TestRoundState(10, 100, 500);
@@ -90,11 +90,12 @@ public class AISimpleTest {
         assertEquals(expectedStrategy1.isCalling(), strategy1.isCalling());
         assertEquals(expectedStrategy1.isRaising(), strategy1.isRaising());
         assertEquals(expectedStrategy1.getRaiseAmount(), strategy1.getRaiseAmount());
-
-        Strategy expectedStrategy2 = new Strategy();
+        
+        boolean decideCall = true;
+        Strategy expectedStrategy2 = new Strategy(decideCall);
         Strategy strategy2 = this.ai.decideStrategy(this.hand2, this.round2);
         assertEquals(expectedStrategy2.isFolding(), strategy2.isFolding());
-        assertEquals(expectedStrategy1.isCalling(), strategy2.isCalling());
+        assertEquals(expectedStrategy2.isCalling(), strategy2.isCalling());
         assertEquals(expectedStrategy2.isRaising(), strategy2.isRaising());
         assertEquals(expectedStrategy2.getRaiseAmount(), strategy2.getRaiseAmount());
 

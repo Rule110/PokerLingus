@@ -33,7 +33,7 @@ public class TwitterOutputStream extends OutputStream{
 	public void write(byte[] byteRep, int offset, int length){
 		String writeString = new String(byteRep, offset, length);
 		try {
-			Thread.sleep(500);
+			Thread.sleep(300);
 			twitter.sendDirectMessage(userHandle, "[" + new Timestamp(System.currentTimeMillis()) + "]\n" + writeString);
 		} catch (TwitterException e) {
 			e.printStackTrace();

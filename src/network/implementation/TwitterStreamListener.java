@@ -28,10 +28,8 @@ public class TwitterStreamListener implements UserStreamListener{
 	@Override
 	public void onDirectMessage(DirectMessage arg0) {
 		String sender = arg0.getSender().getScreenName();
-		System.out.println(sender);
 		
 		if(!sender.equals(controlHandle)){
-			//System.out.println(arg0.getText());
 			Game relevantGame = pfRef.getGame(sender);
 			if(relevantGame != null){
 				if(relevantGame.isAlive()){

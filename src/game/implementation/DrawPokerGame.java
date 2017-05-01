@@ -31,7 +31,7 @@ public class DrawPokerGame extends Game {
 	public static final String gameType = "DrawPoker";
 	private static final int OPPONENT_COUNT = 4;
 	
-	private static final int START_CHIPS = 100;	//Starting funds for players
+	private static final int START_CHIPS = 10;	//Starting funds for players
 	   
     private Network network;
     private Database database;

@@ -10,23 +10,16 @@ import twitter4j.*;
 import twitter4j.auth.*;
 
 public class TwitterOutputStream extends OutputStream{
-    private static final String CONSUMER_KEY = "inTnZhpHxBFnQ7SKUjNvfL1mv";
-    private static final String CONSUMER_KEY_SECRET =
-      "50YtBK9DXHjsCC2vYbGv6vLhFAUAsaeGVqyuM69LDsklR42edm";
-    
-    private static final String ACCESS_TOKEN = "850829181332189184-ggJdPa7miGGsnJeDexGIjGs6qcmOprt";
-    private static final String ACCESS_TOKEN_SECRET = "HIYDWwSWuoraBXYW9YjrERCFe06zp9bX7maDm8KwCUosO";
     
 	private String userHandle;
 	private Twitter twitter;
-	private int lineCount = 0;
 	
 	public TwitterOutputStream(String userHandle){
 		this.userHandle = userHandle;
 		TwitterFactory factory = new TwitterFactory();
 		twitter = factory.getInstance();
-		twitter.setOAuthConsumer(CONSUMER_KEY, CONSUMER_KEY_SECRET);
-		AccessToken accessToken = new AccessToken(ACCESS_TOKEN, ACCESS_TOKEN_SECRET);
+		twitter.setOAuthConsumer(TwitterSymbols.CONSUMER_KEY, TwitterSymbols.CONSUMER_KEY_SECRET);
+		AccessToken accessToken = new AccessToken(TwitterSymbols.ACCESS_TOKEN, TwitterSymbols.ACCESS_TOKEN_SECRET);
 		twitter.setOAuthAccessToken(accessToken);
 	}
     
@@ -43,12 +36,10 @@ public class TwitterOutputStream extends OutputStream{
 		try {
 			Thread.sleep(500);
 			twitter.sendDirectMessage(userHandle, "[" + new Timestamp(System.currentTimeMillis()) + "]\n" + writeString);
-			lineCount++;
 		} catch (TwitterException e) {
 			//System.out.println("write fail");
 			e.printStackTrace();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

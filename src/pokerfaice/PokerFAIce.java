@@ -8,6 +8,7 @@ import game.framework.GameFactory;
 import network.framework.Network;
 import network.framework.NetworkFactory;
 import network.implementation.TwitterStreamListener;
+import network.implementation.TwitterSymbols;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.TwitterFactory;
@@ -23,13 +24,6 @@ public class PokerFAIce {
     public static final String networktype = "Twitter";
     public static final String gameType = "DrawPoker";
     
-    private static final String CONSUMER_KEY = "inTnZhpHxBFnQ7SKUjNvfL1mv";
-    private static final String CONSUMER_KEY_SECRET =
-      "50YtBK9DXHjsCC2vYbGv6vLhFAUAsaeGVqyuM69LDsklR42edm";
-    
-    private static final String ACCESS_TOKEN = "850829181332189184-ggJdPa7miGGsnJeDexGIjGs6qcmOprt";
-    private static final String ACCESS_TOKEN_SECRET = "HIYDWwSWuoraBXYW9YjrERCFe06zp9bX7maDm8KwCUosO";
-    
     private static Twitter twitter;
     volatile boolean hasCreationQueued = false;
     /**
@@ -37,7 +31,6 @@ public class PokerFAIce {
      * @param args
      */
     private Map<String, Game> games;
-    //private twitterListener twitterListener;
     
     public PokerFAIce(){
     	games = new LinkedHashMap<String, Game>();
@@ -47,9 +40,9 @@ public class PokerFAIce {
         TwitterStream twitterStream = new TwitterStreamFactory().getInstance();
         twitter = new TwitterFactory().getInstance();
         
-        twitterStream.setOAuthConsumer(CONSUMER_KEY, CONSUMER_KEY_SECRET);
-        twitter.setOAuthConsumer(CONSUMER_KEY, CONSUMER_KEY_SECRET);
-		AccessToken accessToken = new AccessToken(ACCESS_TOKEN, ACCESS_TOKEN_SECRET);
+        twitterStream.setOAuthConsumer(TwitterSymbols.CONSUMER_KEY, TwitterSymbols.CONSUMER_KEY_SECRET);
+        twitter.setOAuthConsumer(TwitterSymbols.CONSUMER_KEY, TwitterSymbols.CONSUMER_KEY_SECRET);
+		AccessToken accessToken = new AccessToken(TwitterSymbols.ACCESS_TOKEN, TwitterSymbols.ACCESS_TOKEN_SECRET);
 		twitterStream.setOAuthAccessToken(accessToken);
 		twitter.setOAuthAccessToken(accessToken);
 		
@@ -81,7 +74,6 @@ public class PokerFAIce {
     	try {
 			twitter.destroyDirectMessage(messageId);
 		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }

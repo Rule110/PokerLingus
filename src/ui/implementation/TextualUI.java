@@ -13,16 +13,29 @@ import network.implementation.LocalNetwork;
 import round.framework.Round;
 import textupdate.implementation.GameStateTextUpdate;
 
+/**
+ * This class models a text based user interface for the game
+ * @author Darragh
+ */
 public class TextualUI extends UITemplate {
     
 	//private Network network = new LocalNetwork("testPlayer");
 	private GameStateTextUpdate message;
 	
+	/**
+	 * Constructor takes in user identification
+	 * and a reference to the game thread the player is a part of.
+	 * @param game
+	 * @param ID
+	 */
     public TextualUI(Game game, String ID){
         super(game, ID);
         message = new GameStateTextUpdate();
     }
     
+    /**
+     * This method sets the booleans indicating the players when it is their turn.
+     */
     public void decideStrategy(Hand hand, Round round){
     	boolean strategy = false;
     	
@@ -41,21 +54,38 @@ public class TextualUI extends UITemplate {
     	}
     }
     
+    /**
+     * This method asks the user if they want to fold and sets a boolean based on their response
+     * @return isFolding
+     */
     public boolean setFolding(){
     	isFolding = acceptanceLoop("Would you like to fold (y/n)?: ");
     	return isFolding;
     }
     
+    /**
+     * This method asks the user if they want to call and sets a boolean based on their response
+     * @return isCalling
+     */
     public boolean setCalling(){
     	isCalling = acceptanceLoop("Would you like to call (y/n)?: ");
     	return isCalling;
     }
     
+    /**
+     * This method asks the user if they want to raise and sets a boolean based on their response
+     * @return isRaising
+     */
     public boolean setRaising(){
     	isRaising = acceptanceLoop("Would you like to raise (y/n)?: ");
     	return isRaising;
     }
     
+    /**
+     * This method takes in the players chips less the call value
+     * and asks how much of they're loose chips they want to raise with.
+     * @param playerChips
+     */
     public void setRaise(int playerChips){
     	Boolean validAmount = false;
     	
@@ -80,6 +110,11 @@ public class TextualUI extends UITemplate {
     	}
     }
 
+    /**
+     * This method prompts the user to provide indices corresponding to cards
+     * they want to swap out and returns a vector corresponding to said indices.
+     * @return discardIndices
+     */
 	@Override
 	public Vector<Integer> decideDiscarding() {
 		message.setText("Which card(s) would you like to discard (e.g. 1,3)?(Type non number characters to skip discarding)");

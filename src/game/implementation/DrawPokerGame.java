@@ -24,16 +24,22 @@ public class DrawPokerGame extends Game {
 	
 	public static final String gameType = "DrawPoker";
 	private static final int OPPONENT_COUNT = 4;
+	
+	private static final int START_CHIPS = 10;
+	   
     private Network network;
     private Database database;
     private Parser parser;
     private Dealer dealer;
     private Map<String, Player> players;
     private Bank bank;
-    private static int START_CHIPS = 10;
     
     
-    
+    /**
+     * THis constructor initializes the game thread instance variables necessary to run the game
+     * @param username
+     * @param network
+     */
     public DrawPokerGame(String username, Network network){
         this.network = network;
         this.parser = new Parser("Text");
@@ -50,7 +56,10 @@ public class DrawPokerGame extends Game {
         this.bank = BankFactory.getBank("DrawPoker", players.keySet(), START_CHIPS);
         
     }
-    
+    /**
+     * Method runs a sequential game of draw poker, instantiating new rounds as necessary
+     */
+    @Override
     public void run(){
     	while(players.size() > 1){
     		Round currentRound = RoundFactory.getRound(gameType, players, dealer, bank, network);
@@ -62,10 +71,20 @@ public class DrawPokerGame extends Game {
     	network.pushMessageUpdate("GAME HAS ENDED");
     	return;
     }
+    
+    /**
+     * Method pushes a text update object to the network attached to the game.
+     */
+    @Override
     public void pushTextUpdate(TextUpdate update){
         network.sendTextUpdate(update);
     }
-    
+   
+    /**
+     * Method waits one input to arrive in the input stream(in instances of remote input)
+     * @return Scanned input
+     */
+    @Override
     public synchronized String getMessageUpdate(){
     	if(network.getClass() == TwitterNetwork.class){
 			try {
@@ -79,49 +98,46 @@ public class DrawPokerGame extends Game {
     	return network.getMessageUpdate();
     }
     
+    
+    /**
+     * Method Captures game input to the input stream and wakes up the game thread.
+     */
+    @Override
     public synchronized void captureMessageUpdate(String newMessage){
-    	System.out.println("Capture start" + Thread.currentThread());
-    	System.out.println("Game Thread" + this);
     	network.captureMessageUpdate(newMessage);
-    	System.out.println("Capture finish");
     	this.notify();
     }
     
+    /**
+     * Method pushes a graphic update object to the network attached to the game.
+     */
+    @Override
     public void pushGfxUpdate(GfxUpdate update){
         network.pushGFxUpdate(update);
     }
 
+    /**
+     * Method pushes a string update object to the network attached to the game.
+     */
 	@Override
 	public void pushMessageUpdate(String update) {
 		network.pushMessageUpdate(update);
 	}
 	
+	/**
+	 * Method returns the games database
+	 */
 	public Database getDatabase(){
 	    return this.database;
 	}
 	
+	/**
+	 * Method returns the games parser.
+	 * @return parser
+	 */
 	public Parser getParser(){
 	    return this.parser;
 	}
-	
-	private boolean quitPrompt(){
-	boolean isQuiting = false;
-	boolean isValid     = false;
-	String quit = "";
-	
-	while (!isValid){
-    	pushMessageUpdate("Play another round? Type q to quit the game, or type y to continue...");
-    	quit = getMessageUpdate();
-    	if(quit.toLowerCase().equals("q")){
-    		isQuiting =  isValid  = true;
-    	}else if(quit.toLowerCase().equals("y")){
-    		isQuiting =  !(isValid = true);
-    	}else{
-    		pushMessageUpdate("Invalid input, please enter (q/y)\n");
-    	}
-	}
-	return isQuiting;
-}
 	
 	/**
 	 * Main method stub used for testing purposes
@@ -131,5 +147,29 @@ public class DrawPokerGame extends Game {
 		Network testNet= new LocalNetwork("Darragh");
 		Game testGame = GameFactory.getGame(DrawPokerGame.gameType, "Darragh", testNet);
 		testGame.start();
+	}
+	
+	/**
+	 * This method accepts a character input from the user indicating whether they 
+	 * wish to quit or continue playing. Invalid responses are rejected and the user is re-prompted
+	 * @return isQuiting
+	 */
+	private boolean quitPrompt(){
+		boolean isQuiting = false;
+		boolean isValid     = false;
+		String quit = "";
+		
+		while (!isValid){
+	    	pushMessageUpdate("Play another round? Type q to quit the game, or type y to continue...");
+	    	quit = getMessageUpdate();
+	    	if(quit.toLowerCase().equals("q")){
+	    		isQuiting =  isValid  = true;
+	    	}else if(quit.toLowerCase().equals("y")){
+	    		isQuiting =  !(isValid = true);
+	    	}else{
+	    		pushMessageUpdate("Invalid input, please enter (q/y)\n");
+	    	}
+		}
+		return isQuiting;
 	}
 }

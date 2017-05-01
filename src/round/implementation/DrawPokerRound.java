@@ -17,15 +17,30 @@ import hand.implementation.DrawPokerHand;
 import hand.implementation.PlayingCard;
 import network.framework.Network;
 
+/**
+ * This class models a round of draw poker
+ * the round is the mediator through which all logical 
+ * game mechanisms communicate.
+ * @author Ciaran
+ *
+ */
+//Methods are generally ordered in sequence they first appear
 public class DrawPokerRound extends RoundTemplate {
+	public static final int DISCARD_LIMIT = 3;
+	public static int openingBet = 2;
 	
 	public static String pokerType = "DrawPoker";
 	private Vector<String> openingPlayers;
 	private LinkedList<String> roundOrder;
-	public static int openingBet = 2;
-	public static final int DISCARD_LIMIT = 3;
 	private int currentBet = 0;
-	
+	/**
+	 * This round constructor takes in object references from its game thread to operate on
+	 * during round life.
+	 * @param players
+	 * @param dealer
+	 * @param bank
+	 * @param network
+	 */
     public DrawPokerRound(Map<String, Player> players, Dealer dealer, Bank bank, Network network){
         super(players, dealer, bank, network);
         super.pot = PotFactory.getPot(pokerType);
@@ -56,6 +71,9 @@ public class DrawPokerRound extends RoundTemplate {
     	
     }
     
+    /**
+     * THis method displays the bank account of all players
+     */
     private void showBank(){
     	for (String p: players.keySet()){
     		int funds = bank.getAvailableFunds(p);
@@ -63,11 +81,15 @@ public class DrawPokerRound extends RoundTemplate {
     	}
     }
     
+    /**
+     * This method instantiates hands of cards from the deck
+     * and assigns them to the players in the player map.
+     */
     protected void dealHands(){
     	dealer.reset();
         //Loop through map players, deal out cards until Hand limit is met
     	for (String p: players.keySet()){
-    		//Hand temp = dealer.dealHand();
+    		
     		Hand currentHand = HandFactory.getHand(pokerType);
 
     		for (int i = 0; i < DrawPokerHand.HAND_LIMIT; i++){
@@ -77,6 +99,10 @@ public class DrawPokerRound extends RoundTemplate {
     	}
     }
     
+    /**
+     * This method starts in which all players are asked to choose the cards
+     * they will discard and these cards are then replaced
+     */
     protected void beginDiscardPhase(){
     	//Loop through players and let them discard.
     	for (String p: players.keySet()){
@@ -84,7 +110,11 @@ public class DrawPokerRound extends RoundTemplate {
     		discardCards(p);
     	}
     }
-    
+    /**
+     * This method discards  and replaces all cards in the player discard vector
+     * (provided the discard limit hasn't been exceeded)
+     * @param playerID
+     */
     protected void discardCards(String playerID){
     	int discardSum = 0;
     	
@@ -96,6 +126,10 @@ public class DrawPokerRound extends RoundTemplate {
     	network.pushMessageUpdate(playerID + " opted to discard " + discardSum + " cards");
     }
     
+    /**
+     * This method populates a vector indicating which players can open i.e
+     * which players have a high hand or better
+     */
     protected Vector<String> getOpeningPlayers(){
         //return ordered vector of players who CAN open. ie have better than high hand.
     	Vector<String> open = new Vector<String>(players.size());
@@ -108,6 +142,10 @@ public class DrawPokerRound extends RoundTemplate {
         return open;
     }
 
+    /**
+     * This method sets the order the players will take turns initially based on
+     * the first player to join the table that can open.
+     */
     private void setOrder(){
 		String firstPlayer = openingPlayers.firstElement();
 	    int remainder = 0;
@@ -131,6 +169,10 @@ public class DrawPokerRound extends RoundTemplate {
 	    network.pushMessageUpdate("Round order: " + roundOrder);
     }
 
+    /**
+     * This method queries the players asking if they will fold bet or call
+     * until all players that haven't folded have called.
+     */
     @Override
     protected void beginBettingPhase(){ 
 		boolean allCalled = true;
@@ -194,6 +236,19 @@ public class DrawPokerRound extends RoundTemplate {
 		
 	}
     
+    /**
+     * This method returns the current call value for the pot
+     * @return callValue
+     */
+	@Override
+	public int getCallValue() {
+		return currentBet;
+	}
+	
+    /**
+     * This method mutates the set order of play based on which players have folded and which players last raised.
+     * @param playerWhoRaised
+     */
     private void reOrder(String playerWhoRaised){				//Reorder function for when a player raises.
 		String firstPlayer = playerWhoRaised;		//Makes person who raised first in the roundOrder
 	    int remainder = 0;										//This means eg:Everyone else following him then calls, the person
@@ -220,10 +275,18 @@ public class DrawPokerRound extends RoundTemplate {
 	    
     }
     
+    /**
+     * This method checks if a given player is folding.
+     * @param playerID
+     * @return isFolding
+     */
     protected boolean isFolding(String playerID){   
         return players.get(playerID).isFolding();
     }
 
+    /**
+     * This method identifies the round winner and display their name.
+     */
     @Override
     public String getWinner(){
     	//Loop through remaining players in roundOrder. Compare hand values.
@@ -253,7 +316,10 @@ public class DrawPokerRound extends RoundTemplate {
     	network.pushMessageUpdate(winnerName + " has won!");
         return super.winner;
     }
-    
+ 
+    /**
+     * This method moves the chips from the pot into the bank of the winning player.
+     */
     protected void addWinnings(String winner, int potSplit){
         int winnings = pot.getTotalValue();
         network.pushMessageUpdate("Pot total: " + winnings);
@@ -264,10 +330,5 @@ public class DrawPokerRound extends RoundTemplate {
         	}
         }
     }
-
-	@Override
-	public int getCallValue() {
-		return currentBet;
-	}
 	
 }

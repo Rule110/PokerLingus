@@ -113,14 +113,14 @@ public class StrategyTest {
 
     @Test
     public void testGetRaiseAmount() {
-        assertEquals(this.strategy1.getRaiseAmount(), 50);
+        assertEquals(this.strategy1.getRaiseAmount(), 51);
         assertEquals(this.strategy2.getRaiseAmount(), 0);
         assertEquals(this.strategy3.getRaiseAmount(), 0);
         assertEquals(this.strategy4.getRaiseAmount(), 0);
         assertEquals(this.strategy5.getRaiseAmount(), 0);
-        assertEquals(this.strategy6.getRaiseAmount(), 50);
+        assertEquals(this.strategy6.getRaiseAmount(), 51);
         assertEquals(this.strategy7.getRaiseAmount(), 0);
         assertEquals(this.strategy8.getRaiseAmount(), 0);
-        assertEquals(this.strategy9.getRaiseAmount(), 50);
+        assertEquals(this.strategy9.getRaiseAmount(), 51);
     }
 }

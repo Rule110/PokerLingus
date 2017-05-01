@@ -138,7 +138,7 @@ public class Strategy {
      * @param raisePool
      */
     private void setRaiseAmount(Personality personality, Integer raisePool){
-        this.raiseAmount = this.bluffedConfidence.scaleThat(raisePool);
+        this.raiseAmount = 1 + this.bluffedConfidence.scaleThat(raisePool);
     }
     
     /**

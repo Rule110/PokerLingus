@@ -15,6 +15,8 @@ abstract public class AITemplate implements AI {
     protected Personality personality;
     protected String name;
     protected Game game;
+    protected int betsSoFar = 2;
+    protected int handGameValue = 0;
     
     AITemplate(Game game, String playerID, Personality personality){
         this.game = game;
@@ -52,6 +54,13 @@ abstract public class AITemplate implements AI {
     public Strategy decideStrategy(Hand hand, RoundState roundState){
         Integer chips = roundState.getChips();
         Integer callValue = roundState.getCallValue();
+        if (hand.getGameValue() != this.handGameValue){
+            this.betsSoFar = 1;
+            this.handGameValue = hand.getGameValue();
+        }
+        else {
+            this.betsSoFar += callValue;
+        }
         
         Strategy strategy;
         if (callValue > chips){
@@ -63,8 +72,8 @@ abstract public class AITemplate implements AI {
         }
         else {
             Scale confidence = AIAssessor.assessHand(hand);
-            Scale risk = AIAssessor.assessRisk(roundState);
-            Scale reward = AIAssessor.assessReward(roundState);
+            Scale risk = new Scale((this.betsSoFar * 10 * 10) / chips);
+            Scale reward = new Scale((roundState.getPotValue() / 5) / this.betsSoFar);
             Integer maxRaise = 10;
             if (maxRaise > chips - callValue){
                 maxRaise = chips - callValue;
